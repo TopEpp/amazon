@@ -3,7 +3,7 @@
 @section('content')
     <section class="content-header">
         <h1>
-            Unit
+            Units
         </h1>
    </section>
    <div class="content">
@@ -11,7 +11,7 @@
        <div class="box box-primary">
            <div class="box-body">
                <div class="row">
-                   {!! Form::model($unit, ['route' => ['units.update', $unit->id], 'method' => 'patch']) !!}
+                   {!! Form::model($units, ['route' => ['units.update', $units->id], 'method' => 'patch']) !!}
 
                         @include('units.fields')
 
