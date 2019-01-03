@@ -22,13 +22,11 @@ class User extends Model
     use SoftDeletes;
 
     public $table = 'users';
-    
+
     const CREATED_AT = 'created_at';
     const UPDATED_AT = 'updated_at';
 
-
-    protected $dates = ['deleted_at'];
-
+    // protected $dates = ['deleted_at'];
 
     public $fillable = [
         'name',
@@ -36,7 +34,7 @@ class User extends Model
         'email_verified_at',
         'password',
         'remember_token',
-        'status'
+        'status',
     ];
 
     /**
@@ -50,7 +48,7 @@ class User extends Model
         'email' => 'string',
         'password' => 'string',
         'remember_token' => 'string',
-        'status' => 'integer'
+        'status' => 'integer',
     ];
 
     /**
@@ -59,8 +57,7 @@ class User extends Model
      * @var array
      */
     public static $rules = [
-        
+
     ];
 
-    
 }

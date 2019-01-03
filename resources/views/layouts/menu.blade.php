@@ -6,9 +6,6 @@
     <a href="{!! route('categories.index') !!}"><i class="fa fa-edit"></i><span>Categories</span></a>
 </li>
 
-<li class="{{ Request::is('units*') ? 'active' : '' }}">
-    <a href="{!! route('units.index') !!}"><i class="fa fa-edit"></i><span>Units</span></a>
-</li>
 
 <li class="{{ Request::is('stocks*') ? 'active' : '' }}">
     <a href="{!! route('stocks.index') !!}"><i class="fa fa-edit"></i><span>Stocks</span></a>
@@ -24,5 +21,9 @@
 
 <li class="{{ Request::is('users*') ? 'active' : '' }}">
     <a href="{!! route('users.index') !!}"><i class="fa fa-edit"></i><span>Users</span></a>
+</li>
+
+<li class="{{ Request::is('units*') ? 'active' : '' }}">
+    <a href="{!! route('units.index') !!}"><i class="fa fa-edit"></i><span>Units</span></a>
 </li>
 
