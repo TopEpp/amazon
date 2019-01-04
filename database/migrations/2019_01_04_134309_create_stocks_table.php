@@ -8,7 +8,7 @@ class CreateStocksTable extends Migration {
 	public function up()
 	{
 		Schema::create('stocks', function(Blueprint $table) {
-			$table->increments('id', true)->primary();
+			$table->integer('id')->primary();
 			$table->integer('product_id')->unsigned();
 			$table->integer('categoty_id')->unsigned();
 			$table->integer('value');

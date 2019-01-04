@@ -8,7 +8,7 @@ class CreateUnitsTable extends Migration {
 	public function up()
 	{
 		Schema::create('units', function(Blueprint $table) {
-			$table->increments('id', true)->primary();
+			$table->integer('id')->primary();
 			$table->string('name');
 			$table->timestamps();
 			$table->softDeletes();
