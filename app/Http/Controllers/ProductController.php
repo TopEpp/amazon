@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\DataTables\ProductDataTable;
+use App\Http\Requests;
 use App\Http\Requests\CreateProductRequest;
 use App\Http\Requests\UpdateProductRequest;
 use App\Repositories\ProductRepository;
-use App\Http\Controllers\AppBaseController;
-use Illuminate\Http\Request;
 use Flash;
-use Prettus\Repository\Criteria\RequestCriteria;
+use App\Http\Controllers\AppBaseController;
 use Response;
 
 class ProductController extends AppBaseController
@@ -24,16 +24,12 @@ class ProductController extends AppBaseController
     /**
      * Display a listing of the Product.
      *
-     * @param Request $request
+     * @param ProductDataTable $productDataTable
      * @return Response
      */
-    public function index(Request $request)
+    public function index(ProductDataTable $productDataTable)
     {
-        $this->productRepository->pushCriteria(new RequestCriteria($request));
-        $products = $this->productRepository->all();
-
-        return view('products.index')
-            ->with('products', $products);
+        return $productDataTable->render('products.index');
     }
 
     /**

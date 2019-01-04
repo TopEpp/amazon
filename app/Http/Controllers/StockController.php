@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\DataTables\StockDataTable;
+use App\Http\Requests;
 use App\Http\Requests\CreateStockRequest;
 use App\Http\Requests\UpdateStockRequest;
 use App\Repositories\StockRepository;
-use App\Http\Controllers\AppBaseController;
-use Illuminate\Http\Request;
 use Flash;
-use Prettus\Repository\Criteria\RequestCriteria;
+use App\Http\Controllers\AppBaseController;
 use Response;
 
 class StockController extends AppBaseController
@@ -24,16 +24,12 @@ class StockController extends AppBaseController
     /**
      * Display a listing of the Stock.
      *
-     * @param Request $request
+     * @param StockDataTable $stockDataTable
      * @return Response
      */
-    public function index(Request $request)
+    public function index(StockDataTable $stockDataTable)
     {
-        $this->stockRepository->pushCriteria(new RequestCriteria($request));
-        $stocks = $this->stockRepository->all();
-
-        return view('stocks.index')
-            ->with('stocks', $stocks);
+        return $stockDataTable->render('stocks.index');
     }
 
     /**

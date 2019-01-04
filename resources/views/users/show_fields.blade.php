@@ -4,16 +4,22 @@
     <p>{!! $user->id !!}</p>
 </div>
 
-<!-- Name Field -->
+<!-- Username Field -->
 <div class="form-group">
-    {!! Form::label('name', 'Name:') !!}
-    <p>{!! $user->name !!}</p>
+    {!! Form::label('username', 'Username:') !!}
+    <p>{!! $user->username !!}</p>
 </div>
 
-<!-- Email Field -->
+<!-- First Name Field -->
 <div class="form-group">
-    {!! Form::label('email', 'Email:') !!}
-    <p>{!! $user->email !!}</p>
+    {!! Form::label('first_name', 'First Name:') !!}
+    <p>{!! $user->first_name !!}</p>
+</div>
+
+<!-- Last Name Field -->
+<div class="form-group">
+    {!! Form::label('last_name', 'Last Name:') !!}
+    <p>{!! $user->last_name !!}</p>
 </div>
 
 <!-- Email Verified At Field -->
@@ -26,6 +32,12 @@
 <div class="form-group">
     {!! Form::label('password', 'Password:') !!}
     <p>{!! $user->password !!}</p>
+</div>
+
+<!-- Status Field -->
+<div class="form-group">
+    {!! Form::label('status', 'Status:') !!}
+    <p>{!! $user->status !!}</p>
 </div>
 
 <!-- Remember Token Field -->
@@ -46,9 +58,9 @@
     <p>{!! $user->updated_at !!}</p>
 </div>
 
-<!-- Status Field -->
+<!-- Deleted At Field -->
 <div class="form-group">
-    {!! Form::label('status', 'Status:') !!}
-    <p>{!! $user->status !!}</p>
+    {!! Form::label('deleted_at', 'Deleted At:') !!}
+    <p>{!! $user->deleted_at !!}</p>
 </div>
 

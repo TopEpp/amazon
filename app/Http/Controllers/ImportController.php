@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\DataTables\ImportDataTable;
+use App\Http\Requests;
 use App\Http\Requests\CreateImportRequest;
 use App\Http\Requests\UpdateImportRequest;
 use App\Repositories\ImportRepository;
-use App\Http\Controllers\AppBaseController;
-use Illuminate\Http\Request;
 use Flash;
-use Prettus\Repository\Criteria\RequestCriteria;
+use App\Http\Controllers\AppBaseController;
 use Response;
 
 class ImportController extends AppBaseController
@@ -24,16 +24,12 @@ class ImportController extends AppBaseController
     /**
      * Display a listing of the Import.
      *
-     * @param Request $request
+     * @param ImportDataTable $importDataTable
      * @return Response
      */
-    public function index(Request $request)
+    public function index(ImportDataTable $importDataTable)
     {
-        $this->importRepository->pushCriteria(new RequestCriteria($request));
-        $imports = $this->importRepository->all();
-
-        return view('imports.index')
-            ->with('imports', $imports);
+        return $importDataTable->render('imports.index');
     }
 
     /**

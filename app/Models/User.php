@@ -8,33 +8,37 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 /**
  * Class User
  * @package App\Models
- * @version January 3, 2019, 5:07 am UTC
+ * @version January 4, 2019, 5:03 pm UTC
  *
- * @property string name
- * @property string email
+ * @property string username
+ * @property string first_name
+ * @property string last_name
  * @property string|\Carbon\Carbon email_verified_at
  * @property string password
+ * @property string status
  * @property string remember_token
- * @property integer status
  */
 class User extends Model
 {
     use SoftDeletes;
 
     public $table = 'users';
-
+    
     const CREATED_AT = 'created_at';
     const UPDATED_AT = 'updated_at';
 
-    // protected $dates = ['deleted_at'];
+
+    protected $dates = ['deleted_at'];
+
 
     public $fillable = [
-        'name',
-        'email',
+        'username',
+        'first_name',
+        'last_name',
         'email_verified_at',
         'password',
-        'remember_token',
         'status',
+        'remember_token'
     ];
 
     /**
@@ -44,11 +48,12 @@ class User extends Model
      */
     protected $casts = [
         'id' => 'integer',
-        'name' => 'string',
-        'email' => 'string',
+        'username' => 'string',
+        'first_name' => 'string',
+        'last_name' => 'string',
         'password' => 'string',
-        'remember_token' => 'string',
-        'status' => 'integer',
+        'status' => 'string',
+        'remember_token' => 'string'
     ];
 
     /**
@@ -57,7 +62,8 @@ class User extends Model
      * @var array
      */
     public static $rules = [
-
+        
     ];
 
+    
 }

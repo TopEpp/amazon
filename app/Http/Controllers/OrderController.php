@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\DataTables\OrderDataTable;
+use App\Http\Requests;
 use App\Http\Requests\CreateOrderRequest;
 use App\Http\Requests\UpdateOrderRequest;
 use App\Repositories\OrderRepository;
-use App\Http\Controllers\AppBaseController;
-use Illuminate\Http\Request;
 use Flash;
-use Prettus\Repository\Criteria\RequestCriteria;
+use App\Http\Controllers\AppBaseController;
 use Response;
 
 class OrderController extends AppBaseController
@@ -24,16 +24,12 @@ class OrderController extends AppBaseController
     /**
      * Display a listing of the Order.
      *
-     * @param Request $request
+     * @param OrderDataTable $orderDataTable
      * @return Response
      */
-    public function index(Request $request)
+    public function index(OrderDataTable $orderDataTable)
     {
-        $this->orderRepository->pushCriteria(new RequestCriteria($request));
-        $orders = $this->orderRepository->all();
-
-        return view('orders.index')
-            ->with('orders', $orders);
+        return $orderDataTable->render('orders.index');
     }
 
     /**
