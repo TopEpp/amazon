@@ -8,11 +8,11 @@ class CreateProductsTable extends Migration {
 	public function up()
 	{
 		Schema::create('products', function(Blueprint $table) {
-			$table->integer('id')->primary();
-			$table->tinyInteger('category_id');
+			$table->increments('id', true)->primary();
+			$table->integer('category_id')->unsigned();
 			$table->string('name');
 			$table->double('price');
-			$table->tinyInteger('unit_id');
+			$table->integer('unit_id')->unsigned();
 			$table->timestamps();
 			$table->softDeletes();
 		});
