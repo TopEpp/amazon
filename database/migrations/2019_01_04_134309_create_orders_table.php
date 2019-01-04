@@ -9,8 +9,8 @@ class CreateOrdersTable extends Migration {
 	{
 		Schema::create('orders', function(Blueprint $table) {
 			$table->integer('id')->primary();
-			$table->integer('user_id');
-			$table->integer('product_id');
+			$table->integer('user_id')->unsigned();
+			$table->integer('product_id')->unsigned();
 			$table->integer('value');
 			$table->date('date');
 			$table->double('price');

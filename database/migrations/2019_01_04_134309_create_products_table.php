@@ -9,10 +9,10 @@ class CreateProductsTable extends Migration {
 	{
 		Schema::create('products', function(Blueprint $table) {
 			$table->integer('id')->primary();
-			$table->tinyInteger('category_id');
+			$table->integer('category_id')->unsigned();
 			$table->string('name');
 			$table->double('price');
-			$table->tinyInteger('unit_id');
+			$table->integer('unit_id')->unsigned();
 			$table->timestamps();
 			$table->softDeletes();
 		});

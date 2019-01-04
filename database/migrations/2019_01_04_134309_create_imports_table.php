@@ -9,8 +9,8 @@ class CreateImportsTable extends Migration {
 	{
 		Schema::create('imports', function(Blueprint $table) {
 			$table->integer('id')->primary();
-			$table->tinyInteger('user_id');
-			$table->tinyInteger('product_id');
+			$table->integer('user_id')->unsigned();
+			$table->integer('product_id')->unsigned();
 			$table->integer('value');
 			$table->date('date');
 			$table->double('price');
