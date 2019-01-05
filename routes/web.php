@@ -10,12 +10,10 @@
 | contains the "web" middleware group. Now create something great!
 |
  */
-
-Route::get('/', function () {
-    return view('welcome');
-});
-
 Auth::routes();
+
+Route::get('/', 'DashBoardController@index')->name('dashboard');
+Route::get('/dashboard', 'DashBoardController@index');
 
 Route::resource('home', 'HomeController');
 
@@ -34,6 +32,5 @@ Route::resource('orders', 'OrderController');
 Route::resource('users', 'UserController');
 
 Route::resource('units', 'UnitsController');
-
 
 Route::resource('users', 'UserController');

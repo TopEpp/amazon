@@ -8,23 +8,24 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="csrf-token" content="{{ csrf_token() }}">
 
   <title>Amazon Stocks</title>
 
     <link rel="stylesheet" href="/css/app.css">
+    <link rel="stylesheet" href="/css/app-custom.css">
+    
     @yield('css')
 </head>
 <body class="hold-transition sidebar-mini">
-<div class="wrapper">
+<div class="wrapper ">
 
   <!-- Main Sidebar Container -->
   @include('layouts.sidebar')
 
   <!-- Content Wrapper. Contains page content -->
-  <div class="content-wrapper pt-5">
-    <!-- Content Header (Page header) -->
+  <div class="content-wrapper bg-custom pt-5">
     @yield('content')
-    <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
 

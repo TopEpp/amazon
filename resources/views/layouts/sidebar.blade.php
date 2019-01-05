@@ -21,7 +21,7 @@
             <div class="widget-user">
                 <!-- Add the bg color to the header using any of the bg-* classes -->
                 <div class="widget-user-header bg-info-active">
-                    <h3 class="widget-user-username">{!! Auth::user()->name !!}</h3>
+                    <h4 class="widget-user-username">{!! Auth::user()->first_name .' '. Auth::user()->last_name !!}</h4>
                     <h5 class="widget-user-desc">ผู้ดูแลระบบ</h5>
                 </div>
                 <div class="widget-user-image">

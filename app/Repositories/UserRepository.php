@@ -13,7 +13,7 @@ use InfyOm\Generator\Common\BaseRepository;
  * @method User findWithoutFail($id, $columns = ['*'])
  * @method User find($id, $columns = ['*'])
  * @method User first($columns = ['*'])
-*/
+ */
 class UserRepository extends BaseRepository
 {
     /**
@@ -23,10 +23,12 @@ class UserRepository extends BaseRepository
         'username',
         'first_name',
         'last_name',
-        'email_verified_at',
         'password',
+        'image',
+        'phone',
         'status',
-        'remember_token'
+        'permission',
+        'remember_token',
     ];
 
     /**

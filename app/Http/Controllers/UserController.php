@@ -3,12 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\DataTables\UserDataTable;
-use App\Http\Requests;
+use App\Http\Controllers\AppBaseController;
 use App\Http\Requests\CreateUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Repositories\UserRepository;
 use Flash;
-use App\Http\Controllers\AppBaseController;
+use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Hash;
 use Response;
 
 class UserController extends AppBaseController
@@ -19,6 +20,7 @@ class UserController extends AppBaseController
     public function __construct(UserRepository $userRepo)
     {
         $this->userRepository = $userRepo;
+
     }
 
     /**
@@ -29,6 +31,10 @@ class UserController extends AppBaseController
      */
     public function index(UserDataTable $userDataTable)
     {
+        if (!Gate::allows('isAdmin')) {
+            abort(404, 'sorry,You can do this actions');
+        }
+
         return $userDataTable->render('users.index');
     }
 
@@ -39,6 +45,10 @@ class UserController extends AppBaseController
      */
     public function create()
     {
+        if (!Gate::allows('isAdmin')) {
+            abort(404, 'sorry,You can do this actions');
+        }
+
         return view('users.create');
     }
 
@@ -52,6 +62,18 @@ class UserController extends AppBaseController
     public function store(CreateUserRequest $request)
     {
         $input = $request->all();
+
+        if (!empty($request->password)) {
+            $input['password'] = Hash::make($request->password);
+        }
+        //check upload image
+        if ($request->hasfile('image')) {
+            $file = $request->file('image');
+            $extension = $file->getClientOriginalExtension(); // getting image extension
+            $filename = time() . '.' . $extension;
+            $file->move('uploads/users/', $filename);
+            $input['image'] = $filename;
+        }
 
         $user = $this->userRepository->create($input);
 
@@ -69,6 +91,10 @@ class UserController extends AppBaseController
      */
     public function show($id)
     {
+        if (!Gate::allows('isAdmin')) {
+            abort(404, 'sorry,You can do this actions');
+        }
+
         $user = $this->userRepository->findWithoutFail($id);
 
         if (empty($user)) {
@@ -89,6 +115,10 @@ class UserController extends AppBaseController
      */
     public function edit($id)
     {
+        if (!Gate::allows('isAdmin')) {
+            abort(404, 'sorry,You can do this actions');
+        }
+
         $user = $this->userRepository->findWithoutFail($id);
 
         if (empty($user)) {
@@ -118,7 +148,22 @@ class UserController extends AppBaseController
             return redirect(route('users.index'));
         }
 
-        $user = $this->userRepository->update($request->all(), $id);
+        $input = $request->all();
+        $input['password'] = $user->password;
+        if (!empty($request->password)) {
+            $input['password'] = Hash::make($request->password);
+        }
+
+        //check upload image
+        if ($request->hasfile('image')) {
+            $file = $request->file('image');
+            $extension = $file->getClientOriginalExtension(); // getting image extension
+            $filename = time() . '.' . $extension;
+            $file->move('uploads/users/', $filename);
+            $input['image'] = $filename;
+        }
+
+        $user = $this->userRepository->update($input, $id);
 
         Flash::success('User updated successfully.');
 

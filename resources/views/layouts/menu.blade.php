@@ -7,7 +7,7 @@
 </li> --}}
 
 <li class="nav-item ">
-    <a class="nav-link {{ Request::is('home*') ? 'active' : '' }}" href="{!! route('home.index') !!}"><i class="fas fa-home"></i> <span>หน้าหลัก</span></a>
+    <a class="nav-link {{ (Request::is('/*') || Request::is('dashboard')) ? 'active' : '' }}" href="/dashboard"><i class="fas fa-home"></i> <span>หน้าหลัก</span></a>
 </li>
 
 <li class="nav-item ">
@@ -28,11 +28,12 @@
     <a class="nav-link {{ Request::is('units*') ? 'active' : '' }}" href="{!! route('units.index') !!}"><i class="fa fa-edit"></i><span>หน่วยนับ</span></a>
 </li> --}}
 <li class="nav-item ">
-    <a class="nav-link {{ Request::is('report*') ? 'active' : '' }}" href="{!! route('units.index') !!}"><i class="fas fa-chart-bar"></i> <span>รายงาน</span></a>
+    <a class="nav-link {{ Request::is('report*') ? 'active' : '' }}" href="#"><i class="fas fa-chart-bar"></i> <span>รายงาน</span></a>
 </li> 
 
-
-<li class="nav-item ">
-    <a class="nav-link {{ Request::is('users*') ? 'active' : '' }}" href="{!! route('users.index') !!}"><i class="fas fa-users-cog"></i> <span>ผู้ใช้งาน</span></a>
-</li>
+@can('isAdmin')
+    <li class="nav-item ">
+        <a class="nav-link {{ Request::is('users*') ? 'active' : '' }}" href="{!! route('users.index') !!}"><i class="fas fa-users-cog"></i> <span>ผู้ใช้งาน</span></a>
+    </li>
+@endcan
 

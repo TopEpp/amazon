@@ -18,7 +18,6 @@ class DatabaseSeeder extends Seeder
             'last_name' => 'เทส',
             'password' => bcrypt('123456'),
             'created_at' => date('Y-m-d H:i:s'),
-            'status' => 'Yes',
         ]);
     }
 }

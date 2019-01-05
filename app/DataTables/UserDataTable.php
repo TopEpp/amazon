@@ -18,6 +18,10 @@ class UserDataTable extends DataTable
     {
         $dataTable = new EloquentDataTable($query);
 
+        $dataTable->editColumn('status', function ($user) {
+            return ($user->status == 1) ? 'ใช้งานปกติ' : 'ระงับการใช้งาน';
+        })->toJson();
+
         return $dataTable->addColumn('action', 'users.datatables_actions');
     }
 
@@ -42,12 +46,34 @@ class UserDataTable extends DataTable
         return $this->builder()
             ->columns($this->getColumns())
             ->minifiedAjax()
-            ->addAction(['width' => '120px'])
+            ->addAction(['width' => '120px', 'title' => ''])
             ->parameters([
-                'dom' => 'Bfrtip',
+                'dom' => "<'row'<'col-sm-6 table-create'><'col-sm-6'f>>t<'row'<'col-sm-12 col-md-5'><'col-sm-12 col-md-7'p>>",
                 'order' => [[0, 'desc']],
+                "bSort" => false,
                 'buttons' => [
 
+                ],
+                "oLanguage" => [
+                    "oPaginate" => [
+                        "sFirst" => '<i class="fas fa-angle-double-left"></i>',
+                        "sPrevious" => '<i class="fas fa-angle-double-left"></i>',
+                        "sNext" => '<i class="fas fa-angle-double-right"></i>',
+                        "sLast" => '<i class="fas fa-angle-double-right"></i>',
+                    ],
+                    "sSearch" => '',
+                    "sEmptyTable" => 'ไม่พบข้อมูล',
+                    "sZeroRecords" => 'ไม่พบข้อมูล',
+                    "sProcessing" => "กำลังดำเนินการ...",
+                    "sLengthMenu" => "แสดง _MENU_ แถว",
+                    "sZeroRecords" => "ไม่พบข้อมูล",
+                    // "sInfo"=>      "แสดง _START_ ถึง _END_ จาก _TOTAL_ แถว / รายการทั้งหมด จำนวน _TOTAL_ รายการ (แบ่งออกเป็น _PAGES_ หน้า หน้าละ 50 รายการ)",
+                    "sInfo" => "รายการทั้งหมด จำนวน _TOTAL_ รายการ (แบ่งออกเป็น _PAGES_ หน้า หน้าละ 100 รายการ)",
+                    // "sInfoEmpty"=> "แสดง 0 ถึง 0 จาก 0 แถว",
+                    "sInfoEmpty" => "รายการทั้งหมด จำนวน 0 รายการ (แบ่งออกเป็น _PAGES_ หน้า หน้าละ 100 รายการ)",
+                    // "sInfoFiltered": "(กรองข้อมูล _MAX_ ทุกแถว)",
+                    "sInfoFiltered" => "",
+                    "sInfoPostFix" => "",
                 ],
             ]);
     }
@@ -60,10 +86,12 @@ class UserDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            'username',
-            'first_name',
-            'last_name',
-            'status',
+            // 'DT_Row_Index' => ['title' => 'ลำดับ', 'class' => 'table_col', 'name' => 'id'],
+            'first_name' => ['title' => 'ชื่อ', 'name' => 'first_name', 'data' => 'first_name'],
+            'last_name' => ['title' => 'นามสกุล', 'name' => 'last_name', 'data' => 'last_name'],
+            'permission' => ['title' => 'สิทธิผู้ใช้งาน', 'name' => 'permission', 'data' => 'permission'],
+            'status' => ['title' => 'สถานะ', 'name' => 'status', 'data' => 'status'],
+
         ];
     }
 
