@@ -87,9 +87,9 @@ class UserDataTable extends DataTable
     {
         return [
             // 'DT_Row_Index' => ['title' => 'ลำดับ', 'class' => 'table_col', 'name' => 'id'],
-            'first_name' => ['title' => 'ชื่อ', 'name' => 'first_name', 'data' => 'first_name'],
-            'last_name' => ['title' => 'นามสกุล', 'name' => 'last_name', 'data' => 'last_name'],
-            'permission' => ['title' => 'สิทธิผู้ใช้งาน', 'name' => 'permission', 'data' => 'permission'],
+            'name' => ['title' => 'ชื่อ', 'name' => 'name', 'data' => 'name'],
+            'phone' => ['title' => 'เบอร์โทรศัพท์', 'name' => 'phone', 'data' => 'phone'],
+            'type' => ['title' => 'สิทธิผู้ใช้งาน', 'name' => 'type', 'data' => 'type'],
             'status' => ['title' => 'สถานะ', 'name' => 'status', 'data' => 'status'],
 
         ];

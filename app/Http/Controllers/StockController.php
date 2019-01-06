@@ -3,22 +3,28 @@
 namespace App\Http\Controllers;
 
 use App\DataTables\StockDataTable;
-use App\Http\Requests;
+use App\Http\Controllers\AppBaseController;
 use App\Http\Requests\CreateStockRequest;
 use App\Http\Requests\UpdateStockRequest;
+use App\Repositories\CategoryRepository;
+use App\Repositories\ProductRepository;
 use App\Repositories\StockRepository;
 use Flash;
-use App\Http\Controllers\AppBaseController;
+use Illuminate\Support\Facades\Auth;
 use Response;
 
 class StockController extends AppBaseController
 {
     /** @var  StockRepository */
     private $stockRepository;
+    private $productRepository;
+    private $categoryRepository;
 
-    public function __construct(StockRepository $stockRepo)
+    public function __construct(StockRepository $stockRepo, ProductRepository $productRepo, CategoryRepository $categoryRepo)
     {
         $this->stockRepository = $stockRepo;
+        $this->productRepository = $productRepo;
+        $this->categoryRepository = $categoryRepo;
     }
 
     /**
@@ -29,7 +35,9 @@ class StockController extends AppBaseController
      */
     public function index(StockDataTable $stockDataTable)
     {
-        return $stockDataTable->render('stocks.index');
+        $categorys = $this->categoryRepository->pluck('name', 'id');
+        $product = $this->productRepository->pluck('name', 'id');
+        return $stockDataTable->render('stocks.index', ['category' => $categorys, 'product' => $product]);
     }
 
     /**
@@ -53,6 +61,11 @@ class StockController extends AppBaseController
     {
         $input = $request->all();
 
+        // test
+        $input['categoty_id'] = 1;
+        $input['user_id'] = Auth::user()->id;
+        $input['order_id'] = 1;
+        $input['import_id'] = 1;
         $stock = $this->stockRepository->create($input);
 
         Flash::success('Stock saved successfully.');
@@ -91,13 +104,16 @@ class StockController extends AppBaseController
     {
         $stock = $this->stockRepository->findWithoutFail($id);
 
+        $categorys = $this->categoryRepository->pluck('name', 'id');
+        $product = $this->productRepository->pluck('name', 'id');
+
         if (empty($stock)) {
             Flash::error('Stock not found');
 
             return redirect(route('stocks.index'));
         }
 
-        return view('stocks.edit')->with('stock', $stock);
+        return view('stocks.edit')->with(['stock' => $stock, 'category' => $categorys, 'product' => $product]);
     }
 
     /**
@@ -117,8 +133,15 @@ class StockController extends AppBaseController
 
             return redirect(route('stocks.index'));
         }
+        $input = $request->all();
+        // test
+        $input['categoty_id'] = 1;
+        $input['user_id'] = Auth::user()->id;
 
-        $stock = $this->stockRepository->update($request->all(), $id);
+        $input['order_id'] = 1;
+        $input['import_id'] = 1;
+
+        $stock = $this->stockRepository->update($input, $id);
 
         Flash::success('Stock updated successfully.');
 

@@ -3,12 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\DataTables\CategoryDataTable;
-use App\Http\Requests;
+use App\Http\Controllers\AppBaseController;
 use App\Http\Requests\CreateCategoryRequest;
 use App\Http\Requests\UpdateCategoryRequest;
 use App\Repositories\CategoryRepository;
 use Flash;
-use App\Http\Controllers\AppBaseController;
 use Response;
 
 class CategoryController extends AppBaseController

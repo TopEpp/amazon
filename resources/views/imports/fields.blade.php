@@ -1,47 +1,62 @@
-<!-- User Id Field -->
-<div class="form-group col-sm-6">
-    {!! Form::label('user_id', 'User Id:') !!}
-    {!! Form::number('user_id', null, ['class' => 'form-control']) !!}
+<div class="row">
+    <div class="col-md-6">
+        <!-- Product Id Field -->
+        <div class="form-group">
+            {!! Form::label('product_id', 'ชื่อสินค้า') !!}
+            {!! Form::select('product_id',$product, null, ['class' => 'form-control']) !!}
+        </div>
+    </div>
+    <div class="col-md-6">
+        <!-- Value Field -->
+        <div class="form-group">
+            {!! Form::label('value', 'จำนวน') !!}
+            {!! Form::number('value', null, ['class' => 'form-control']) !!}
+        </div>
+
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6">
+        <!-- Date Field -->
+        <div class="form-group">
+            {!! Form::label('date', 'วันที่') !!}
+            {!! Form::date('date', null, ['class' => 'form-control']) !!}
+        </div>
+    </div>
+    <div class="col-md-6">
+        <!-- Price Field -->
+        <div class="form-group ">
+            {!! Form::label('price', 'ราคา') !!}
+            {!! Form::number('price', null, ['class' => 'form-control']) !!}
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6">
+        <!-- Import Status Field -->
+        <div class="form-group">
+            {!! Form::label('import_status', 'สถานะการนำเข้า') !!}
+            {!! Form::select('import_status',['1'=>'ไม่ยืนยัน','0'=>'ยืนยัน'], null, ['class' => 'form-control']) !!}
+        </div>
+    </div>
 </div>
 
-<!-- Product Id Field -->
-<div class="form-group col-sm-6">
-    {!! Form::label('product_id', 'Product Id:') !!}
-    {!! Form::number('product_id', null, ['class' => 'form-control']) !!}
+<div class="row">
+    <div class="col-md-12">
+        <!-- Remark Field -->
+        <div class="form-group ">
+            {!! Form::label('remark', 'หมายเหตุ') !!}
+            {!! Form::textarea('remark', null, ['class' => 'form-control']) !!}
+        </div>
+    </div>
 </div>
 
-<!-- Value Field -->
-<div class="form-group col-sm-6">
-    {!! Form::label('value', 'Value:') !!}
-    {!! Form::number('value', null, ['class' => 'form-control']) !!}
+
+<div class="row">
+    <!-- Submit Field -->
+    <div class="form-group col-sm-12">
+        {!! Form::submit('บันทึก', ['class' => 'btn btn-primary']) !!}
+        <a href="{!! route('imports.index') !!}" class="btn btn-default">ยกเลิก</a>
+    </div>
 </div>
 
-<!-- Date Field -->
-<div class="form-group col-sm-6">
-    {!! Form::label('date', 'Date:') !!}
-    {!! Form::date('date', null, ['class' => 'form-control']) !!}
-</div>
-
-<!-- Price Field -->
-<div class="form-group col-sm-6">
-    {!! Form::label('price', 'Price:') !!}
-    {!! Form::number('price', null, ['class' => 'form-control']) !!}
-</div>
-
-<!-- Remark Field -->
-<div class="form-group col-sm-6">
-    {!! Form::label('remark', 'Remark:') !!}
-    {!! Form::text('remark', null, ['class' => 'form-control']) !!}
-</div>
-
-<!-- Import Status Field -->
-<div class="form-group col-sm-6">
-    {!! Form::label('import_status', 'Import Status:') !!}
-    {!! Form::number('import_status', null, ['class' => 'form-control']) !!}
-</div>
-
-<!-- Submit Field -->
-<div class="form-group col-sm-12">
-    {!! Form::submit('Save', ['class' => 'btn btn-primary']) !!}
-    <a href="{!! route('imports.index') !!}" class="btn btn-default">Cancel</a>
-</div>

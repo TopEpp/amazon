@@ -27,11 +27,11 @@
                 <div class="widget-user-image">
                     <img class="img-circle elevation-2" src="/img/avatar.png" alt="User Avatar">
                 </div>
-                <div class="card-footer">
+                <div class="card-footer card-info-footer">
                         <div class="float-right">
                             <a href="{!! url('/logout') !!}" class="d-inline-block text-left"
                                 onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                                <i class="fas fa-sign-out-alt"></i>
+                                <i class="fas fa-sign-out-alt fa-lg"></i>
                             </a>
                             <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
                                 {{ csrf_field() }}

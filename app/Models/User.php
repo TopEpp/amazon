@@ -31,13 +31,14 @@ class User extends Model
 
     public $fillable = [
         'username',
-        'first_name',
-        'last_name',
+        'name',
         'password',
         'image',
         'phone',
+        'address',
+        'address_stock',
         'status',
-        'permission',
+        'type',
         'remember_token',
     ];
 
@@ -49,13 +50,14 @@ class User extends Model
     protected $casts = [
         'id' => 'integer',
         'username' => 'string',
-        'first_name' => 'string',
-        'last_name' => 'string',
+        'name' => 'string',
         'password' => 'string',
         'image' => 'string',
         'phone' => 'string',
+        'address' => 'string',
+        'address_stock' => 'string',
         'status' => 'boolean',
-        'permission' => 'integer',
+        'type' => 'integer',
         'remember_token' => 'string',
     ];
 

@@ -1,23 +1,35 @@
-@extends('layouts.app')
+@extends('layouts.master')
 
 @section('content')
-    <section class="content-header">
-        <h1>
-            Category
-        </h1>
-   </section>
-   <div class="content">
-       @include('adminlte-templates::common.errors')
-       <div class="box box-primary">
-           <div class="box-body">
-               <div class="row">
-                   {!! Form::model($category, ['route' => ['categories.update', $category->id], 'method' => 'patch']) !!}
 
-                        @include('categories.fields')
+    <!-- edit model category -->
+    <div class="modal" id="category-edit">
+        <div class="modal-dialog">
+            <div class="modal-content">
+    
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">แก้ไขประเภทสินค้า</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+        
+                <!-- Modal body -->
+                <div class="modal-body">
+                        {!! Form::model($category, ['route' => ['categories.update', $category->id], 'method' => 'patch']) !!}
+        
+                            @include('categories.fields')
+        
+                        {!! Form::close() !!}
+                </div>
+            </div>
+        </div>
+    </div>
+@endsection
 
-                   {!! Form::close() !!}
-               </div>
-           </div>
-       </div>
-   </div>
+@section('scripts')
+    <script>
+        $(function(){
+            $('#category-edit').modal('show'); 
+        });
+    </script>
 @endsection

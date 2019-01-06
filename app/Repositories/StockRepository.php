@@ -13,7 +13,7 @@ use InfyOm\Generator\Common\BaseRepository;
  * @method Stock findWithoutFail($id, $columns = ['*'])
  * @method Stock find($id, $columns = ['*'])
  * @method Stock first($columns = ['*'])
-*/
+ */
 class StockRepository extends BaseRepository
 {
     /**
@@ -24,8 +24,7 @@ class StockRepository extends BaseRepository
         'categoty_id',
         'value',
         'user_id',
-        'order_id',
-        'import_id'
+
     ];
 
     /**

@@ -20,19 +20,17 @@ class Product extends Model
     use SoftDeletes;
 
     public $table = 'products';
-    
+
     const CREATED_AT = 'created_at';
     const UPDATED_AT = 'updated_at';
 
-
     protected $dates = ['deleted_at'];
-
 
     public $fillable = [
         'category_id',
         'name',
         'price',
-        'unit_id'
+        'unit_id',
     ];
 
     /**
@@ -45,7 +43,7 @@ class Product extends Model
         'category_id' => 'integer',
         'name' => 'string',
         'price' => 'float',
-        'unit_id' => 'integer'
+        'unit_id' => 'integer',
     ];
 
     /**
@@ -54,8 +52,17 @@ class Product extends Model
      * @var array
      */
     public static $rules = [
-        
+
     ];
 
-    
+    public function category()
+    {
+        return $this->belongsTo('App\Models\Category');
+    }
+
+    public function unit()
+    {
+        return $this->belongsTo('App\Models\Units');
+    }
+
 }

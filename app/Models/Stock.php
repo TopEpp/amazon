@@ -22,21 +22,18 @@ class Stock extends Model
     use SoftDeletes;
 
     public $table = 'stocks';
-    
+
     const CREATED_AT = 'created_at';
     const UPDATED_AT = 'updated_at';
 
-
     protected $dates = ['deleted_at'];
-
 
     public $fillable = [
         'product_id',
         'categoty_id',
         'value',
         'user_id',
-        'order_id',
-        'import_id'
+
     ];
 
     /**
@@ -50,8 +47,7 @@ class Stock extends Model
         'categoty_id' => 'integer',
         'value' => 'integer',
         'user_id' => 'integer',
-        'order_id' => 'integer',
-        'import_id' => 'integer'
+
     ];
 
     /**
@@ -60,8 +56,18 @@ class Stock extends Model
      * @var array
      */
     public static $rules = [
-        
+
     ];
 
-    
+    public function product()
+    {
+        return $this->belongsTo('App\Models\Product');
+
+    }
+
+    public function imports()
+    {
+        return $this->hasMany('App\Models\ImportItem', 'stock_id', 'id');
+    }
+
 }

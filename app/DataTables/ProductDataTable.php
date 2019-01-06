@@ -3,8 +3,8 @@
 namespace App\DataTables;
 
 use App\Models\Product;
-use Yajra\DataTables\Services\DataTable;
 use Yajra\DataTables\EloquentDataTable;
+use Yajra\DataTables\Services\DataTable;
 
 class ProductDataTable extends DataTable
 {
@@ -17,6 +17,16 @@ class ProductDataTable extends DataTable
     public function dataTable($query)
     {
         $dataTable = new EloquentDataTable($query);
+
+        $dataTable->editColumn('category_id', function ($model) {
+
+            return $model->category->name;
+        });
+
+        $dataTable->editColumn('unit_id', function ($model) {
+
+            return $model->unit->name;
+        });
 
         return $dataTable->addColumn('action', 'products.datatables_actions');
     }
@@ -42,16 +52,34 @@ class ProductDataTable extends DataTable
         return $this->builder()
             ->columns($this->getColumns())
             ->minifiedAjax()
-            ->addAction(['width' => '120px'])
+            ->addAction(['width' => '120px', 'title' => ''])
             ->parameters([
-                'dom'     => 'Bfrtip',
-                'order'   => [[0, 'desc']],
+                'dom' => "<'row'<'table-create '>'<'col align-self-end'f>>t<'row'<'col-sm-12 col-md-5'><'col-sm-12 col-md-7'p>>",
+                'order' => [[0, 'desc']],
+                "bSort" => false,
                 'buttons' => [
-                    ['extend' => 'create', 'className' => 'btn btn-default btn-sm no-corner',],
-                    ['extend' => 'export', 'className' => 'btn btn-default btn-sm no-corner',],
-                    ['extend' => 'print', 'className' => 'btn btn-default btn-sm no-corner',],
-                    ['extend' => 'reset', 'className' => 'btn btn-default btn-sm no-corner',],
-                    ['extend' => 'reload', 'className' => 'btn btn-default btn-sm no-corner',],
+
+                ],
+                "oLanguage" => [
+                    "oPaginate" => [
+                        "sFirst" => '<i class="fas fa-angle-double-left"></i>',
+                        "sPrevious" => '<i class="fas fa-angle-double-left"></i>',
+                        "sNext" => '<i class="fas fa-angle-double-right"></i>',
+                        "sLast" => '<i class="fas fa-angle-double-right"></i>',
+                    ],
+                    "sSearch" => '',
+                    "sEmptyTable" => 'ไม่พบข้อมูล',
+                    "sZeroRecords" => 'ไม่พบข้อมูล',
+                    "sProcessing" => "กำลังดำเนินการ...",
+                    "sLengthMenu" => "แสดง _MENU_ แถว",
+                    "sZeroRecords" => "ไม่พบข้อมูล",
+                    // "sInfo"=>      "แสดง _START_ ถึง _END_ จาก _TOTAL_ แถว / รายการทั้งหมด จำนวน _TOTAL_ รายการ (แบ่งออกเป็น _PAGES_ หน้า หน้าละ 50 รายการ)",
+                    "sInfo" => "รายการทั้งหมด จำนวน _TOTAL_ รายการ (แบ่งออกเป็น _PAGES_ หน้า หน้าละ 100 รายการ)",
+                    // "sInfoEmpty"=> "แสดง 0 ถึง 0 จาก 0 แถว",
+                    "sInfoEmpty" => "รายการทั้งหมด จำนวน 0 รายการ (แบ่งออกเป็น _PAGES_ หน้า หน้าละ 100 รายการ)",
+                    // "sInfoFiltered": "(กรองข้อมูล _MAX_ ทุกแถว)",
+                    "sInfoFiltered" => "",
+                    "sInfoPostFix" => "",
                 ],
             ]);
     }
@@ -64,10 +92,10 @@ class ProductDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            'category_id',
-            'name',
-            'price',
-            'unit_id'
+            'category_id' => ['title' => 'ประเภทสินค้า', 'name' => 'category_id', 'data' => 'category_id'],
+            'name' => ['title' => 'ชื่อสินค้า', 'name' => 'name', 'data' => 'name'],
+            'price' => ['title' => 'ราคา', 'name' => 'price', 'data' => 'price'],
+            'unit_id' => ['title' => 'หน่วยนับ', 'name' => 'unit_id', 'data' => 'unit_id'],
         ];
     }
 

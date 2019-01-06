@@ -8,20 +8,52 @@
 /* datatable style */
 
 table.table-custom thead{
-    background: #ffd32a;
-    color:white;
+    background: #ddd;
+    color:#000;
 }
 .pagination > .active > a, .pagination > .active > a:focus, .pagination > .active > a:hover, .pagination > .active > span, .pagination > .active > span:focus, .pagination > .active > span:hover{
     z-index: 3;
     color: rgb(255, 255, 255);
     cursor: default;
-    background-color: #ffd32a !important;
-    border-color: #ffd32a !important;
+    background-color: #256139 !important;
+    border-color: #256139 !important;
 }
 
 /* button style custom */
 .btn-custom{
     color: rgb(255, 255, 255);
-    background-color: #ffdd59;
-    border-color: #ffdd59;
+    background-color: rgb(255, 193, 7);
+    border-color: rgb(255, 193, 7);
+}
+.btn-title-custom,.btn-submit-custom{
+    color: rgb(255, 255, 255);
+    background-color: #256139;
+    border-color: #256139;
+}
+
+/* nav bar custom */
+.sidebar-light-warning .nav-sidebar > .nav-item > .nav-link.active{
+    color: rgb(245, 195, 43);
+    background-color: #256139;
+}
+
+/* card custom style */
+.card-custom:not(.card-outline) .card-header{
+    background-color: #597A21;
+    border-bottom: 0;
+}
+.card-info-footer{
+    background-color: #597A21;
+}
+
+/* a style custom/ */
+a{
+    color: rgb(43, 92, 54);
+    text-decoration: none;
+    background-color: transparent;
+}
+a:hover{
+    color: rgb(255, 193, 7);
+    text-decoration: none;
+    background-color: transparent;
 }

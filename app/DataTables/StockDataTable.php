@@ -3,8 +3,8 @@
 namespace App\DataTables;
 
 use App\Models\Stock;
-use Yajra\DataTables\Services\DataTable;
 use Yajra\DataTables\EloquentDataTable;
+use Yajra\DataTables\Services\DataTable;
 
 class StockDataTable extends DataTable
 {
@@ -17,6 +17,20 @@ class StockDataTable extends DataTable
     public function dataTable($query)
     {
         $dataTable = new EloquentDataTable($query);
+
+        $dataTable->editColumn('product_id', function ($model) {
+
+            return $model->product->name;
+        });
+        $dataTable->editColumn('categoty_id', function ($model) {
+
+            return $model->product->category->name;
+        });
+
+        $dataTable->editColumn('value', function ($model) {
+
+            return $model->imports->sum('value') + $model->value;
+        });
 
         return $dataTable->addColumn('action', 'stocks.datatables_actions');
     }
@@ -42,16 +56,32 @@ class StockDataTable extends DataTable
         return $this->builder()
             ->columns($this->getColumns())
             ->minifiedAjax()
-            ->addAction(['width' => '120px'])
+            ->addAction(['width' => '120px', 'title' => ''])
             ->parameters([
-                'dom'     => 'Bfrtip',
-                'order'   => [[0, 'desc']],
-                'buttons' => [
-                    ['extend' => 'create', 'className' => 'btn btn-default btn-sm no-corner',],
-                    ['extend' => 'export', 'className' => 'btn btn-default btn-sm no-corner',],
-                    ['extend' => 'print', 'className' => 'btn btn-default btn-sm no-corner',],
-                    ['extend' => 'reset', 'className' => 'btn btn-default btn-sm no-corner',],
-                    ['extend' => 'reload', 'className' => 'btn btn-default btn-sm no-corner',],
+                'dom' => "<'row'<'table-create '><'table-product '><'table-cate'><'table-unit'><'col align-self-end'f>>t<'row'<'col-sm-12 col-md-5'><'col-sm-12 col-md-7'p>>",
+                'order' => [[0, 'desc']],
+                "bSort" => false,
+                'buttons' => [],
+                "oLanguage" => [
+                    "oPaginate" => [
+                        "sFirst" => '<i class="fas fa-angle-double-left"></i>',
+                        "sPrevious" => '<i class="fas fa-angle-double-left"></i>',
+                        "sNext" => '<i class="fas fa-angle-double-right"></i>',
+                        "sLast" => '<i class="fas fa-angle-double-right"></i>',
+                    ],
+                    "sSearch" => '',
+                    "sEmptyTable" => 'ไม่พบข้อมูล',
+                    "sZeroRecords" => 'ไม่พบข้อมูล',
+                    "sProcessing" => "กำลังดำเนินการ...",
+                    "sLengthMenu" => "แสดง _MENU_ แถว",
+                    "sZeroRecords" => "ไม่พบข้อมูล",
+                    // "sInfo"=>      "แสดง _START_ ถึง _END_ จาก _TOTAL_ แถว / รายการทั้งหมด จำนวน _TOTAL_ รายการ (แบ่งออกเป็น _PAGES_ หน้า หน้าละ 50 รายการ)",
+                    "sInfo" => "รายการทั้งหมด จำนวน _TOTAL_ รายการ (แบ่งออกเป็น _PAGES_ หน้า หน้าละ 100 รายการ)",
+                    // "sInfoEmpty"=> "แสดง 0 ถึง 0 จาก 0 แถว",
+                    "sInfoEmpty" => "รายการทั้งหมด จำนวน 0 รายการ (แบ่งออกเป็น _PAGES_ หน้า หน้าละ 100 รายการ)",
+                    // "sInfoFiltered": "(กรองข้อมูล _MAX_ ทุกแถว)",
+                    "sInfoFiltered" => "",
+                    "sInfoPostFix" => "",
                 ],
             ]);
     }
@@ -64,12 +94,10 @@ class StockDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            'product_id',
-            'categoty_id',
-            'value',
-            'user_id',
-            'order_id',
-            'import_id'
+            'product_id' => ['title' => 'ชื่อสินค้า', 'name' => 'product_id', 'data' => 'product_id'],
+            'categoty_id' => ['title' => 'ประเภทสินค้า', 'name' => 'categoty_id', 'data' => 'categoty_id'],
+            'value' => ['title' => 'จำนวนสินค้า', 'name' => 'value', 'data' => 'value'],
+            // 'user_id' => ['title' => 'เจ้าของ', 'name' => 'user_id', 'data' => 'user_id'],
         ];
     }
 

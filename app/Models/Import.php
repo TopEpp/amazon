@@ -23,13 +23,11 @@ class Import extends Model
     use SoftDeletes;
 
     public $table = 'imports';
-    
+
     const CREATED_AT = 'created_at';
     const UPDATED_AT = 'updated_at';
 
-
     protected $dates = ['deleted_at'];
-
 
     public $fillable = [
         'user_id',
@@ -38,7 +36,7 @@ class Import extends Model
         'date',
         'price',
         'remark',
-        'import_status'
+        'import_status',
     ];
 
     /**
@@ -54,7 +52,7 @@ class Import extends Model
         'date' => 'date',
         'price' => 'float',
         'remark' => 'string',
-        'import_status' => 'integer'
+        'import_status' => 'integer',
     ];
 
     /**
@@ -63,8 +61,18 @@ class Import extends Model
      * @var array
      */
     public static $rules = [
-        
+
     ];
 
-    
+    public function product()
+    {
+        return $this->belongsTo('App\Models\Product');
+
+    }
+    public function user()
+    {
+        return $this->belongsTo('App\Models\User');
+
+    }
+
 }

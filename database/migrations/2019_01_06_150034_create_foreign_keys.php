@@ -48,18 +48,38 @@ class CreateForeignKeys extends Migration {
 						->onDelete('restrict')
 						->onUpdate('restrict');
 		});
-		Schema::table('orders', function(Blueprint $table) {
-			$table->foreign('product_id')->references('id')->on('products')
-						->onDelete('restrict')
-						->onUpdate('restrict');
-		});
 		Schema::table('imports', function(Blueprint $table) {
 			$table->foreign('user_id')->references('id')->on('users')
 						->onDelete('restrict')
 						->onUpdate('restrict');
 		});
-		Schema::table('imports', function(Blueprint $table) {
+		Schema::table('order_items', function(Blueprint $table) {
+			$table->foreign('order_id')->references('id')->on('orders')
+						->onDelete('restrict')
+						->onUpdate('restrict');
+		});
+		Schema::table('order_items', function(Blueprint $table) {
 			$table->foreign('product_id')->references('id')->on('products')
+						->onDelete('restrict')
+						->onUpdate('restrict');
+		});
+		Schema::table('order_items', function(Blueprint $table) {
+			$table->foreign('stock_id')->references('id')->on('stocks')
+						->onDelete('restrict')
+						->onUpdate('restrict');
+		});
+		Schema::table('import_items', function(Blueprint $table) {
+			$table->foreign('import_id')->references('id')->on('imports')
+						->onDelete('restrict')
+						->onUpdate('restrict');
+		});
+		Schema::table('import_items', function(Blueprint $table) {
+			$table->foreign('product_id')->references('id')->on('products')
+						->onDelete('restrict')
+						->onUpdate('restrict');
+		});
+		Schema::table('import_items', function(Blueprint $table) {
+			$table->foreign('stock_id')->references('id')->on('stocks')
 						->onDelete('restrict')
 						->onUpdate('restrict');
 		});
@@ -91,14 +111,26 @@ class CreateForeignKeys extends Migration {
 		Schema::table('orders', function(Blueprint $table) {
 			$table->dropForeign('orders_user_id_foreign');
 		});
-		Schema::table('orders', function(Blueprint $table) {
-			$table->dropForeign('orders_product_id_foreign');
-		});
 		Schema::table('imports', function(Blueprint $table) {
 			$table->dropForeign('imports_user_id_foreign');
 		});
-		Schema::table('imports', function(Blueprint $table) {
-			$table->dropForeign('imports_product_id_foreign');
+		Schema::table('order_items', function(Blueprint $table) {
+			$table->dropForeign('order_items_order_id_foreign');
+		});
+		Schema::table('order_items', function(Blueprint $table) {
+			$table->dropForeign('order_items_product_id_foreign');
+		});
+		Schema::table('order_items', function(Blueprint $table) {
+			$table->dropForeign('order_items_stock_id_foreign');
+		});
+		Schema::table('import_items', function(Blueprint $table) {
+			$table->dropForeign('import_items_import_id_foreign');
+		});
+		Schema::table('import_items', function(Blueprint $table) {
+			$table->dropForeign('import_items_product_id_foreign');
+		});
+		Schema::table('import_items', function(Blueprint $table) {
+			$table->dropForeign('import_items_stock_id_foreign');
 		});
 	}
 }

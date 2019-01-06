@@ -14,8 +14,8 @@ class DatabaseSeeder extends Seeder
         // $this->call(UsersTableSeeder::class);
         DB::table('users')->insert([
             'username' => 'admin',
-            'first_name' => 'นายทดสอบ',
-            'last_name' => 'เทส',
+            'name' => 'นายทดสอบ เทส',
+            'phone' => '1111111111',
             'password' => bcrypt('123456'),
             'created_at' => date('Y-m-d H:i:s'),
         ]);

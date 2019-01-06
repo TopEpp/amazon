@@ -3,22 +3,27 @@
 namespace App\Http\Controllers;
 
 use App\DataTables\ProductDataTable;
-use App\Http\Requests;
+use App\Http\Controllers\AppBaseController;
 use App\Http\Requests\CreateProductRequest;
 use App\Http\Requests\UpdateProductRequest;
+use App\Repositories\CategoryRepository;
 use App\Repositories\ProductRepository;
+use App\Repositories\UnitsRepository;
 use Flash;
-use App\Http\Controllers\AppBaseController;
 use Response;
 
 class ProductController extends AppBaseController
 {
     /** @var  ProductRepository */
     private $productRepository;
+    private $categoryRepository;
+    private $unitsRepository;
 
-    public function __construct(ProductRepository $productRepo)
+    public function __construct(ProductRepository $productRepo, CategoryRepository $categoryRepo, UnitsRepository $unitsRepo)
     {
         $this->productRepository = $productRepo;
+        $this->categoryRepository = $categoryRepo;
+        $this->unitsRepository = $unitsRepo;
     }
 
     /**
@@ -29,7 +34,10 @@ class ProductController extends AppBaseController
      */
     public function index(ProductDataTable $productDataTable)
     {
-        return $productDataTable->render('products.index');
+        $categorys = $this->categoryRepository->pluck('name', 'id');
+        $units = $this->unitsRepository->pluck('name', 'id');
+
+        return $productDataTable->render('products.index', ['category' => $categorys, 'unit' => $units]);
     }
 
     /**
@@ -90,6 +98,8 @@ class ProductController extends AppBaseController
     public function edit($id)
     {
         $product = $this->productRepository->findWithoutFail($id);
+        $categorys = $this->categoryRepository->pluck('name', 'id');
+        $units = $this->unitsRepository->pluck('name', 'id');
 
         if (empty($product)) {
             Flash::error('Product not found');
@@ -97,7 +107,7 @@ class ProductController extends AppBaseController
             return redirect(route('products.index'));
         }
 
-        return view('products.edit')->with('product', $product);
+        return view('products.edit')->with(['product' => $product, 'category' => $categorys, 'unit' => $units]);
     }
 
     /**

@@ -1,23 +1,42 @@
 @extends('layouts.master')
 
 @section('content')
+
+    <!-- Content Header (Page header) -->
     <section class="content-header">
-        <h1>
-            Import
-        </h1>
-   </section>
-   <div class="content">
-       @include('adminlte-templates::common.errors')
-       <div class="box box-primary">
-           <div class="box-body">
-               <div class="row">
-                   {!! Form::model($import, ['route' => ['imports.update', $import->id], 'method' => 'patch']) !!}
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0 text-dark">นำเข้าสินค้า</h1>
+                    
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="#">หน้าหลัก</a></li>
+                    <li class="breadcrumb-item"><a href="#">นำเข้าสินค้า</a></li>
+                    <li class="breadcrumb-item active">แก้ไขนำเข้าสินค้า</li>
+                    </ol>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+            
+        </div><!-- /.container-fluid -->
+    </section>
+    <!-- /.content-header -->
 
-                        @include('imports.fields')
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            @include('adminlte-templates::common.errors')
+            
+            {!! Form::model($import, ['route' => ['imports.update', $import->id], 'method' => 'patch']) !!}
 
-                   {!! Form::close() !!}
-               </div>
-           </div>
-       </div>
-   </div>
+                @include('imports.fields')
+
+            {!! Form::close() !!}
+            
+        </div>
+
+    </section>
+    <!-- /.content -->
+
 @endsection

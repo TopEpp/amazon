@@ -24,7 +24,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
   @include('layouts.sidebar')
 
   <!-- Content Wrapper. Contains page content -->
-  <div class="content-wrapper bg-custom pt-5">
+  <div class="content-wrapper bg-custom ">
     @yield('content')
   </div>
   <!-- /.content-wrapper -->

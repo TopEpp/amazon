@@ -3,12 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\DataTables\UnitsDataTable;
-use App\Http\Requests;
+use App\Http\Controllers\AppBaseController;
 use App\Http\Requests\CreateUnitsRequest;
 use App\Http\Requests\UpdateUnitsRequest;
 use App\Repositories\UnitsRepository;
 use Flash;
-use App\Http\Controllers\AppBaseController;
 use Response;
 
 class UnitsController extends AppBaseController
@@ -97,7 +96,7 @@ class UnitsController extends AppBaseController
             return redirect(route('units.index'));
         }
 
-        return view('units.edit')->with('units', $units);
+        return view('units.edit')->with('unit', $units);
     }
 
     /**

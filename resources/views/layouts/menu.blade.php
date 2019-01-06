@@ -15,12 +15,13 @@
 </li>
 
 <li class="nav-item ">
-    <a class="nav-link {{ Request::is('stocks*') ? 'active' : '' }}" href="{!! route('stocks.index') !!}"><i class="fas fa-store"></i> <span>คลังสินค้า</span></a>
+    <a class="nav-link {{ Request::is('imports*') ? 'active' : '' }}" href="{!! route('imports.index') !!}"><i class="fa fa-edit"></i><span>นำเข้าสินค้า</span></a>
 </li>
 
-{{-- <li class="nav-item ">
-    <a class="nav-link {{ Request::is('imports*') ? 'active' : '' }}" href="{!! route('imports.index') !!}"><i class="fa fa-edit"></i><span>นำเข้าสินค้า</span></a>
-</li> --}}
+<li class="nav-item ">
+    <a class="nav-link {{ (Request::is('stocks*') || Request::is('categories*') || Request::is('products*') || Request::is('units*')  ) ? 'active' : '' }}" href="{!! route('stocks.index') !!}"><i class="fas fa-store"></i> <span>คลังสินค้า</span></a>
+</li>
+
 
 
 {{-- 
@@ -36,4 +37,5 @@
         <a class="nav-link {{ Request::is('users*') ? 'active' : '' }}" href="{!! route('users.index') !!}"><i class="fas fa-users-cog"></i> <span>ผู้ใช้งาน</span></a>
     </li>
 @endcan
+
 

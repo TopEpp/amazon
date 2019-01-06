@@ -6,17 +6,20 @@ use Eloquent as Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
- * Class Unit
+ * Class OrderItem
  * @package App\Models
- * @version January 4, 2019, 3:00 pm UTC
+ * @version January 6, 2019, 3:44 pm UTC
  *
- * @property string name
+ * @property integer order_id
+ * @property integer product_id
+ * @property integer stock_id
+ * @property integer value
  */
-class Unit extends Model
+class OrderItem extends Model
 {
     use SoftDeletes;
 
-    public $table = 'units';
+    public $table = 'order_items';
     
     const CREATED_AT = 'created_at';
     const UPDATED_AT = 'updated_at';
@@ -26,7 +29,10 @@ class Unit extends Model
 
 
     public $fillable = [
-        'name'
+        'order_id',
+        'product_id',
+        'stock_id',
+        'value'
     ];
 
     /**
@@ -36,7 +42,10 @@ class Unit extends Model
      */
     protected $casts = [
         'id' => 'integer',
-        'name' => 'string'
+        'order_id' => 'integer',
+        'product_id' => 'integer',
+        'stock_id' => 'integer',
+        'value' => 'integer'
     ];
 
     /**

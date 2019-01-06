@@ -27,15 +27,15 @@ class AuthServiceProvider extends ServiceProvider
         $this->registerPolicies($gate);
 
         $gate->define('isAdmin', function ($user) {
-            return $user->permission == 1;
+            return $user->type == 1;
         });
 
         $gate->define('isManager', function ($user) {
-            return $user->permission == 2;
+            return $user->type == 2;
         });
 
         $gate->define('isSale', function ($user) {
-            return $user->permission == 3;
+            return $user->type == 3;
         });
 
     }

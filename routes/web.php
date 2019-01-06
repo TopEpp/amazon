@@ -34,3 +34,8 @@ Route::resource('users', 'UserController');
 Route::resource('units', 'UnitsController');
 
 Route::resource('users', 'UserController');
+
+
+Route::resource('importItems', 'ImportItemController');
+
+Route::resource('orderItems', 'OrderItemController');

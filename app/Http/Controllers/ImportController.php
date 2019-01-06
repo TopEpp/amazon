@@ -3,22 +3,25 @@
 namespace App\Http\Controllers;
 
 use App\DataTables\ImportDataTable;
-use App\Http\Requests;
+use App\Http\Controllers\AppBaseController;
 use App\Http\Requests\CreateImportRequest;
 use App\Http\Requests\UpdateImportRequest;
 use App\Repositories\ImportRepository;
+use App\Repositories\ProductRepository;
 use Flash;
-use App\Http\Controllers\AppBaseController;
+use Illuminate\Support\Facades\Auth;
 use Response;
 
 class ImportController extends AppBaseController
 {
     /** @var  ImportRepository */
     private $importRepository;
+    private $productRepository;
 
-    public function __construct(ImportRepository $importRepo)
+    public function __construct(ProductRepository $productRepo, ImportRepository $importRepo)
     {
         $this->importRepository = $importRepo;
+        $this->productRepository = $productRepo;
     }
 
     /**
@@ -39,7 +42,8 @@ class ImportController extends AppBaseController
      */
     public function create()
     {
-        return view('imports.create');
+        $product = $this->productRepository->pluck('name', 'id');
+        return view('imports.create')->with('product', $product);
     }
 
     /**
@@ -52,6 +56,7 @@ class ImportController extends AppBaseController
     public function store(CreateImportRequest $request)
     {
         $input = $request->all();
+        $input['user_id'] = Auth::user()->id;
 
         $import = $this->importRepository->create($input);
 
