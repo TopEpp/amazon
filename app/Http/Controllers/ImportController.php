@@ -42,7 +42,7 @@ class ImportController extends AppBaseController
      */
     public function create()
     {
-        $product = $this->productRepository->pluck('name', 'id');
+        $product = $this->productRepository->all();
         return view('imports.create')->with('product', $product);
     }
 
@@ -56,6 +56,7 @@ class ImportController extends AppBaseController
     public function store(CreateImportRequest $request)
     {
         $input = $request->all();
+        dd($input);
         $input['user_id'] = Auth::user()->id;
 
         $import = $this->importRepository->create($input);

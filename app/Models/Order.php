@@ -23,22 +23,18 @@ class Order extends Model
     use SoftDeletes;
 
     public $table = 'orders';
-    
+
     const CREATED_AT = 'created_at';
     const UPDATED_AT = 'updated_at';
 
-
     protected $dates = ['deleted_at'];
-
 
     public $fillable = [
         'user_id',
-        'product_id',
-        'value',
         'date',
         'price',
         'remark',
-        'order_status'
+        'order_status',
     ];
 
     /**
@@ -49,12 +45,10 @@ class Order extends Model
     protected $casts = [
         'id' => 'integer',
         'user_id' => 'integer',
-        'product_id' => 'integer',
-        'value' => 'integer',
         'date' => 'date',
         'price' => 'float',
         'remark' => 'string',
-        'order_status' => 'integer'
+        'order_status' => 'integer',
     ];
 
     /**
@@ -63,8 +57,7 @@ class Order extends Model
      * @var array
      */
     public static $rules = [
-        
+
     ];
 
-    
 }

@@ -18,14 +18,14 @@ class ImportDataTable extends DataTable
     {
         $dataTable = new EloquentDataTable($query);
 
-        $dataTable->editColumn('product_id', function ($model) {
+        // $dataTable->editColumn('product_id', function ($model) {
 
-            return $model->product->name;
-        });
-        $dataTable->editColumn('user_id', function ($model) {
+        //     return $model->product->name;
+        // });
+        // $dataTable->editColumn('user_id', function ($model) {
 
-            return $model->user->first_name . ' ' . $model->user->last_name;
-        });
+        //     return $model->user->first_name . ' ' . $model->user->last_name;
+        // });
 
         return $dataTable->addColumn('action', 'imports.datatables_actions');
     }
@@ -92,11 +92,8 @@ class ImportDataTable extends DataTable
     {
         return [
 
-            'product_id' => ['title' => 'ชื่อสินค้า', 'name' => 'product_id', 'data' => 'product_id'],
-            'value' => ['title' => 'จำนวน', 'name' => 'value', 'data' => 'value'],
             'date' => ['title' => 'วันที่', 'name' => 'date', 'data' => 'date'],
             'price' => ['title' => 'ราคา', 'name' => 'price', 'data' => 'price'],
-            'user_id' => ['title' => 'เจ้าของ', 'name' => 'user_id', 'data' => 'user_id'],
             'remark' => ['title' => 'หมายเหตุ', 'name' => 'remark', 'data' => 'remark'],
             'import_status' => ['title' => 'สถานะการนำเข้า', 'name' => 'import_status', 'data' => 'import_status'],
         ];

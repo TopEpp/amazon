@@ -31,8 +31,6 @@ class Import extends Model
 
     public $fillable = [
         'user_id',
-        'product_id',
-        'value',
         'date',
         'price',
         'remark',
@@ -46,9 +44,6 @@ class Import extends Model
      */
     protected $casts = [
         'id' => 'integer',
-        'user_id' => 'integer',
-        'product_id' => 'integer',
-        'value' => 'integer',
         'date' => 'date',
         'price' => 'float',
         'remark' => 'string',

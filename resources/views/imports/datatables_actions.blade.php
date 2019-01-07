@@ -1,14 +1,11 @@
 {!! Form::open(['route' => ['imports.destroy', $id], 'method' => 'delete']) !!}
 <div class='btn-group'>
-    <a href="{{ route('imports.show', $id) }}" class='btn btn-default btn-xs'>
-        <i class="glyphicon glyphicon-eye-open"></i>
-    </a>
-    <a href="{{ route('imports.edit', $id) }}" class='btn btn-default btn-xs'>
-        <i class="glyphicon glyphicon-edit"></i>
-    </a>
-    {!! Form::button('<i class="glyphicon glyphicon-trash"></i>', [
+
+    <button type="button" class="btn btn-custom" onclick="location.href='{{ route('imports.show', $id) }}';">ดู</button>
+    <button type="button" class="btn btn-custom" onclick="location.href='{{ route('imports.edit', $id) }}';">แก้ไข</button>
+    {!! Form::button('ลบ', [
         'type' => 'submit',
-        'class' => 'btn btn-danger btn-xs',
+        'class' => 'btn btn-custom btn-xs',
         'onclick' => "return confirm('Are you sure?')"
     ]) !!}
 </div>
