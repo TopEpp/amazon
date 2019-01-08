@@ -6,6 +6,7 @@ use App\DataTables\ImportDataTable;
 use App\Http\Controllers\AppBaseController;
 use App\Http\Requests\CreateImportRequest;
 use App\Http\Requests\UpdateImportRequest;
+use App\Repositories\ImportItemRepository;
 use App\Repositories\ImportRepository;
 use App\Repositories\ProductRepository;
 use Flash;
@@ -17,11 +18,13 @@ class ImportController extends AppBaseController
     /** @var  ImportRepository */
     private $importRepository;
     private $productRepository;
+    private $importItemRepository;
 
-    public function __construct(ProductRepository $productRepo, ImportRepository $importRepo)
+    public function __construct(ProductRepository $productRepo, ImportRepository $importRepo, ImportItemRepository $importItemRepo)
     {
         $this->importRepository = $importRepo;
         $this->productRepository = $productRepo;
+        $this->importItemRepository = $importItemRepo;
     }
 
     /**
@@ -55,11 +58,27 @@ class ImportController extends AppBaseController
      */
     public function store(CreateImportRequest $request)
     {
-        $input = $request->all();
-        dd($input);
+        $input = $request->except('value');
+
         $input['user_id'] = Auth::user()->id;
 
         $import = $this->importRepository->create($input);
+
+        $import_item = $request->value;
+        $item_value = array();
+        if ($import) {
+
+            foreach ($import_item as $key => $value) {
+                // get product
+                $product = $this->productRepository->findWithoutFail($key);
+                $item_value['import_id'] = $import->id;
+                $item_value['product_id'] = $product->id;
+                $item_value['stock_id'] = $product->stock->id;
+                $item_value['value'] = $value;
+                $this->importItemRepository->create($item_value);
+            }
+
+        }
 
         Flash::success('Import saved successfully.');
 
@@ -96,14 +115,21 @@ class ImportController extends AppBaseController
     public function edit($id)
     {
         $import = $this->importRepository->findWithoutFail($id);
+        $product = $this->productRepository->all();
 
         if (empty($import)) {
             Flash::error('Import not found');
 
             return redirect(route('imports.index'));
         }
+        // get item
+        $item = array();
+        foreach ($import->item as $key => $value) {
+            $item[$value->id] = $value;
+        }
+        $import->value = $item;
 
-        return view('imports.edit')->with('import', $import);
+        return view('imports.edit')->with(['import' => $import, 'product' => $product]);
     }
 
     /**
@@ -124,7 +150,35 @@ class ImportController extends AppBaseController
             return redirect(route('imports.index'));
         }
 
-        $import = $this->importRepository->update($request->all(), $id);
+        $input = $request->except('value');
+
+        $import_item = $request->value;
+
+        $import = $this->importRepository->update($input, $id);
+
+        $item = array();
+        foreach ($import->item as $key => $value) {
+            $item[$value->id] = $value;
+        }
+
+        $item_value = array();
+        if ($import) {
+            foreach ($import_item as $key => $value) {
+                // get product
+                $product = $this->productRepository->findWithoutFail($key);
+                $item_value['import_id'] = $import->id;
+                $item_value['product_id'] = $product->id;
+                $item_value['stock_id'] = $product->stock->id;
+                $item_value['value'] = $value;
+                if (!empty($item[$key])) {
+                    $this->importItemRepository->update($item_value, $item[$key]->id);
+                } else {
+                    $this->importItemRepository->create($item_value);
+                }
+
+            }
+
+        }
 
         Flash::success('Import updated successfully.');
 

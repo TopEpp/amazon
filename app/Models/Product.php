@@ -65,4 +65,10 @@ class Product extends Model
         return $this->belongsTo('App\Models\Units');
     }
 
+    public function stock()
+    {
+        return $this->belongsTo('App\Models\Stock', 'id', 'product_id');
+        // return $this->belongsTo('App\Models\Stock');
+    }
+
 }

@@ -1,23 +1,35 @@
 @extends('layouts.master')
 
 @section('content')
-    <section class="content-header">
-        <h1>
-            Order
-        </h1>
-   </section>
-   <div class="content">
-       @include('adminlte-templates::common.errors')
-       <div class="box box-primary">
-           <div class="box-body">
-               <div class="row">
-                   {!! Form::model($order, ['route' => ['orders.update', $order->id], 'method' => 'patch']) !!}
 
-                        @include('orders.fields')
+    <!-- edit model category -->
+    <div class="modal" id="stocks-edit">
+        <div class="modal-dialog">
+            <div class="modal-content">
+    
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">แก้ไขสั่งสินค้า</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+        
+                <!-- Modal body -->
+                <div class="modal-body">
+                        {!! Form::model($order, ['route' => ['orders.update', $order->id], 'method' => 'patch']) !!}
+        
+                            @include('orders.fields')
+        
+                        {!! Form::close() !!}
+                </div>
+            </div>
+        </div>
+    </div>
+@endsection
 
-                   {!! Form::close() !!}
-               </div>
-           </div>
-       </div>
-   </div>
+@section('scripts')
+    <script>
+        $(function(){
+            $('#stocks-edit').modal('show'); 
+        });
+    </script>
 @endsection
