@@ -49,7 +49,7 @@
                         @foreach ($product as $key => $item)
                             <tr>
                                 <td><div class="form-check">
-                                    <input data-id="{!! $item->id !!}" class="form-check-input select_product" type="checkbox" {!! (!empty($import->value[$item->id]->value) ? 'checked' : ''); !!}>
+                                    <input data-id="{!! $item->id !!}" class="form-check-input select_product" type="checkbox" {!! (!empty($order->value[$item->id]->value) ? 'checked' : ''); !!}>
                                     </div>
                                 </td>
                                 <td>{!! $item->name !!}</td>
@@ -58,19 +58,19 @@
                                     <input type="hidden" id="amout_{!! $item->id !!}" value="{!! $item->price !!}">
                                 </td>
                                 <td>
-                                    <input data-id="{!! $item->id !!}" id="val_{!! $item->id !!}" name="value[{!! $item->id !!}]" value="{!! (!empty($import->value[$item->id]->value) ? $import->value[$item->id]->value : '0'); !!}" class="form-control form-control-sm val-product" type="text" {!! (!empty($import->value[$item->id]->value) ? '' : 'disabled'); !!}>
+                                    <input data-id="{!! $item->id !!}" id="val_{!! $item->id !!}" name="value[{!! $item->id !!}]" value="{!! (!empty($order->value[$item->id]->value) ? $order->value[$item->id]->value : '0'); !!}" class="form-control form-control-sm val-product" type="text" {!! (!empty($order->value[$item->id]->value) ? '' : 'disabled'); !!}>
                                 </td>
                                 <td class="text-left">
-                                    <span class="badge bg-warning " id="sum_show_{!! $item->id !!}">{!! (!empty($import->value[$item->id]->value) ? $import->value[$item->id]->value *$item->price : '0'); !!}</span>
-                                    <input type="hidden" class="sum_all" id="sum_{!! $item->id !!}" value="{!! (!empty($import->value[$item->id]->value) ? $import->value[$item->id]->value *$item->price : '0'); !!}">
+                                    <span class="badge bg-warning " id="sum_show_{!! $item->id !!}">{!! (!empty($order->value[$item->id]->value) ? $order->value[$item->id]->value *$item->price : '0'); !!}</span>
+                                    <input type="hidden" class="sum_all" id="sum_{!! $item->id !!}" value="{!! (!empty($order->value[$item->id]->value) ? $order->value[$item->id]->value *$item->price : '0'); !!}">
                                 </td>
                             </tr>
                         @endforeach
                         <tr>
                             <th colspan="3" class="label-warning text-right" >รวม</th>
-                            <td class="label-warning text-right val-total" >{!! (!empty($import->item) ? $import->item->sum('value') : '0'); !!}</td>
-                            <td class="label-warning text-right price-total">{!! (!empty($import->item) ? $import->price : '0'); !!}</td>
-                            <input type="hidden" name="price" value="{!! (!empty($import->item) ? $import->price : '0'); !!}">
+                            <td class="label-warning text-right val-total" >{!! (!empty($order->item) ? $order->item->sum('value') : '0'); !!}</td>
+                            <td class="label-warning text-right price-total">{!! (!empty($order->item) ? $order->price : '0'); !!}</td>
+                            <input type="hidden" name="price" value="{!! (!empty($order->item) ? $order->price : '0'); !!}">
                         </tr>
                     
                         

@@ -6,9 +6,11 @@ use App\DataTables\OrderDataTable;
 use App\Http\Controllers\AppBaseController;
 use App\Http\Requests\CreateOrderRequest;
 use App\Http\Requests\UpdateOrderRequest;
+use App\Repositories\OrderItemRepository;
 use App\Repositories\OrderRepository;
 use App\Repositories\ProductRepository;
 use Flash;
+use Illuminate\Support\Facades\Auth;
 use Response;
 
 class OrderController extends AppBaseController
@@ -16,11 +18,13 @@ class OrderController extends AppBaseController
     /** @var  OrderRepository */
     private $orderRepository;
     private $productRepository;
+    private $orderItemRepository;
 
-    public function __construct(OrderRepository $orderRepo, ProductRepository $productRepo)
+    public function __construct(OrderRepository $orderRepo, ProductRepository $productRepo, OrderItemRepository $orderItemRepo)
     {
         $this->orderRepository = $orderRepo;
         $this->productRepository = $productRepo;
+        $this->orderItemRepository = $orderItemRepo;
     }
 
     /**
@@ -54,9 +58,26 @@ class OrderController extends AppBaseController
      */
     public function store(CreateOrderRequest $request)
     {
-        $input = $request->all();
+        $input = $request->except('value');
+        $input['user_id'] = Auth::user()->id;
 
         $order = $this->orderRepository->create($input);
+
+        $order_item = $request->value;
+        $item_value = array();
+        if ($order) {
+
+            foreach ($order_item as $key => $value) {
+                // get product
+                $product = $this->productRepository->findWithoutFail($key);
+                $item_value['order_id'] = $order->id;
+                $item_value['product_id'] = $product->id;
+                $item_value['stock_id'] = $product->stock->id;
+                $item_value['value'] = $value;
+                $this->orderItemRepository->create($item_value);
+            }
+
+        }
 
         Flash::success('Order saved successfully.');
 
@@ -93,14 +114,21 @@ class OrderController extends AppBaseController
     public function edit($id)
     {
         $order = $this->orderRepository->findWithoutFail($id);
-
+        $product = $this->productRepository->all();
         if (empty($order)) {
             Flash::error('Order not found');
 
             return redirect(route('orders.index'));
         }
 
-        return view('orders.edit')->with('order', $order);
+        // get item
+        $item = array();
+        foreach ($order->item as $key => $value) {
+            $item[$value->id] = $value;
+        }
+        $order->value = $item;
+
+        return view('orders.edit')->with(['order' => $order, 'product' => $product]);
     }
 
     /**
@@ -121,7 +149,34 @@ class OrderController extends AppBaseController
             return redirect(route('orders.index'));
         }
 
-        $order = $this->orderRepository->update($request->all(), $id);
+        $input = $request->except('value');
+
+        $order_item = $request->value;
+        $order = $this->orderRepository->update($input, $id);
+
+        $item = array();
+        foreach ($order->item as $key => $value) {
+            $item[$value->id] = $value;
+        }
+
+        $item_value = array();
+        if ($order) {
+            foreach ($order_item as $key => $value) {
+                // get product
+                $product = $this->productRepository->findWithoutFail($key);
+                $item_value['order_id'] = $order->id;
+                $item_value['product_id'] = $product->id;
+                $item_value['stock_id'] = $product->stock->id;
+                $item_value['value'] = $value;
+                if (!empty($item[$key])) {
+                    $this->orderItemRepository->update($item_value, $item[$key]->id);
+                } else {
+                    $this->orderItemRepository->create($item_value);
+                }
+
+            }
+
+        }
 
         Flash::success('Order updated successfully.');
 

@@ -1,6 +1,99 @@
 @extends('layouts.master')
 @section('content')
-หน้าหลัก
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0 text-dark">หน้าหลัก</h1>
+                    
+                </div><!-- /.col -->
+                
+            </div><!-- /.row -->
+            
+        </div><!-- /.container-fluid -->
+    </section>
+
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-8 col-sm-8 col-8">
+                              <!-- Custom tabs (Charts with tabs)-->
+                    <div class="card">
+
+                        <div class="card-body">
+                            <ul class="nav nav-pills ml-auto p-2 float-right">
+                                    <li class="nav-item">
+                                    <a class="nav-link active" href="#revenue-chart" data-toggle="tab">สัปดาห์</a>
+                                    </li>
+                                    <li class="nav-item">
+                                    <a class="nav-link" href="#sales-chart" data-toggle="tab">เดือน</a>
+                                    </li>
+                                </ul>
+                        <div class="tab-content p-0">
+                            <!-- Morris chart - Sales -->
+                            <div class="chart tab-pane active" id="revenue-chart"
+                                style="position: relative; height: 300px;"></div>
+                            <div class="chart tab-pane" id="sales-chart" style="position: relative; height: 300px;"></div>
+                        </div>
+                        </div><!-- /.card-body -->
+                    </div>
+                    <!-- /.card -->
+                </div>
+                <!-- /.col -->
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="text-center">
+                                <strong>สินค้าคงเหลือ</strong>
+                            </p>
+                
+                            <div class="progress-group">
+                            1
+                            <span class="float-right"><b>160</b>/200</span>
+                            <div class="progress progress-sm">
+                                <div class="progress-bar bg-primary" style="width: 80%"></div>
+                            </div>
+                            </div>
+                            <!-- /.progress-group -->
+        
+                            <div class="progress-group">
+                            2
+                            <span class="float-right"><b>310</b>/400</span>
+                            <div class="progress progress-sm">
+                                <div class="progress-bar bg-danger" style="width: 75%"></div>
+                            </div>
+                            </div>
+        
+                            <!-- /.progress-group -->
+                            <div class="progress-group">
+                            <span class="progress-text">3</span>
+                            <span class="float-right"><b>480</b>/800</span>
+                            <div class="progress progress-sm">
+                                <div class="progress-bar bg-success" style="width: 60%"></div>
+                            </div>
+                            </div>
+        
+                            <!-- /.progress-group -->
+                            <div class="progress-group">
+                            4
+                            <span class="float-right"><b>250</b>/500</span>
+                            <div class="progress progress-sm">
+                                <div class="progress-bar bg-warning" style="width: 50%"></div>
+                            </div>
+                            </div>
+                            <!-- /.progress-group -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    
+
+    </section>
+    <!-- /.content -->
+<!-- /.content-header -->
     {{-- <section class="content-header">
         <h1 class="pull-left" style="color:#263d90;font-weight: bold;">ภาพรวมทั้งหมด</h1>
         <h1 class="pull-right">

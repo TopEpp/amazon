@@ -60,4 +60,10 @@ class Order extends Model
 
     ];
 
+    public function item()
+    {
+
+        return $this->hasMany('App\Models\OrderItem');
+
+    }
 }

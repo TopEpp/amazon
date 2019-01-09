@@ -2,34 +2,41 @@
 
 @section('content')
 
-    <!-- edit model category -->
-    <div class="modal" id="stocks-edit">
-        <div class="modal-dialog">
-            <div class="modal-content">
-    
-                <!-- Modal Header -->
-                <div class="modal-header">
-                    <h4 class="modal-title">แก้ไขสั่งสินค้า</h4>
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                </div>
-        
-                <!-- Modal body -->
-                <div class="modal-body">
-                        {!! Form::model($order, ['route' => ['orders.update', $order->id], 'method' => 'patch']) !!}
-        
-                            @include('orders.fields')
-        
-                        {!! Form::close() !!}
-                </div>
-            </div>
-        </div>
-    </div>
-@endsection
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0 text-dark">แก้ไขคำสั่งซื้อ</h1>
+                    
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="#">หน้าหลัก</a></li>
+                    <li class="breadcrumb-item"><a href="#">สั่งสินค้า</a></li>
+                    <li class="breadcrumb-item active">แก้ไขคำสั่งซื้อ</li>
+                    </ol>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+            
+        </div><!-- /.container-fluid -->
+    </section>
+    <!-- /.content-header -->
 
-@section('scripts')
-    <script>
-        $(function(){
-            $('#stocks-edit').modal('show'); 
-        });
-    </script>
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            @include('adminlte-templates::common.errors')
+            
+            {!! Form::model($order, ['route' => ['orders.update', $order->id], 'method' => 'patch']) !!}
+
+                @include('orders.fields')
+
+            {!! Form::close() !!}
+            
+        </div>
+
+    </section>
+    <!-- /.content -->
+
 @endsection

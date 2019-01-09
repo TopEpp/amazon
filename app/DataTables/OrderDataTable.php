@@ -18,6 +18,11 @@ class OrderDataTable extends DataTable
     {
         $dataTable = new EloquentDataTable($query);
 
+        $dataTable->editColumn('value', function ($model) {
+
+            return $model->item->sum('value');
+        });
+
         return $dataTable->addColumn('action', 'orders.datatables_actions');
     }
 
