@@ -22,6 +22,7 @@
                     <div class="card">
 
                         <div class="card-body">
+                            <h4>การสั่งสินค้า</h4>
                             <ul class="nav nav-pills ml-auto p-2 float-right">
                                     <li class="nav-item">
                                     <a class="nav-link active" href="#revenue-chart" data-toggle="tab">สัปดาห์</a>
@@ -30,13 +31,12 @@
                                     <a class="nav-link" href="#sales-chart" data-toggle="tab">เดือน</a>
                                     </li>
                                 </ul>
-                        <div class="tab-content p-0">
-                            <!-- Morris chart - Sales -->
-                            <div class="chart tab-pane active" id="revenue-chart"
-                                style="position: relative; height: 300px;"></div>
-                            <div class="chart tab-pane" id="sales-chart" style="position: relative; height: 300px;"></div>
+                            <div class="tab-content p-0">
+                                
+                                    {!! $chartjs->render() !!}
+                            
+                            </div><!-- /.card-body -->
                         </div>
-                        </div><!-- /.card-body -->
                     </div>
                     <!-- /.card -->
                 </div>
@@ -88,9 +88,6 @@
                 </div>
             </div>
         </div>
-
-    
-
     </section>
     <!-- /.content -->
 <!-- /.content-header -->
@@ -188,6 +185,11 @@
 
 
 @endsection
+
+@section('scripts')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.js"></script>
+@endsection
+
 
 
   

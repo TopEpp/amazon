@@ -70,6 +70,33 @@ class DashBoardController extends Controller
         //         'money' => $val[0]['money_all'],
         //         'dates' => $date]
         //     );
-        return view('dashboard.index');
+        $chartjs = app()->chartjs
+            ->name('barChartTest')
+            ->type('bar')
+            ->size(['width' => 400, 'height' => 200])
+
+            ->datasets([
+                [
+                    "label" => "",
+                    'backgroundColor' => ['rgba(255, 99, 132, 0.2)'],
+                    'data' => [69],
+                ],
+                [
+                    "label" => "",
+                    'backgroundColor' => ['rgba(54, 162, 235, 0.2)'],
+                    'data' => [59],
+                ],
+                [
+                    "label" => "",
+                    'backgroundColor' => ['rgba(100, 200, 50, 0.2)'],
+                    'data' => [22],
+                ],
+            ])
+            ->options(['legend' => [
+                'display' => false,
+            ],
+            ]);
+
+        return view('dashboard.index', compact('chartjs'));
     }
 }
