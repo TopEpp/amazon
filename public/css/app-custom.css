@@ -36,6 +36,13 @@ table.table-custom thead{
     color: rgb(245, 195, 43);
     background-color: #256139;
 }
+.widget-user .widget-user-username{
+    margin-top: 0;
+    margin-bottom: 5px;
+    font-size: 18px;
+    font-weight: 300;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+}
 
 /* card custom style */
 .card-custom:not(.card-outline) .card-header{
@@ -56,4 +63,13 @@ a:hover{
     color: rgb(255, 193, 7);
     text-decoration: none;
     background-color: transparent;
+}
+
+/* dashboard  */
+.nav-pills .nav-link.active, .nav-pills .show > .nav-link{
+    color: rgb(255, 255, 255);
+    background-color: #256139;
+}
+.nav-pills .nav-link:not(.active):hover{
+    color:rgb(255, 193, 7);
 }

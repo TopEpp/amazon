@@ -28,7 +28,7 @@
             <div class="row">
                 <div class="col-md-3 col-sm-6 col-12">
                     <div class="info-box">
-                    <span class="info-box-icon bg-info"><i class="fa fa-envelope-o"></i></span>
+                    <span class="info-box-icon bg-info"><i class="fas fa-truck"></i></span>
         
                     <div class="info-box-content">
                         <span class="info-box-text">วัตถุดิบ</span>
@@ -41,7 +41,7 @@
                 <!-- /.col -->
                 <div class="col-md-3 col-sm-6 col-12">
                     <div class="info-box">
-                    <span class="info-box-icon bg-success"><i class="fa fa-flag-o"></i></span>
+                    <span class="info-box-icon bg-success"><i class="fas fa-pallet"></i></span>
         
                     <div class="info-box-content">
                         <span class="info-box-text">ของที่ระลึก</span>
@@ -54,7 +54,7 @@
                 <!-- /.col -->
                 <div class="col-md-3 col-sm-6 col-12">
                     <div class="info-box">
-                    <span class="info-box-icon bg-warning"><i class="fa fa-files-o"></i></span>
+                    <span class="info-box-icon bg-warning"><i class="fas fa-shipping-fast"></i></span>
         
                     <div class="info-box-content">
                         <span class="info-box-text">อุปกรณ์</span>
@@ -67,7 +67,7 @@
                 <!-- /.col -->
                 <div class="col-md-3 col-sm-6 col-12">
                     <div class="info-box">
-                    <span class="info-box-icon bg-danger"><i class="fa fa-star-o"></i></span>
+                    <span class="info-box-icon bg-danger"><i class="fas fa-dolly"></i></span>
         
                     <div class="info-box-content">
                         <span class="info-box-text">อื่นๆ</span>

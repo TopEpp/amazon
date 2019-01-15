@@ -1,10 +1,10 @@
 {{-- username /pass --}}
 <div class="row">
-    <div class="col-md-3 col-lg-3 col-sm-3">
+    <div class="col-md-4 col-lg-4 col-sm-4">
         <!-- About Me Box -->
-        <div class="card card-custom">
+        <div class="card ">
             <div class="card-header">
-                <h6 class="card-title">รหัสเข้าใช้งานระบบ</h6>
+                <h3 class="card-title">รหัสเข้าใช้งานระบบ</h3>
             </div>
             <!-- /.card-header -->
             <div class="card-body">
@@ -28,11 +28,11 @@
     </div>
 
     {{-- info user --}}
-    <div class="col-md-9 col-lg-9 col-sm-9">
+    <div class="col-md-8 col-lg-8 col-sm-8">
 
-            <div class="card card-custom">
+            <div class="card ">
                 <div class="card-header">
-                        <h6 class="card-title">ข้อมูลบัญชีผู้ใช้งาน</h6>
+                        <h3 class="card-title">ข้อมูลบัญชีผู้ใช้งาน</h3>
      
                 </div><!-- /.card-header -->
                 <div class="card-body">

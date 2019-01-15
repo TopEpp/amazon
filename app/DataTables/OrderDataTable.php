@@ -3,6 +3,7 @@
 namespace App\DataTables;
 
 use App\Models\Order;
+use Carbon\Carbon;
 use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Services\DataTable;
 
@@ -21,6 +22,16 @@ class OrderDataTable extends DataTable
         $dataTable->editColumn('value', function ($model) {
 
             return $model->item->sum('value');
+        });
+
+        $dataTable->editColumn('user_id', function ($model) {
+
+            return $model->user->name;
+        });
+
+        $dataTable->editColumn('date', function ($model) {
+            // return $model->date;
+            return Carbon::createFromFormat('Y-m-d h:i:s', $model->date)->format('d/m/Y');
         });
 
         return $dataTable->addColumn('action', 'orders.datatables_actions');
@@ -89,10 +100,10 @@ class OrderDataTable extends DataTable
         return [
             'user_id' => ['title' => 'ชื่อผู้สั่ง', 'name' => 'user_id', 'data' => 'user_id'],
             'value' => ['title' => 'จำนวน', 'name' => 'value', 'data' => 'value'],
-            'date' => ['title' => 'วันที่', 'name' => 'date', 'data' => 'date'],
+            'date' => ['title' => 'วันที่สั่ง', 'name' => 'date', 'data' => 'date'],
             'price' => ['title' => 'ราคา', 'name' => 'price', 'data' => 'price'],
             'remark' => ['title' => 'หมายเหตุ', 'name' => 'remark', 'data' => 'remark'],
-            'order_status' => ['title' => 'สถานะสั่ง', 'name' => 'order_status', 'data' => 'order_status'],
+            'order_status' => ['title' => 'สถานะ', 'name' => 'order_status', 'data' => 'order_status'],
         ];
     }
 

@@ -35,7 +35,7 @@
                         <p>New Orders</p>
                     </div>
                     <div class="icon">
-                        <i class="ion ion-bag"></i>
+                        <i class="fas fa-asterisk"></i>
                     </div>
                     
                     </div>
@@ -50,7 +50,7 @@
                         <p>Bounce Rate</p>
                     </div>
                     <div class="icon">
-                        <i class="ion ion-stats-bars"></i>
+                            <i class="fas fa-atom"></i>
                     </div>
                     
                     </div>
@@ -65,7 +65,7 @@
                         <p>User Registrations</p>
                     </div>
                     <div class="icon">
-                        <i class="ion ion-person-add"></i>
+                            <i class="fas fa-boxes"></i>
                     </div>
                     
                     </div>
@@ -80,7 +80,7 @@
                         <p>Unique Visitors</p>
                     </div>
                     <div class="icon">
-                        <i class="ion ion-pie-graph"></i>
+                            <i class="fas fa-dolly"></i>
                     </div>
                     
                     </div>

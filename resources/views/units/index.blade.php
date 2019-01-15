@@ -15,7 +15,6 @@
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="#">หน้าหลัก</a></li>
                         <li class="breadcrumb-item"><a href="#">คลังสินค้า</a></li>
-                        <li class="breadcrumb-item"><a href="#">สินค้า</a></li>
                         <li class="breadcrumb-item active">หน่วยนับ</li>
                     </ol>
                 </div><!-- /.col -->

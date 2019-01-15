@@ -3,6 +3,7 @@
 namespace App\DataTables;
 
 use App\Models\Import;
+use Carbon\Carbon;
 use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Services\DataTable;
 
@@ -22,10 +23,10 @@ class ImportDataTable extends DataTable
 
         //     return $model->product->name;
         // });
-        // $dataTable->editColumn('user_id', function ($model) {
-
-        //     return $model->user->first_name . ' ' . $model->user->last_name;
-        // });
+        $dataTable->editColumn('date', function ($model) {
+            // return $model->date;
+            return Carbon::createFromFormat('Y-m-d h:i:s', $model->date)->format('d/m/Y');
+        });
 
         return $dataTable->addColumn('action', 'imports.datatables_actions');
     }

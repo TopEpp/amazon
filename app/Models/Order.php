@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Eloquent as Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
@@ -60,9 +61,15 @@ class Order extends Model
 
     ];
 
-    public function item()
+    public function user()
     {
 
+        return $this->belongsTo('App\Models\User');
+
+    }
+
+    public function item()
+    {
         return $this->hasMany('App\Models\OrderItem');
 
     }

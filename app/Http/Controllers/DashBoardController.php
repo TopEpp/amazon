@@ -78,17 +78,17 @@ class DashBoardController extends Controller
             ->datasets([
                 [
                     "label" => "",
-                    'backgroundColor' => ['rgba(255, 99, 132, 0.2)'],
+                    'backgroundColor' => ['#F09216'],
                     'data' => [69],
                 ],
                 [
                     "label" => "",
-                    'backgroundColor' => ['rgba(54, 162, 235, 0.2)'],
+                    'backgroundColor' => ['#F09216'],
                     'data' => [59],
                 ],
                 [
                     "label" => "",
-                    'backgroundColor' => ['rgba(100, 200, 50, 0.2)'],
+                    'backgroundColor' => ['#F09216'],
                     'data' => [22],
                 ],
             ])

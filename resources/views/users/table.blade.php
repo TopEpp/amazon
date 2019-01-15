@@ -9,7 +9,7 @@
     {!! $dataTable->scripts() !!}
     <script>
         $(function(){
-            $("div.table-create").html('<a class="btn btn-title-custom pull-right" style="margin-top: -10px;margin-bottom: 5px" href="{!! route('users.create') !!}">เพิ่มผู้ใช้งาน</a>');
+            $("div.table-create").html('<button class="btn btn-title-custom pull-right" style="margin-top: -10px;margin-bottom: 5px" onclick="location.href=\'{!! route('users.create') !!}\'">เพิ่มผู้ใช้งาน</button>');
         });
     </script>
 

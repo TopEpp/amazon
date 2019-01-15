@@ -40,9 +40,9 @@
     <script>
         $(function(){
             $("div.table-create").html('<button type="button"style="margin:5px 5px 5px 16px" class="btn btn-title-custom" data-toggle="modal" data-target="#stocks-create">เพิ่มคลังสินค้า</button>');
-            $("div.table-product").html('<a class="btn btn-title-custom pull-right" style="margin: 5px" href="{!! route('categories.index') !!}">ประเภทสินค้า</a>');
-            $("div.table-cate").html('<a class="btn btn-title-custom pull-right" style="margin: 5px" href="{!! route('products.index') !!}">สินค้า</a>');
-            $("div.table-unit").html('<a class="btn btn-title-custom pull-right" style="margin: 5px" href="{!! route('units.index') !!}">หน่วยนับ</a>');
+            $("div.table-product").html('<button class="btn btn-title-custom pull-right" style="margin: 5px" onclick="location.href=\'{!! route('categories.index') !!}\'">ประเภทสินค้า</button>');
+            $("div.table-cate").html('<button class="btn btn-title-custom pull-right" style="margin: 5px" onclick="location.href=\'{!! route('products.index') !!}\'">สินค้า</button>');
+            $("div.table-unit").html('<button class="btn btn-title-custom pull-right" style="margin: 5px" onclick="location.href=\'{!! route('units.index') !!}\'">หน่วยนับ</button>');
            
         });
     </script>

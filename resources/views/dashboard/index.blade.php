@@ -22,14 +22,21 @@
                     <div class="card">
 
                         <div class="card-body">
-                            <h4>การสั่งสินค้า</h4>
+                            <h5>การสั่งสินค้า</h5>
                             <ul class="nav nav-pills ml-auto p-2 float-right">
                                     <li class="nav-item">
-                                    <a class="nav-link active" href="#revenue-chart" data-toggle="tab">สัปดาห์</a>
+                                        <a class="nav-link" href="#sales-chart" data-toggle="tab">วันนี้</a>
                                     </li>
                                     <li class="nav-item">
-                                    <a class="nav-link" href="#sales-chart" data-toggle="tab">เดือน</a>
+                                        <a class="nav-link active" href="#revenue-chart" data-toggle="tab">สัปดาห์</a>
                                     </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="#sales-chart" data-toggle="tab">เดือน</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="#sales-chart" data-toggle="tab">ปี</a>
+                                    </li>
+                                   
                                 </ul>
                             <div class="tab-content p-0">
                                 
@@ -44,24 +51,23 @@
                 <div class="col-md-4">
                     <div class="card">
                         <div class="card-body">
-                            <p class="text-center">
-                                <strong>สินค้าคงเหลือ</strong>
-                            </p>
-                
+                          
+                            <h5>สินค้าคงเหลือน้อยที่สุด</h5>
+                            
                             <div class="progress-group">
                             1
-                            <span class="float-right"><b>160</b>/200</span>
+                            <span class="float-right"><b>50</b>/200</span>
                             <div class="progress progress-sm">
-                                <div class="progress-bar bg-primary" style="width: 80%"></div>
+                                <div class="progress-bar bg-warning" style="width: 8%"></div>
                             </div>
                             </div>
                             <!-- /.progress-group -->
         
                             <div class="progress-group">
                             2
-                            <span class="float-right"><b>310</b>/400</span>
+                            <span class="float-right"><b>200</b>/400</span>
                             <div class="progress progress-sm">
-                                <div class="progress-bar bg-danger" style="width: 75%"></div>
+                                <div class="progress-bar bg-warning" style="width: 10%"></div>
                             </div>
                             </div>
         
@@ -70,7 +76,7 @@
                             <span class="progress-text">3</span>
                             <span class="float-right"><b>480</b>/800</span>
                             <div class="progress progress-sm">
-                                <div class="progress-bar bg-success" style="width: 60%"></div>
+                                <div class="progress-bar bg-warning" style="width: 30%"></div>
                             </div>
                             </div>
         
@@ -79,10 +85,19 @@
                             4
                             <span class="float-right"><b>250</b>/500</span>
                             <div class="progress progress-sm">
-                                <div class="progress-bar bg-warning" style="width: 50%"></div>
+                                <div class="progress-bar bg-warning" style="width: 40%"></div>
                             </div>
                             </div>
                             <!-- /.progress-group -->
+                             <!-- /.progress-group -->
+                             <div class="progress-group">
+                                5
+                                <span class="float-right"><b>100</b>/400</span>
+                                <div class="progress progress-sm">
+                                    <div class="progress-bar bg-warning" style="width: 50%"></div>
+                                </div>
+                            </div>
+                                <!-- /.progress-group -->
                         </div>
                     </div>
                 </div>

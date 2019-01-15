@@ -105,7 +105,7 @@
                    
                });
     
-               $('input.val-product').blur(function() {
+               $('input.val-product').change(function() {
                     let sum = $(this).val() * $('#amout_'+$(this).data("id")).val();
                     $('#sum_show_'+$(this).data("id")).text(sum);
                     $('#sum_'+$(this).data("id")).val(sum);
