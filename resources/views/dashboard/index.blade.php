@@ -25,16 +25,16 @@
                             <h5>การสั่งสินค้า</h5>
                             <ul class="nav nav-pills ml-auto p-2 float-right">
                                     <li class="nav-item">
-                                        <a class="nav-link" href="#sales-chart" data-toggle="tab">วันนี้</a>
+                                        <a class="nav-link changedate {{ (app('request')->input('date') == 'today') ? 'active': '' }} " href="" data-date="today" data-toggle="tab">วันนี้</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link active" href="#revenue-chart" data-toggle="tab">สัปดาห์</a>
+                                        <a class="nav-link changedate {{ (app('request')->input('date') == 'week' || app('request')->input('date') == '') ? 'active': '' }} " href="" data-date="week" data-toggle="tab">สัปดาห์</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" href="#sales-chart" data-toggle="tab">เดือน</a>
+                                        <a class="nav-link changedate {{ (app('request')->input('date') == 'month') ? 'active': '' }} " href="" data-date="month" data-toggle="tab">เดือน</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" href="#sales-chart" data-toggle="tab">ปี</a>
+                                        <a class="nav-link changedate {{ (app('request')->input('date') == 'year') ? 'active': '' }} " href="" data-date="year" data-toggle="tab">ปี</a>
                                     </li>
                                    
                                 </ul>
@@ -203,6 +203,18 @@
 
 @section('scripts')
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.js"></script>
+<script type="text/javascript">
+    $(function(){
+        $('.changedate').click(function(){
+
+            var date = $(this).data('date');
+            
+            window.location.href = "{{url('/dashboard')}}?date="+date;
+        });
+    })
+
+    
+</script>
 @endsection
 
 

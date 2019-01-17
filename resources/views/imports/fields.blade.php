@@ -70,14 +70,14 @@
                                 </div>
                             </td>
                             <td>{!! $item->name !!}</td>
-                            <td class="text-left">
+                            <td class="text-right">
                                 <span class="badge bg-danger ">{!! $item->price !!}</span>
                                 <input type="hidden" id="amout_{!! $item->id !!}" value="{!! $item->price !!}">
                             </td>
                             <td>
-                                <input data-id="{!! $item->id !!}" id="val_{!! $item->id !!}" name="value[{!! $item->id !!}]" value="{!! (!empty($import->value[$item->id]->value) ? $import->value[$item->id]->value : '0'); !!}" class="form-control form-control-sm val-product" type="text" {!! (!empty($import->value[$item->id]->value) ? '' : 'disabled'); !!}>
+                                <input data-id="{!! $item->id !!}" id="val_{!! $item->id !!}" name="value[{!! $item->id !!}]" value="{!! (!empty($import->value[$item->id]->value) ? $import->value[$item->id]->value : '0'); !!}" class="form-control form-control-sm val-product text-right" type="text" {!! (!empty($import->value[$item->id]->value) ? '' : 'disabled'); !!}>
                             </td>
-                            <td class="text-left">
+                            <td class="text-right">
                                 <span class="badge bg-warning " id="sum_show_{!! $item->id !!}">{!! (!empty($import->value[$item->id]->value) ? $import->value[$item->id]->value *$item->price : '0'); !!}</span>
                                 <input type="hidden" class="sum_all" id="sum_{!! $item->id !!}" value="{!! (!empty($import->value[$item->id]->value) ? $import->value[$item->id]->value *$item->price : '0'); !!}">
                             </td>
@@ -122,7 +122,7 @@
                
            });
 
-           $('input.val-product').change(function() {
+           $('input.val-product').keyup(function () {
                 let sum = $(this).val() * $('#amout_'+$(this).data("id")).val();
                 $('#sum_show_'+$(this).data("id")).text(sum);
                 $('#sum_'+$(this).data("id")).val(sum);

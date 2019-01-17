@@ -2,7 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\getDataDashboard;
+use App\Events\getDataDashboardSale;
+use App\Events\SwitchDates;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Input;
 
 class DashBoardController extends Controller
 {
@@ -15,54 +20,54 @@ class DashBoardController extends Controller
 
     public function index()
     {
-        // // call event check dates type
-        // $date = event(new SwitchDates(Input::get('date')));
+        // call event check dates type
+        $date = event(new SwitchDates(Input::get('date')));
 
-        // // call event permission sale
-        // if (Auth::user()->permission == 3) {
-        //     $val = event(new getDataDashboardSale($date));
-        // } else {
-        //     $val = event(new getDataDashboard($date));
-        // }
+        // call event permission sale
+        if (Auth::user()->type == 3) {
+            $val = event(new getDataDashboardSale($date));
+        } else {
+            $val = event(new getDataDashboard($date));
+        }
 
-        // // convert data to chart
-        // $data = [];
-        // $label = [];
-        // // $data['label'] = 'จำนวน';
-        // $data['backgroundColor'] = 'rgb(216, 105, 65)';
-        // foreach ($val[0]['chart_data'] as $key => $value) {
-        //     $label[$key] = $value->month;
-        //     $data['data'][$key] = $value->total;
-        // }
+        // convert data to chart
+        $data = [];
+        $label = [];
+        // $data['label'] = 'จำนวน';
+        $data['backgroundColor'] = '#F09216';
+        foreach ($val[0]['chart_data'] as $key => $value) {
+            $label[$key] = $value->month;
+            $data['data'][$key] = $value->total;
+        }
 
-        // $chartjs = app()->chartjs
-        //     ->name('barChartDashboard')
-        //     ->type('bar')
-        //     ->size(['width' => 400, 'height' => 200])
-        //     ->labels($label)
-        //     ->datasets([$data])
-        //     ->options([
-        //         'legend' => [
-        //             'display' => false,
-        //         ],
-        //         'scales' => [
-        //             'xAxes' => [
-        //                 [
-        //                     'stacked' => true,
-        //                     'gridLines' => [
-        //                         'display' => false,
-        //                     ],
-        //                 ],
-        //             ],
-        //             'yAxes' => [
-        //                 [
-        //                     'ticks' => [
-        //                         'beginAtZero' => true,
-        //                     ],
-        //                 ],
-        //             ],
-        //         ],
-        //     ]);
+        $chartjs = app()->chartjs
+            ->name('barChartDashboard')
+            ->type('bar')
+            ->size(['width' => 400, 'height' => 200])
+            ->labels($label)
+            ->datasets([$data])
+            ->options([
+                'legend' => [
+                    'display' => false,
+                ],
+                'scales' => [
+                    'xAxes' => [
+                        [
+                            'stacked' => true,
+                            'gridLines' => [
+                                'display' => false,
+                            ],
+                        ],
+                    ],
+                    'yAxes' => [
+                        [
+                            'ticks' => [
+                                'beginAtZero' => true,
+                            ],
+                        ],
+                    ],
+                ],
+            ]);
 
         // return $orderDataTable->with(['date' => $date])
         //     ->render('dashboard.index', ['chartjs' => $chartjs,
@@ -70,32 +75,32 @@ class DashBoardController extends Controller
         //         'money' => $val[0]['money_all'],
         //         'dates' => $date]
         //     );
-        $chartjs = app()->chartjs
-            ->name('barChartTest')
-            ->type('bar')
-            ->size(['width' => 400, 'height' => 200])
+        // $chartjs = app()->chartjs
+        //     ->name('barChartTest')
+        //     ->type('bar')
+        //     ->size(['width' => 400, 'height' => 200])
 
-            ->datasets([
-                [
-                    "label" => "",
-                    'backgroundColor' => ['#F09216'],
-                    'data' => [69],
-                ],
-                [
-                    "label" => "",
-                    'backgroundColor' => ['#F09216'],
-                    'data' => [59],
-                ],
-                [
-                    "label" => "",
-                    'backgroundColor' => ['#F09216'],
-                    'data' => [22],
-                ],
-            ])
-            ->options(['legend' => [
-                'display' => false,
-            ],
-            ]);
+        //     ->datasets([
+        //         [
+        //             "label" => "",
+        //             'backgroundColor' => ['#F09216'],
+        //             'data' => [69],
+        //         ],
+        //         [
+        //             "label" => "",
+        //             'backgroundColor' => ['#F09216'],
+        //             'data' => [59],
+        //         ],
+        //         [
+        //             "label" => "",
+        //             'backgroundColor' => ['#F09216'],
+        //             'data' => [22],
+        //         ],
+        //     ])
+        //     ->options(['legend' => [
+        //         'display' => false,
+        //     ],
+        //     ]);
 
         return view('dashboard.index', compact('chartjs'));
     }

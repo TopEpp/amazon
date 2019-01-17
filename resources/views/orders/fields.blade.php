@@ -53,14 +53,14 @@
                                     </div>
                                 </td>
                                 <td>{!! $item->name !!}</td>
-                                <td class="text-left">
+                                <td class="text-right">
                                     <span class="badge bg-danger ">{!! $item->price !!}</span>
                                     <input type="hidden" id="amout_{!! $item->id !!}" value="{!! $item->price !!}">
                                 </td>
                                 <td>
-                                    <input data-id="{!! $item->id !!}" id="val_{!! $item->id !!}" name="value[{!! $item->id !!}]" value="{!! (!empty($order->value[$item->id]->value) ? $order->value[$item->id]->value : '0'); !!}" class="form-control form-control-sm val-product" type="text" {!! (!empty($order->value[$item->id]->value) ? '' : 'disabled'); !!}>
+                                    <input data-id="{!! $item->id !!}" id="val_{!! $item->id !!}" name="value[{!! $item->id !!}]" value="{!! (!empty($order->value[$item->id]->value) ? $order->value[$item->id]->value : '0'); !!}" class="form-control form-control-sm val-product text-right" type="text" {!! (!empty($order->value[$item->id]->value) ? '' : 'disabled'); !!}>
                                 </td>
-                                <td class="text-left">
+                                <td class="text-right">
                                     <span class="badge bg-warning " id="sum_show_{!! $item->id !!}">{!! (!empty($order->value[$item->id]->value) ? $order->value[$item->id]->value *$item->price : '0'); !!}</span>
                                     <input type="hidden" class="sum_all" id="sum_{!! $item->id !!}" value="{!! (!empty($order->value[$item->id]->value) ? $order->value[$item->id]->value *$item->price : '0'); !!}">
                                 </td>
@@ -94,24 +94,25 @@
        
         <script>
             $(function(){
-               $('.select_product').click(function(){
-               
+
+                $('.select_product').click(function(){
+            
                     if ($(this).is(':checked')){
                         $('#val_'+$(this).data("id")).prop("disabled", false);
                         // alert($(this).data("id"));
                     }else{
                         $('#val_'+$(this).data("id")).prop("disabled", true);
                     }
-                   
+
                });
     
-               $('input.val-product').change(function() {
+                $('input.val-product').keyup(function () {
                     let sum = $(this).val() * $('#amout_'+$(this).data("id")).val();
                     $('#sum_show_'+$(this).data("id")).text(sum);
                     $('#sum_'+$(this).data("id")).val(sum);
     
                     updateTotalProduct();
-                })
+                });
     
     
             });
