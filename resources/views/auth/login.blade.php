@@ -35,8 +35,8 @@
 
 <style>
     body{
-        background: url('img/mountain.png') no-repeat center center fixed;
-        background-size: cover;
+        /* background: url('img/mountain.png') no-repeat center center fixed;
+        background-size: cover; */
     }
     .modal-dialog {
     min-height: calc(100vh - 80px);

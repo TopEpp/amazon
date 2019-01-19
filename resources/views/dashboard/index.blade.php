@@ -22,7 +22,7 @@
                     <div class="card">
 
                         <div class="card-body">
-                            <h5>การสั่งสินค้า</h5>
+                            <h5>ยอดสั่งสินค้า</h5>
                             <ul class="nav nav-pills ml-auto p-2 float-right">
                                     <li class="nav-item">
                                         <a class="nav-link changedate {{ (app('request')->input('date') == 'today') ? 'active': '' }} " href="" data-date="today" data-toggle="tab">วันนี้</a>
@@ -49,6 +49,13 @@
                 </div>
                 <!-- /.col -->
                 <div class="col-md-4">
+                        <div class="card">
+                                <div class="description-block border-right">
+                                    
+                                    <h3 class="description-header text-success" style="font-size:24px">35,210 </h3>
+                                    <span class="description-text">จำนวนเงินทั้งหมด (บาท)</span>
+                                    </div>
+                            </div>
                     <div class="card">
                         <div class="card-body">
                           

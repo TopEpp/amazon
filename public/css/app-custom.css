@@ -73,3 +73,80 @@ a:hover{
 .nav-pills .nav-link:not(.active):hover{
     color:rgb(255, 193, 7);
 }
+
+
+/* step bar */
+.progressbar {
+    width: 100%;
+    margin: 20px auto;
+    /* padding-left: 100px; */
+    text-align: center;
+  }
+  .progressbar .circle,
+  .progressbar .bar {
+    display: inline-block;
+    /* background: #fff; */
+    /* width: 16%; */
+    height: auto;
+    /* border-radius: 50%; */
+    /* border: 1px solid #d5d5da; */
+    vertical-align:top;
+  }
+  .progressbar .bar {
+    position: relative;
+    width: 110px;
+    height: 6px;
+    margin: 0 -5px 17px -5px;
+    border-left: none;
+    border-right: none;
+    border-radius: 0;
+    top:25px;
+    vertical-align:top
+  }
+  .progressbar .circle .label {
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+    line-height: 50px;
+    border-radius: 50px;
+    margin-top: 3px;
+    color: #b5b5ba;
+    font-size: 17px;
+  }
+  .progressbar .circle .title {
+    color: #b5b5ba;
+    font-size: 13px;
+    line-height: 18px;
+    /* margin-left: 30px; */
+    text-align: center;
+    display: block;
+    width: 100px;
+    margin-top: 5px;
+  }
+  /* Done / Active */
+  
+  .progressbar .bar.done,
+  .progressbar .circle.done {
+    /* background: #eee; */
+  }
+  .progressbar .bar.active {
+    background: linear-gradient(to right, rgb(19, 194, 97) 40%, rgb(16, 214, 16) 60%);
+  }
+  .progressbar .circle.done .label {
+    color: #FFF;
+    background: #8bc435;
+    box-shadow: inset 0 0 2px rgba(0, 0, 0, .2);
+  }
+  .progressbar .circle.done .title {
+    color: #444;
+  }
+  .progressbar .circle.active .label {
+    color: #FFF;
+    background: #0c95be;
+    box-shadow: inset 0 0 2px rgba(0, 0, 0, .2);
+  }
+  .progressbar .circle.active .title {
+    color: #0c95be;
+  }
+  
+  

@@ -20,19 +20,17 @@ class OrderItem extends Model
     use SoftDeletes;
 
     public $table = 'order_items';
-    
+
     const CREATED_AT = 'created_at';
     const UPDATED_AT = 'updated_at';
 
-
     protected $dates = ['deleted_at'];
-
 
     public $fillable = [
         'order_id',
         'product_id',
         'stock_id',
-        'value'
+        'value',
     ];
 
     /**
@@ -45,7 +43,7 @@ class OrderItem extends Model
         'order_id' => 'integer',
         'product_id' => 'integer',
         'stock_id' => 'integer',
-        'value' => 'integer'
+        'value' => 'integer',
     ];
 
     /**
@@ -54,8 +52,13 @@ class OrderItem extends Model
      * @var array
      */
     public static $rules = [
-        
+
     ];
 
-    
+    public function product()
+    {
+        return $this->belongsTo('App\Models\Product');
+
+    }
+
 }

@@ -30,9 +30,9 @@
                     <!-- small box -->
                     <div class="small-box bg-info">
                     <div class="inner">
-                        <h3>150</h3>
+                        <h3>30</h3>
         
-                        <p>New Orders</p>
+                        <p>ออเดอร์ใหม่</p>
                     </div>
                     <div class="icon">
                         <i class="fas fa-asterisk"></i>
@@ -45,9 +45,9 @@
                     <!-- small box -->
                     <div class="small-box bg-success">
                     <div class="inner">
-                        <h3>53<sup style="font-size: 20px">%</sup></h3>
+                        <h3>2</h3>
         
-                        <p>Bounce Rate</p>
+                        <p>รับออเดอร์แล้ว</p>
                     </div>
                     <div class="icon">
                             <i class="fas fa-atom"></i>
@@ -62,7 +62,7 @@
                     <div class="inner">
                         <h3>44</h3>
         
-                        <p>User Registrations</p>
+                        <p>เปิดบิลกำลังจัดส่ง</p>
                     </div>
                     <div class="icon">
                             <i class="fas fa-boxes"></i>
@@ -77,7 +77,7 @@
                     <div class="inner">
                         <h3>65</h3>
         
-                        <p>Unique Visitors</p>
+                        <p>รับสินค้าเรียบร้อย</p>
                     </div>
                     <div class="icon">
                             <i class="fas fa-dolly"></i>

@@ -93,7 +93,7 @@ class OrderController extends AppBaseController
      */
     public function show($id)
     {
-        $order = $this->orderRepository->findWithoutFail($id);
+        $order = $this->orderRepository->with('item')->findWithoutFail($id);
 
         if (empty($order)) {
             Flash::error('Order not found');
