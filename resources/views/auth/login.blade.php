@@ -37,6 +37,7 @@
     body{
         /* background: url('img/mountain.png') no-repeat center center fixed;
         background-size: cover; */
+        background: #46A941;
     }
     .modal-dialog {
     min-height: calc(100vh - 80px);
@@ -56,7 +57,7 @@
         padding: 0;
     }
     .modal-content{
-        background-color: #434e5a;
+        background-color: #004B1B;
         opacity: .8;
         padding: 0 18px;
         border-radius: 10px;
@@ -87,7 +88,7 @@
         font-size: 22px;
         left: 28px;
         padding-top: 4px;
-        color:#555e60;
+        color:#202020;
     }
     .form-group:last-of-type::before{
         content: "\f023";
@@ -97,15 +98,16 @@
         margin: 5px 0 25px;
     }
     .btn-success{
-        background-color: #1c6288;
+        background-color: #FDB813;
         font-size: 19px;
         border-radius: 5px;
         padding: 7px 14px;
-        border: 1px solid #daf1ff;
+        border: 1px solid #FDB813;
+        color: #202020;
     }
     .btn-success:hover{
-        background-color: #13445e;
-        border: 1px solid #daf1ff;
+        background-color: #FDB813;
+        border: 1px solid #FDB813;
     }
 </style>
 {{-- <body class="hold-transition login-page">
@@ -171,7 +173,7 @@
         <div class="col-sm-9 main-section">
             <div class="modal-content">
                 <div class="col-12 user-img">
-                    <img src="/img/face.png" alt="logo">
+                    <img src="/img/logo.png" alt="logo" class="img-circle ">
                 </div>
                 <div class="col-12 form-input">
                     <form method="post" action="{{ url('/login') }}">
