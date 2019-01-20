@@ -14,6 +14,7 @@ class CreateImportsTable extends Migration
             $table->date('date');
             $table->double('price');
             $table->string('remark');
+            $table->string('number');
             $table->tinyInteger('import_status');
             $table->timestamps();
             $table->softDeletes();

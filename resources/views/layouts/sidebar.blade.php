@@ -1,9 +1,8 @@
   <!-- Main Sidebar Container -->
-<aside class="main-sidebar sidebar-light-warning elevation-2">
+<aside class="main-sidebar sidebar-light-warning elevation-2" style="background: #004B1B">
     <!-- Brand Logo -->
     <a href="#" class="brand-link">
-        <img src="/img/logo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
-            style="opacity: .8">
+        <img src="/img/logo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3">
         <span class="brand-text font-weight-light">ระบบจัดการคลังสินค้า</span>
     </a>
     {{-- <a href="#" class="brand-link">
@@ -22,15 +21,23 @@
                 <!-- Add the bg color to the header using any of the bg-* classes -->
                 <div class="widget-user-header bg-info-active">
                     <h5 class="widget-user-username">{!! Auth::user()->name !!}</h5>
-                    <h5 class="widget-user-desc">ผู้ดูแลระบบ</h5>
+                    <!-- <h5 class="widget-user-desc">ผู้ดูแลระบบ</h5> -->
                 </div>
                 <div class="widget-user-image">
                     <img class="img-circle elevation-2" src="{!! asset('uploads/users').'/'.Auth::user()->image !!}" alt="User Avatar">
                 </div>
                 <div class="card-footer card-info-footer">
+                        <div class="float-left">
+                            <a href="{!! url('/logout') !!}" class="d-inline-block text-left"
+                                onclick="">
+                                <i class="fas fa-user fa-lg"></i>
+                                แก้ไขข้อมูล 
+                            </a>
+                        </div>
                         <div class="float-right">
                             <a href="{!! url('/logout') !!}" class="d-inline-block text-left"
                                 onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                ออกจากระบบ
                                 <i class="fas fa-sign-out-alt fa-lg"></i>
                             </a>
                             <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
