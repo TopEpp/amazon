@@ -30,7 +30,7 @@
                     <!-- small box -->
                     <div class="small-box bg-info">
                     <div class="inner">
-                        <h3>30</h3>
+                        <h3>{!! $orders['new'] !!}</h3>
         
                         <p>ออเดอร์ใหม่</p>
                     </div>
@@ -45,9 +45,9 @@
                     <!-- small box -->
                     <div class="small-box bg-success">
                     <div class="inner">
-                        <h3>2</h3>
+                        <h3>{!! $orders['receive'] !!}</h3>
         
-                        <p>รับออเดอร์แล้ว</p>
+                        <p>ยืนยันออเดอร์</p>
                     </div>
                     <div class="icon">
                             <i class="fas fa-atom"></i>

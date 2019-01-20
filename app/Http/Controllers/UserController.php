@@ -115,9 +115,9 @@ class UserController extends AppBaseController
      */
     public function edit($id)
     {
-        if (!Gate::allows('isAdmin')) {
-            abort(404, 'sorry,You can do this actions');
-        }
+        // if (!Gate::allows('isAdmin')) {
+        //     abort(404, 'sorry,You can do this actions');
+        // }
 
         $user = $this->userRepository->findWithoutFail($id);
 
@@ -166,6 +166,10 @@ class UserController extends AppBaseController
         $user = $this->userRepository->update($input, $id);
 
         Flash::success('User updated successfully.');
+
+        if (!Gate::allows('isAdmin')) {
+            return redirect(route('orders.index'));
+        }
 
         return redirect(route('users.index'));
     }

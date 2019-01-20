@@ -1,19 +1,20 @@
 <div class="row">
-        <div class="col-md-6">
-            <!-- Date Field -->
-            <div class="form-group">
-                {!! Form::label('date', 'วันที่') !!}
-                {!! Form::date('date', null, ['class' => 'form-control']) !!}
-            </div>
-        </div>
-        <div class="col-md-6">
+      {{-- <div class="col-md-6">
             <!-- Import Status Field -->
             <div class="form-group">
                 {!! Form::label('order_status', 'สถานะสั่งสินค้า') !!}
                 {!! Form::select('order_status',['1'=>'ไม่ยืนยัน','0'=>'ยืนยัน'], null, ['class' => 'form-control']) !!}
             </div>
            
+        </div> --}}
+        <div class="col-md-6">
+            <!-- Date Field -->
+            <div class="form-group">
+                {!! Form::label('date', 'วันที่สั่งสินค้า') !!}
+                {!! Form::date('date', null, ['class' => 'form-control']) !!}
+            </div>
         </div>
+      
     </div>
     
     
@@ -40,36 +41,38 @@
                         <table class="table table-condensed">
                         <tbody>
                         <tr>
-                            <th style="width: 10px">#</th>
-                            <th style="width: 200px">รายการ</th>
-                            <th style="width: 40px">ราคา/ชิ้น</th>
-                            <th style="width: 100px">จำนวน</th>
-                            <th style="width: 40px">ราคารวม</th>
+                            <th style="width: 10%">#</th>
+                            <th style="width: 70%">รายการ</th>
+                            {{-- <th style="width: 40px">ราคา/ชิ้น</th> --}}
+                            <th style="width: 20%">จำนวน</th>
+                            {{-- <th style="width: 40px">ราคารวม</th> --}}
                         </tr>
                         @foreach ($product as $key => $item)
+                            <input type="hidden" id="amout_{!! $item->id !!}" value="{!! $item->price !!}">
+                            <input type="hidden" class="sum_all" id="sum_{!! $item->id !!}" value="{!! (!empty($order->value[$item->id]->value) ? $order->value[$item->id]->value *$item->price : '0'); !!}">
                             <tr>
                                 <td><div class="form-check">
                                     <input data-id="{!! $item->id !!}" class="form-check-input select_product" type="checkbox" {!! (!empty($order->value[$item->id]->value) ? 'checked' : ''); !!}>
                                     </div>
                                 </td>
                                 <td>{!! $item->name !!}</td>
-                                <td class="text-right">
+                                {{-- <td class="text-right">
                                     <span class="badge bg-danger ">{!! $item->price !!}</span>
-                                    <input type="hidden" id="amout_{!! $item->id !!}" value="{!! $item->price !!}">
-                                </td>
+                                   
+                                </td> --}}
                                 <td>
                                     <input data-id="{!! $item->id !!}" id="val_{!! $item->id !!}" name="value[{!! $item->id !!}]" value="{!! (!empty($order->value[$item->id]->value) ? $order->value[$item->id]->value : '0'); !!}" class="form-control form-control-sm val-product text-right" type="text" {!! (!empty($order->value[$item->id]->value) ? '' : 'disabled'); !!}>
                                 </td>
-                                <td class="text-right">
+                                {{-- <td class="text-right">
                                     <span class="badge bg-warning " id="sum_show_{!! $item->id !!}">{!! (!empty($order->value[$item->id]->value) ? $order->value[$item->id]->value *$item->price : '0'); !!}</span>
-                                    <input type="hidden" class="sum_all" id="sum_{!! $item->id !!}" value="{!! (!empty($order->value[$item->id]->value) ? $order->value[$item->id]->value *$item->price : '0'); !!}">
-                                </td>
+                                    
+                                </td> --}}
                             </tr>
                         @endforeach
                         <tr>
-                            <th colspan="3" class="label-warning text-right" >รวม</th>
+                            <th colspan="2" class="label-warning text-right" >รวม</th>
                             <td class="label-warning text-right val-total" >{!! (!empty($order->item) ? $order->item->sum('value') : '0'); !!}</td>
-                            <td class="label-warning text-right price-total">{!! (!empty($order->item) ? $order->price : '0'); !!}</td>
+                            {{-- <td class="label-warning text-right price-total">{!! (!empty($order->item) ? $order->price : '0'); !!}</td> --}}
                             <input type="hidden" name="price" value="{!! (!empty($order->item) ? $order->price : '0'); !!}">
                         </tr>
                     

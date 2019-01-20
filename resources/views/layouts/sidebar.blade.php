@@ -28,7 +28,7 @@
                 </div>
                 <div class="card-footer card-info-footer">
                         <div class="float-left">
-                            <a href="{!! url('/logout') !!}" class="d-inline-block text-left"
+                            <a href="{!! route('users.edit', Auth::user()->id); !!}" class="d-inline-block text-left"
                                 onclick="">
                                 <i class="fas fa-user fa-lg"></i>
                                 แก้ไขข้อมูล 

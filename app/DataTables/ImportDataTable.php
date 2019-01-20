@@ -19,10 +19,10 @@ class ImportDataTable extends DataTable
     {
         $dataTable = new EloquentDataTable($query);
 
-        // $dataTable->editColumn('product_id', function ($model) {
+        $dataTable->addColumn('value', function ($model) {
 
-        //     return $model->product->name;
-        // });
+            return $model->item->sum('value');
+        });
         $dataTable->editColumn('date', function ($model) {
             // return $model->date;
             return Carbon::createFromFormat('Y-m-d h:i:s', $model->date)->format('d/m/Y');
@@ -92,11 +92,11 @@ class ImportDataTable extends DataTable
     protected function getColumns()
     {
         return [
-
-            'date' => ['title' => 'วันที่', 'name' => 'date', 'data' => 'date'],
-            'price' => ['title' => 'ราคา', 'name' => 'price', 'data' => 'price'],
+            'number' => ['title' => 'หมายเลขอ้างอิง', 'name' => 'number', 'data' => 'number'],
+            'date' => ['title' => 'วันที่นำเข้า', 'name' => 'date', 'data' => 'date'],
+            'value' => ['title' => 'จำนวนสินค้า'],
             'remark' => ['title' => 'หมายเหตุ', 'name' => 'remark', 'data' => 'remark'],
-            'import_status' => ['title' => 'สถานะการนำเข้า', 'name' => 'import_status', 'data' => 'import_status'],
+
         ];
     }
 

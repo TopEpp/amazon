@@ -34,6 +34,18 @@ class OrderDataTable extends DataTable
             return Carbon::createFromFormat('Y-m-d h:i:s', $model->date)->format('d/m/Y');
         });
 
+        $dataTable->editColumn('order_status', function ($model) {
+            if ($model->order_status == 0) {
+                $status = '<span class="badge badge-info">ออเดอร์ใหม่</span>';
+            } else {
+                $status = '<span class="badge badge-success">ยืนยันออเดอร์</span>';
+            }
+
+            return $status;
+        })->toJson();
+
+        $dataTable->rawColumns(['order_status', 'action']);
+
         return $dataTable->addColumn('action', 'orders.datatables_actions');
     }
 
@@ -98,10 +110,11 @@ class OrderDataTable extends DataTable
     protected function getColumns()
     {
         return [
+            'id' => ['title' => 'เลขคำสั่ง', 'name' => 'id', 'data' => 'id'],
             'user_id' => ['title' => 'ชื่อผู้สั่ง', 'name' => 'user_id', 'data' => 'user_id'],
-            'value' => ['title' => 'จำนวน', 'name' => 'value', 'data' => 'value'],
+            'value' => ['title' => 'จำนวนสินค้า', 'name' => 'value', 'data' => 'value'],
             'date' => ['title' => 'วันที่สั่ง', 'name' => 'date', 'data' => 'date'],
-            'price' => ['title' => 'ราคา', 'name' => 'price', 'data' => 'price'],
+
             'remark' => ['title' => 'หมายเหตุ', 'name' => 'remark', 'data' => 'remark'],
             'order_status' => ['title' => 'สถานะ', 'name' => 'order_status', 'data' => 'order_status'],
         ];

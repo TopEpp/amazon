@@ -6,9 +6,11 @@ use App\DataTables\OrderDataTable;
 use App\Http\Controllers\AppBaseController;
 use App\Http\Requests\CreateOrderRequest;
 use App\Http\Requests\UpdateOrderRequest;
+use App\Models\Order;
 use App\Repositories\OrderItemRepository;
 use App\Repositories\OrderRepository;
 use App\Repositories\ProductRepository;
+use App\Repositories\StockRepository;
 use Flash;
 use Illuminate\Support\Facades\Auth;
 use Response;
@@ -19,12 +21,14 @@ class OrderController extends AppBaseController
     private $orderRepository;
     private $productRepository;
     private $orderItemRepository;
+    private $stockRepository;
 
-    public function __construct(OrderRepository $orderRepo, ProductRepository $productRepo, OrderItemRepository $orderItemRepo)
+    public function __construct(OrderRepository $orderRepo, ProductRepository $productRepo, OrderItemRepository $orderItemRepo, StockRepository $stockRepo)
     {
         $this->orderRepository = $orderRepo;
         $this->productRepository = $productRepo;
         $this->orderItemRepository = $orderItemRepo;
+        $this->stockRepository = $stockRepo;
     }
 
     /**
@@ -35,7 +39,10 @@ class OrderController extends AppBaseController
      */
     public function index(OrderDataTable $orderDataTable)
     {
-        return $orderDataTable->render('orders.index');
+        $order = array();
+        $order['new'] = Order::where('order_status', '0')->count();
+        $order['receive'] = Order::where('order_status', '1')->count();
+        return $orderDataTable->render('orders.index', ['orders' => $order]);
     }
 
     /**
@@ -60,6 +67,7 @@ class OrderController extends AppBaseController
     {
         $input = $request->except('value');
         $input['user_id'] = Auth::user()->id;
+        $input['order_status'] = 0;
 
         $order = $this->orderRepository->create($input);
 
@@ -75,6 +83,12 @@ class OrderController extends AppBaseController
                 $item_value['stock_id'] = $product->stock->id;
                 $item_value['value'] = $value;
                 $this->orderItemRepository->create($item_value);
+
+                //update value stock
+                $stock = $this->stockRepository->findWithoutFail($item_value['stock_id']);
+                $input_stock = array();
+                $input_stock['value'] = $stock->value - $item_value['value'];
+                $stock = $this->stockRepository->update($input_stock, $item_value['stock_id']);
             }
 
         }
@@ -124,7 +138,7 @@ class OrderController extends AppBaseController
         // get item
         $item = array();
         foreach ($order->item as $key => $value) {
-            $item[$value->id] = $value;
+            $item[$value->product_id] = $value;
         }
         $order->value = $item;
 
@@ -156,7 +170,7 @@ class OrderController extends AppBaseController
 
         $item = array();
         foreach ($order->item as $key => $value) {
-            $item[$value->id] = $value;
+            $item[$value->product_id] = $value;
         }
 
         $item_value = array();
@@ -170,8 +184,23 @@ class OrderController extends AppBaseController
                 $item_value['value'] = $value;
                 if (!empty($item[$key])) {
                     $this->orderItemRepository->update($item_value, $item[$key]->id);
+
+                    //update value stock
+                    $stock = $this->stockRepository->findWithoutFail($item_value['stock_id']);
+                    $input_stock = array();
+                    $value = $item_value['value'] - $item[$product->id]->value;
+
+                    $input_stock['value'] = abs($value - $stock->value);
+
+                    $stock = $this->stockRepository->update($input_stock, $item_value['stock_id']);
                 } else {
                     $this->orderItemRepository->create($item_value);
+
+                    //update value stock
+                    $stock = $this->stockRepository->findWithoutFail($item_value['stock_id']);
+                    $input_stock = array();
+                    $input_stock['value'] = $stock->value - $item_value['value'];
+                    $stock = $this->stockRepository->update($input_stock, $item_value['stock_id']);
                 }
 
             }

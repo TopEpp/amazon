@@ -9,8 +9,10 @@ use App\Http\Requests\UpdateImportRequest;
 use App\Repositories\ImportItemRepository;
 use App\Repositories\ImportRepository;
 use App\Repositories\ProductRepository;
+use App\Repositories\StockRepository;
 use Flash;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Response;
 
 class ImportController extends AppBaseController
@@ -19,12 +21,14 @@ class ImportController extends AppBaseController
     private $importRepository;
     private $productRepository;
     private $importItemRepository;
+    private $stockRepository;
 
-    public function __construct(ProductRepository $productRepo, ImportRepository $importRepo, ImportItemRepository $importItemRepo)
+    public function __construct(ProductRepository $productRepo, ImportRepository $importRepo, ImportItemRepository $importItemRepo, StockRepository $stockRepo)
     {
         $this->importRepository = $importRepo;
         $this->productRepository = $productRepo;
         $this->importItemRepository = $importItemRepo;
+        $this->stockRepository = $stockRepo;
     }
 
     /**
@@ -35,7 +39,18 @@ class ImportController extends AppBaseController
      */
     public function index(ImportDataTable $importDataTable)
     {
-        return $importDataTable->render('imports.index');
+
+        $import = DB::table('import_items')
+            ->select('categorys.name', DB::raw('SUM(import_items.value) as total'))
+            ->whereNull('imports.deleted_at')
+            ->join('imports', 'imports.id', '=', 'import_items.import_id')
+            ->join('products', 'products.id', '=', 'import_items.product_id')
+            ->join('categorys', 'categorys.id', '=', 'products.category_id')
+            ->groupBy('categorys.id')
+            ->get();
+
+        // dd($import);
+        return $importDataTable->render('imports.index', ['import' => $import]);
     }
 
     /**
@@ -61,6 +76,7 @@ class ImportController extends AppBaseController
         $input = $request->except('value');
 
         $input['user_id'] = Auth::user()->id;
+        $input['import_status'] = 1;
 
         $import = $this->importRepository->create($input);
 
@@ -76,6 +92,12 @@ class ImportController extends AppBaseController
                 $item_value['stock_id'] = $product->stock->id;
                 $item_value['value'] = $value;
                 $this->importItemRepository->create($item_value);
+
+                //update value stock
+                $stock = $this->stockRepository->findWithoutFail($item_value['stock_id']);
+                $input_stock = array();
+                $input_stock['value'] = $item_value['value'] + $stock->value;
+                $stock = $this->stockRepository->update($input_stock, $item_value['stock_id']);
             }
 
         }
@@ -125,10 +147,9 @@ class ImportController extends AppBaseController
         // get item
         $item = array();
         foreach ($import->item as $key => $value) {
-            $item[$value->id] = $value;
+            $item[$value->product_id] = $value;
         }
         $import->value = $item;
-
         return view('imports.edit')->with(['import' => $import, 'product' => $product]);
     }
 
@@ -158,7 +179,7 @@ class ImportController extends AppBaseController
 
         $item = array();
         foreach ($import->item as $key => $value) {
-            $item[$value->id] = $value;
+            $item[$value->product_id] = $value;
         }
 
         $item_value = array();
@@ -170,10 +191,25 @@ class ImportController extends AppBaseController
                 $item_value['product_id'] = $product->id;
                 $item_value['stock_id'] = $product->stock->id;
                 $item_value['value'] = $value;
-                if (!empty($item[$key])) {
-                    $this->importItemRepository->update($item_value, $item[$key]->id);
+                if (!empty($item[$product->id])) {
+                    $this->importItemRepository->update($item_value, $item[$product->id]->id);
+
+                    //update value stock
+                    $stock = $this->stockRepository->findWithoutFail($item_value['stock_id']);
+                    $input_stock = array();
+                    $value = $item_value['value'] - $item[$product->id]->value;
+
+                    $input_stock['value'] = $value + $stock->value;
+
+                    $stock = $this->stockRepository->update($input_stock, $item_value['stock_id']);
                 } else {
                     $this->importItemRepository->create($item_value);
+
+                    //update value stock
+                    $stock = $this->stockRepository->findWithoutFail($item_value['stock_id']);
+                    $input_stock = array();
+                    $input_stock['value'] = $item_value['value'] + $stock->value;
+                    $stock = $this->stockRepository->update($input_stock, $item_value['stock_id']);
                 }
 
             }

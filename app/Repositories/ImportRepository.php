@@ -13,7 +13,7 @@ use InfyOm\Generator\Common\BaseRepository;
  * @method Import findWithoutFail($id, $columns = ['*'])
  * @method Import find($id, $columns = ['*'])
  * @method Import first($columns = ['*'])
-*/
+ */
 class ImportRepository extends BaseRepository
 {
     /**
@@ -26,7 +26,8 @@ class ImportRepository extends BaseRepository
         'date',
         'price',
         'remark',
-        'import_status'
+        'number',
+        'import_status',
     ];
 
     /**

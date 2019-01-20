@@ -8,8 +8,10 @@ use App\Http\Requests\CreateProductRequest;
 use App\Http\Requests\UpdateProductRequest;
 use App\Repositories\CategoryRepository;
 use App\Repositories\ProductRepository;
+use App\Repositories\StockRepository;
 use App\Repositories\UnitsRepository;
 use Flash;
+use Illuminate\Support\Facades\Auth;
 use Response;
 
 class ProductController extends AppBaseController
@@ -18,12 +20,14 @@ class ProductController extends AppBaseController
     private $productRepository;
     private $categoryRepository;
     private $unitsRepository;
+    private $stockRepository;
 
-    public function __construct(ProductRepository $productRepo, CategoryRepository $categoryRepo, UnitsRepository $unitsRepo)
+    public function __construct(ProductRepository $productRepo, CategoryRepository $categoryRepo, UnitsRepository $unitsRepo, StockRepository $stockRepo)
     {
         $this->productRepository = $productRepo;
         $this->categoryRepository = $categoryRepo;
         $this->unitsRepository = $unitsRepo;
+        $this->stockRepository = $stockRepo;
     }
 
     /**
@@ -62,6 +66,14 @@ class ProductController extends AppBaseController
         $input = $request->all();
 
         $product = $this->productRepository->create($input);
+
+        $stock_input = array();
+        $stock_input['product_id'] = $product->id;
+        $stock_input['categoty_id'] = $input['category_id'];
+        $stock_input['user_id'] = Auth::user()->id;
+        $stock_input['value'] = 0;
+
+        $stock = $this->stockRepository->create($stock_input);
 
         Flash::success('Product saved successfully.');
 

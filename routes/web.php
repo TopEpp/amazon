@@ -37,10 +37,10 @@ Route::group(['middleware' => ['auth']], function () {
 
         Route::resource('importItems', 'ImportItemController');
 
-        Route::resource('orders', 'OrderController');
-        Route::resource('orderItems', 'OrderItemController');
-
     });
+    Route::resource('orders', 'OrderController');
+    Route::resource('orderItems', 'OrderItemController');
+    Route::resource('users', 'UserController');
     // Route::middleware('can:isStaff,can:isStaff')->group(function () {
     //     Route::resource('orders', 'OrderController');
     //     Route::resource('orderItems', 'OrderItemController');

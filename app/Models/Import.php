@@ -34,6 +34,7 @@ class Import extends Model
         'date',
         'price',
         'remark',
+        'number',
         'import_status',
     ];
 
@@ -47,6 +48,7 @@ class Import extends Model
         'date' => 'date',
         'price' => 'float',
         'remark' => 'string',
+        'number' => 'string',
         'import_status' => 'integer',
     ];
 
