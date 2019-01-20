@@ -1,4 +1,7 @@
 /* build style custom  all page */
+.brand-text{
+  color: #FDB813;
+}
 
 /* background all style */
 .bg-custom{
@@ -33,9 +36,20 @@ table.table-custom thead{
 
 /* nav bar custom */
 .sidebar-light-warning .nav-sidebar > .nav-item > .nav-link.active{
-    color: rgb(245, 195, 43);
-    background-color: #256139;
+    /*color: rgb(245, 195, 43);*/
+    background-color: #46A941;
+    color: #202020;
 }
+
+.sidebar-light-warning .nav-sidebar > .nav-item .nav-link:hover{
+  background-color: #00914E;
+  color: #202020;
+}
+
+.sidebar-light-warning .sidebar a{
+  color: #FDB813;
+}
+
 .widget-user .widget-user-username{
     margin-top: 0;
     margin-bottom: 5px;
@@ -44,13 +58,23 @@ table.table-custom thead{
     text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
 }
 
+.widget-user-username{
+  color: #FDB813;
+}
+
 /* card custom style */
 .card-custom:not(.card-outline) .card-header{
     background-color: #597A21;
     border-bottom: 0;
 }
 .card-info-footer{
-    background-color: #597A21;
+    font-size: 0.85em;
+    background-color: #46A941;
+
+}
+
+.card-info-footer a{
+  color: #202020 !important;
 }
 
 /* a style custom/ */
@@ -73,6 +97,8 @@ a:hover{
 .nav-pills .nav-link:not(.active):hover{
     color:rgb(255, 193, 7);
 }
+
+
 
 
 /* step bar */
