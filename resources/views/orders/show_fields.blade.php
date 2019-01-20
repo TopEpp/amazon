@@ -7,17 +7,9 @@
                 
                 </div> <span class="bar active"></span>
                 
-                <div class="circle done"> <span class="label">2</span>
+                <div class="circle "> <span class="label">2</span>
                     <span class="title">รับออเดอร์แล้ว</span>
                 
-                </div> <span class="bar active"></span>
-                
-                <div class="circle active"> <span class="label">3</span>
-                    <span class="title">เปิดบิลกำลังจัดส่ง</span>
-                </div><span class="bar"></span>
-                
-                <div class="circle"> <span class="label">4</span>
-                    <span class="title">รับสินค้าเรียบร้อย</span>
                 </div>
             </div>
     </div>

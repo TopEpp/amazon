@@ -28,6 +28,11 @@ class ProductDataTable extends DataTable
             return $model->unit->name;
         });
 
+        $dataTable->addColumn('value', function ($model) {
+            return (!empty( $model->stock->value)) ?$model->stock->value:'0';
+        });
+        
+
         return $dataTable->addColumn('action', 'products.datatables_actions');
     }
 
@@ -54,7 +59,7 @@ class ProductDataTable extends DataTable
             ->minifiedAjax()
             ->addAction(['width' => '120px', 'title' => ''])
             ->parameters([
-                'dom' => "<'row'<'table-create '>'<'col align-self-end'f>>t<'row'<'col-sm-12 col-md-5'><'col-sm-12 col-md-7'p>>",
+                'dom' => "<'row'<'table-product'><'table-unit'><'table-cate'><'col align-self-end'f>>t<'row'<'col-sm-12 col-md-5'><'col-sm-12 col-md-7'p>>",
                 'order' => [[0, 'desc']],
                 "bSort" => false,
                 'buttons' => [
@@ -92,9 +97,9 @@ class ProductDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            'category_id' => ['title' => 'ประเภทสินค้า', 'name' => 'category_id', 'data' => 'category_id'],
             'name' => ['title' => 'ชื่อสินค้า', 'name' => 'name', 'data' => 'name'],
-            'price' => ['title' => 'ราคา', 'name' => 'price', 'data' => 'price'],
+            'category_id' => ['title' => 'ประเภทสินค้า', 'name' => 'category_id', 'data' => 'category_id'],
+            'value' => ['title' => 'จำนวน'],
             'unit_id' => ['title' => 'หน่วยนับ', 'name' => 'unit_id', 'data' => 'unit_id'],
         ];
     }

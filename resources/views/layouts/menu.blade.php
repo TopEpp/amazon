@@ -19,7 +19,7 @@
 </li>
 
 <li class="nav-item ">
-    <a class="nav-link {{ (Request::is('stocks*') || Request::is('categories*') || Request::is('products*') || Request::is('units*')  ) ? 'active' : '' }}" href="{!! route('stocks.index') !!}"><i class="fas fa-store"></i> <span>คลังสินค้า</span></a>
+    <a class="nav-link {{ (Request::is('stocks*') || Request::is('categories*') || Request::is('products*') || Request::is('units*')  ) ? 'active' : '' }}" href="{!! route('stocks.index') !!}"><i class="fas fa-store"></i> <span>ตั้งค่า</span></a>
 </li>
 
 

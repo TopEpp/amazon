@@ -103,7 +103,7 @@
                                 <div class="form-group ">
                                     {!! Form::label('type', 'สิทธิการใช้งาน',['class'=>'control-label ']) !!}
                                    
-                                    {!! Form::select('type',['1'=>'Admin','2'=>'Manager','3'=>'Sale'] ,null, ['class' => 'form-control']) !!}
+                                    {!! Form::select('type',['1'=>'Admin','2'=>'staff'] ,null, ['class' => 'form-control']) !!}
                                    
                                 </div>
                             </div>

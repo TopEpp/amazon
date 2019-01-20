@@ -22,6 +22,10 @@ class UserDataTable extends DataTable
             return ($user->status == 1) ? 'ใช้งานปกติ' : 'ระงับการใช้งาน';
         })->toJson();
 
+        $dataTable->editColumn('type', function ($user) {
+            return ($user->type == 1) ? 'ผู้ดูแลระบบ' : 'ผู้ใช้ทั่วไป';
+        })->toJson();
+
         return $dataTable->addColumn('action', 'users.datatables_actions');
     }
 

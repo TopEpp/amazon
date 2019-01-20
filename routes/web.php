@@ -12,30 +12,39 @@
  */
 Auth::routes();
 
-Route::get('/', 'DashBoardController@index')->name('dashboard');
-Route::get('/dashboard', 'DashBoardController@index');
+Route::group(['middleware' => ['auth']], function () {
+    Route::middleware('can:isAdmin')->group(function () {
 
-Route::resource('home', 'HomeController');
+        Route::get('/', 'DashBoardController@index')->name('dashboard');
+        Route::get('/dashboard', 'DashBoardController@index');
 
-Route::resource('products', 'ProductController');
+        // Route::resource('home', 'HomeController');
 
-Route::resource('categories', 'CategoryController');
+        Route::resource('products', 'ProductController');
 
-Route::resource('units', 'UnitController');
+        Route::resource('categories', 'CategoryController');
 
-Route::resource('stocks', 'StockController');
+        Route::resource('units', 'UnitController');
 
-Route::resource('imports', 'ImportController');
+        Route::resource('stocks', 'StockController');
 
-Route::resource('orders', 'OrderController');
+        Route::resource('imports', 'ImportController');
+        Route::resource('users', 'UserController');
 
-Route::resource('users', 'UserController');
+        Route::resource('units', 'UnitsController');
 
-Route::resource('units', 'UnitsController');
+        Route::resource('users', 'UserController');
 
-Route::resource('users', 'UserController');
+        Route::resource('importItems', 'ImportItemController');
 
+        Route::resource('orders', 'OrderController');
+        Route::resource('orderItems', 'OrderItemController');
 
-Route::resource('importItems', 'ImportItemController');
+    });
+    // Route::middleware('can:isStaff,can:isStaff')->group(function () {
+    //     Route::resource('orders', 'OrderController');
+    //     Route::resource('orderItems', 'OrderItemController');
+    //     // future adminpanel routes also should belong to the group
+    // });
 
-Route::resource('orderItems', 'OrderItemController');
+});

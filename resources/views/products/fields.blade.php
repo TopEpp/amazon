@@ -25,5 +25,5 @@
 <!-- Submit Field -->
 <div class="form-group col-sm-12">
     {!! Form::submit('บันทึก', ['class' => 'btn btn-submit-custom']) !!}
-    <a href="{!! route('products.index') !!}" class="btn btn-default">ยกเลิก</a>
+    <a href="{!! route('stocks.index') !!}" class="btn btn-default">ยกเลิก</a>
 </div>

@@ -65,7 +65,7 @@ class ProductController extends AppBaseController
 
         Flash::success('Product saved successfully.');
 
-        return redirect(route('products.index'));
+        return redirect(route('stocks.index'));
     }
 
     /**
@@ -104,7 +104,7 @@ class ProductController extends AppBaseController
         if (empty($product)) {
             Flash::error('Product not found');
 
-            return redirect(route('products.index'));
+            return redirect(route('stocks.index'));
         }
 
         return view('products.edit')->with(['product' => $product, 'category' => $categorys, 'unit' => $units]);
@@ -125,14 +125,14 @@ class ProductController extends AppBaseController
         if (empty($product)) {
             Flash::error('Product not found');
 
-            return redirect(route('products.index'));
+            return redirect(route('stocks.index'));
         }
 
         $product = $this->productRepository->update($request->all(), $id);
 
         Flash::success('Product updated successfully.');
 
-        return redirect(route('products.index'));
+        return redirect(route('stocks.index'));
     }
 
     /**
@@ -149,13 +149,13 @@ class ProductController extends AppBaseController
         if (empty($product)) {
             Flash::error('Product not found');
 
-            return redirect(route('products.index'));
+            return redirect(route('stocks.index'));
         }
 
         $this->productRepository->delete($id);
 
         Flash::success('Product deleted successfully.');
 
-        return redirect(route('products.index'));
+        return redirect(route('stocks.index'));
     }
 }

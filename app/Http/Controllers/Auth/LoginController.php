@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use Gate;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 
@@ -44,6 +45,15 @@ class LoginController extends Controller
             $this->username() => 'required|string',
             'password' => 'required|string',
         ]);
+    }
+
+    protected function authenticated(Request $request, $user)
+    {
+        if (!Gate::allows('isAdmin')) {
+            return redirect()->route('orders.index');
+        }
+
+        return redirect('/');
     }
 
     public function username()

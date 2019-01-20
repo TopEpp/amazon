@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\DataTables\StockDataTable;
+use App\DataTables\ProductDataTable;
 use App\Http\Controllers\AppBaseController;
 use App\Http\Requests\CreateStockRequest;
 use App\Http\Requests\UpdateStockRequest;
 use App\Repositories\CategoryRepository;
 use App\Repositories\ProductRepository;
 use App\Repositories\StockRepository;
+use App\Repositories\UnitsRepository;
 use Flash;
 use Illuminate\Support\Facades\Auth;
 use Response;
@@ -19,25 +20,28 @@ class StockController extends AppBaseController
     private $stockRepository;
     private $productRepository;
     private $categoryRepository;
+    private $unitsRepository;
 
-    public function __construct(StockRepository $stockRepo, ProductRepository $productRepo, CategoryRepository $categoryRepo)
+    public function __construct(StockRepository $stockRepo, ProductRepository $productRepo, CategoryRepository $categoryRepo, UnitsRepository $unitsRepo)
     {
         $this->stockRepository = $stockRepo;
         $this->productRepository = $productRepo;
         $this->categoryRepository = $categoryRepo;
+        $this->unitsRepository = $unitsRepo;
     }
 
     /**
      * Display a listing of the Stock.
      *
-     * @param StockDataTable $stockDataTable
+     * @param ProductDataTable $ProductDataTable
      * @return Response
      */
-    public function index(StockDataTable $stockDataTable)
+    public function index(ProductDataTable $ProductDataTable)
     {
         $categorys = $this->categoryRepository->pluck('name', 'id');
         $product = $this->productRepository->pluck('name', 'id');
-        return $stockDataTable->render('stocks.index', ['category' => $categorys, 'product' => $product]);
+        $units = $this->unitsRepository->pluck('name', 'id');
+        return $ProductDataTable->render('stocks.index', ['category' => $categorys, 'product' => $product, 'unit' => $units]);
     }
 
     /**
@@ -106,6 +110,7 @@ class StockController extends AppBaseController
 
         $categorys = $this->categoryRepository->pluck('name', 'id');
         $product = $this->productRepository->pluck('name', 'id');
+        $units = $this->unitsRepository->pluck('name', 'id');
 
         if (empty($stock)) {
             Flash::error('Stock not found');
@@ -113,7 +118,7 @@ class StockController extends AppBaseController
             return redirect(route('stocks.index'));
         }
 
-        return view('stocks.edit')->with(['stock' => $stock, 'category' => $categorys, 'product' => $product]);
+        return view('stocks.edit')->with(['stock' => $stock, 'category' => $categorys, 'product' => $product,'unit' => $units]);
     }
 
     /**
