@@ -52,7 +52,7 @@
                         <div class="card">
                                 <div class="description-block border-right">
                                     
-                                    <h3 class="description-header text-success" style="font-size:24px">35,210 </h3>
+                                    <h3 class="description-header text-success" style="font-size:24px">{!! $value_all->total !!} </h3>
                                     <span class="description-text">จำนวนเงินทั้งหมด (บาท)</span>
                                     </div>
                             </div>
@@ -60,51 +60,18 @@
                         <div class="card-body">
                           
                             <h5>สินค้าคงเหลือน้อยที่สุด</h5>
-                            
-                            <div class="progress-group">
-                            1
-                            <span class="float-right"><b>50</b>/200</span>
-                            <div class="progress progress-sm">
-                                <div class="progress-bar bg-warning" style="width: 8%"></div>
-                            </div>
-                            </div>
-                            <!-- /.progress-group -->
-        
-                            <div class="progress-group">
-                            2
-                            <span class="float-right"><b>200</b>/400</span>
-                            <div class="progress progress-sm">
-                                <div class="progress-bar bg-warning" style="width: 10%"></div>
-                            </div>
-                            </div>
-        
-                            <!-- /.progress-group -->
-                            <div class="progress-group">
-                            <span class="progress-text">3</span>
-                            <span class="float-right"><b>480</b>/800</span>
-                            <div class="progress progress-sm">
-                                <div class="progress-bar bg-warning" style="width: 30%"></div>
-                            </div>
-                            </div>
-        
-                            <!-- /.progress-group -->
-                            <div class="progress-group">
-                            4
-                            <span class="float-right"><b>250</b>/500</span>
-                            <div class="progress progress-sm">
-                                <div class="progress-bar bg-warning" style="width: 40%"></div>
-                            </div>
-                            </div>
-                            <!-- /.progress-group -->
-                             <!-- /.progress-group -->
-                             <div class="progress-group">
-                                5
-                                <span class="float-right"><b>100</b>/400</span>
-                                <div class="progress progress-sm">
-                                    <div class="progress-bar bg-warning" style="width: 50%"></div>
+                            @foreach ($products as $item)
+                                <div class="progress-group">
+                                    {!! $item->name !!}
+                                    <span class="float-right"><b>{!! $item->value !!}</b> {!! $item->unit !!}</span>
+                                    <div class="progress progress-sm">
+                                        <div class="progress-bar bg-warning" style="width: {!! $item->value * 100/100 !!}%"></div>
+                                    </div>
                                 </div>
-                            </div>
-                                <!-- /.progress-group -->
+                       
+                            @endforeach
+                                 
+                            <!-- /.progress-group -->
                         </div>
                     </div>
                 </div>

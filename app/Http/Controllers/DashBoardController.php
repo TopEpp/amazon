@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Events\getDataDashboard;
 use App\Events\getDataDashboardSale;
 use App\Events\SwitchDates;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Input;
@@ -36,7 +37,7 @@ class DashBoardController extends Controller
         // $data['label'] = 'จำนวน';
         $data['backgroundColor'] = '#F09216';
         foreach ($val[0]['chart_data'] as $key => $value) {
-            $label[$key] = $value->month;
+            $label[$key] = Carbon::createFromFormat('Y-m-d h:i:s', $value->month)->format('d/m/Y');
             $data['data'][$key] = $value->total;
         }
 
@@ -102,6 +103,10 @@ class DashBoardController extends Controller
         //     ],
         //     ]);
 
-        return view('dashboard.index', compact('chartjs'));
+        return view('dashboard.index', ['chartjs' => $chartjs,
+            'products' => $val[0]['orders_products'],
+            'value_all' => $val[0]['value_all'],
+        ]
+        );
     }
 }
