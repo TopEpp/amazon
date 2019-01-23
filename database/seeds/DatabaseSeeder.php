@@ -352,5 +352,19 @@ class DatabaseSeeder extends Seeder
             'unit_id' => '12',
         ]]);
 
+        $this->addStock();
+
+    }
+
+    function addStock(){
+        $product = DB::table('products')->get();
+        foreach ($product as $key => $value) {
+            DB::table('stocks')->insert([
+            'product_id' => $value->id,
+            'categoty_id' => $value->category_id,
+            'value' => '0',
+            'user_id' => '1'
+        ]);
+        }
     }
 }
