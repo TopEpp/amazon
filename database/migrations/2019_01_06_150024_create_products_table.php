@@ -13,6 +13,7 @@ class CreateProductsTable extends Migration
             $table->integer('category_id')->unsigned();
             $table->string('name');
             $table->double('price');
+            $table->string('code');
             $table->integer('unit_id')->unsigned();
             $table->timestamps();
             $table->softDeletes();
