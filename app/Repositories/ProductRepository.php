@@ -13,7 +13,7 @@ use InfyOm\Generator\Common\BaseRepository;
  * @method Product findWithoutFail($id, $columns = ['*'])
  * @method Product find($id, $columns = ['*'])
  * @method Product first($columns = ['*'])
-*/
+ */
 class ProductRepository extends BaseRepository
 {
     /**
@@ -22,8 +22,9 @@ class ProductRepository extends BaseRepository
     protected $fieldSearchable = [
         'category_id',
         'name',
+        'code',
         'price',
-        'unit_id'
+        'unit_id',
     ];
 
     /**

@@ -94,8 +94,17 @@ a:hover{
     color: rgb(255, 255, 255);
     background-color: #256139;
 }
+
+.nav-pills .nav-link.actives, .nav-pills .show > .nav-link{
+  color: rgb(0, 0, 0) !important;
+  background-color: #61a176;
+}
 .nav-pills .nav-link:not(.active):hover{
     color:rgb(255, 193, 7);
+}
+
+.sidebar-light-warning .nav-treeview > .nav-item > .nav-link{
+  color:rgb(255, 193, 7);
 }
 
 

@@ -51,6 +51,7 @@
             <div class="col-lg-12">
                 
                 @include('imports.table')
+                <br/>
             </div>
         </div>
 

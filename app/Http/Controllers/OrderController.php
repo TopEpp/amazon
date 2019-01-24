@@ -13,6 +13,7 @@ use App\Repositories\ProductRepository;
 use App\Repositories\StockRepository;
 use Flash;
 use Illuminate\Support\Facades\Auth;
+use PDF;
 use Response;
 
 class OrderController extends AppBaseController
@@ -234,5 +235,23 @@ class OrderController extends AppBaseController
         Flash::success('Order deleted successfully.');
 
         return redirect(route('orders.index'));
+    }
+
+    public function generatePdf($id)
+    {
+        $data = [];
+        $order = $this->orderRepository->findWithoutFail($id);
+        $data['order'] = $order;
+        $pdf = PDF::loadView('orderPdf', $data);
+
+        if ($pdf) {
+            $input = [];
+            $input['order_status'] = 1;
+            $order = $this->orderRepository->update($input, $order->id);
+        }
+
+        $pdf->setPaper('A4', 'portrait');
+        return $pdf->stream('orderPdf.pdf', array('Attachment' => 2));
+        // return $pdf->download('hdtuto.pdf');
     }
 }

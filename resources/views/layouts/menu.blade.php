@@ -34,8 +34,43 @@
 <li class="nav-item ">
     <a class="nav-link {{ Request::is('units*') ? 'active' : '' }}" href="{!! route('units.index') !!}"><i class="fa fa-edit"></i><span>หน่วยนับ</span></a>
 </li> --}}
-<li class="nav-item ">
+{{-- <li class="nav-item ">
     <a class="nav-link {{ Request::is('report*') ? 'active' : '' }}" href="#"><i class="fas fa-chart-bar"></i> <span>รายงาน</span></a>
+</li> --}}
+<li class="nav-item has-treeview {{ Request::is('report*') ? 'menu-open' : '' }} ">
+    <a href="#" class="nav-link  {{ Request::is('report*') ? 'active' : '' }}">
+        <i class="fas fa-chart-bar"></i>
+      <p>
+        รายงาน
+        <i class="right fa fa-angle-left"></i>
+      </p>
+    </a>
+    <ul class="nav nav-treeview">
+      <li class="nav-item">
+        <a href="/report_order" class="nav-link {{ Request::is('report_order') ? 'actives' : '' }}">
+         
+          <p>รายงานการสั่งสินค้า</p>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a href="/report_import" class="nav-link {{ Request::is('report_import') ? 'actives' : '' }}">
+         
+          <p>รายงานการนำเข้าสินค้า</p>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a href="/report_stock" class="nav-link {{ Request::is('report_stock') ? 'actives' : '' }}">
+         
+          <p>รายงานสรุปจำนวนสินค้าในคลัง</p>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a href="/report_stock_order" class="nav-link {{ Request::is('report_stock_order') ? 'actives' : '' }}">
+         
+          <p>รายงานสรุปจำนวนสินค้าที่ใช้</p>
+        </a>
+      </li>
+    </ul>
 </li> 
 
 

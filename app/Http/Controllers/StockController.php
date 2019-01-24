@@ -41,6 +41,7 @@ class StockController extends AppBaseController
         $categorys = $this->categoryRepository->pluck('name', 'id');
         $product = $this->productRepository->pluck('name', 'id');
         $units = $this->unitsRepository->pluck('name', 'id');
+
         return $ProductDataTable->render('stocks.index', ['category' => $categorys, 'product' => $product, 'unit' => $units]);
     }
 
@@ -51,7 +52,8 @@ class StockController extends AppBaseController
      */
     public function create()
     {
-        return view('stocks.create');
+        $product = [];
+        return view('stocks.create')->with('product', $product);
     }
 
     /**
@@ -118,7 +120,7 @@ class StockController extends AppBaseController
             return redirect(route('stocks.index'));
         }
 
-        return view('stocks.edit')->with(['stock' => $stock, 'category' => $categorys, 'product' => $product,'unit' => $units]);
+        return view('stocks.edit')->with(['stock' => $stock, 'category' => $categorys, 'product' => $product, 'unit' => $units]);
     }
 
     /**

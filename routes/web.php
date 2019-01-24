@@ -47,4 +47,11 @@ Route::group(['middleware' => ['auth']], function () {
     //     // future adminpanel routes also should belong to the group
     // });
 
+    Route::get('pdf_order/{id}', 'OrderController@generatePdf');
+
+    Route::get('/report_order', 'ReportController@reportOrder');
+    Route::get('/report_import', 'ReportController@reportImport');
+    Route::get('/report_stock', 'ReportController@reportStock');
+    Route::get('/report_stock_order', 'ReportController@reportStockOrder');
+
 });

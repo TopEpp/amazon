@@ -27,6 +27,7 @@ class UserRepository extends BaseRepository
         'phone',
         'address',
         'address_stock',
+        'site_code',
         'status',
         'type',
         'remember_token',

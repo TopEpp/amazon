@@ -29,6 +29,7 @@ class Product extends Model
     public $fillable = [
         'category_id',
         'name',
+        'code',
         'price',
         'unit_id',
     ];
@@ -42,6 +43,7 @@ class Product extends Model
         'id' => 'integer',
         'category_id' => 'integer',
         'name' => 'string',
+        'code' => 'string',
         'price' => 'float',
         'unit_id' => 'integer',
     ];

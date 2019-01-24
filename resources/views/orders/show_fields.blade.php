@@ -8,7 +8,7 @@
                 </div> <span class="bar active"></span>
                 
                 <div class="circle "> <span class="label">2</span>
-                    <span class="title">รับออเดอร์แล้ว</span>
+                    <span class="title">ยืนยันออเดอร์</span>
                 
                 </div>
             </div>
@@ -19,8 +19,8 @@
     <div class="row">
         <div class="col-12">
             <h4>
-            <i class="fa fa-globe"></i> เลขคำสั่ง:{!! $order->id !!}
-            <small class="float-right">วันที่: {!! $order->date !!}</small>
+            <i class="fa fa-globe"></i> เลขใบสั่ง:{!! $order->id !!}
+            <small class="float-right">วันที่: {!! Carbon\Carbon::createFromFormat('Y-m-d h:i:s', $order->date)->format('d/m/Y') !!}</small>
             </h4>
         </div>
         <!-- /.col -->
@@ -29,7 +29,7 @@
         <div class="col-sm-3 col-6">
             <div class="description-block border-right">
                 {{-- <span class="description-percentage text-warning">&nbsp;</span> --}}
-            <h5 class="description-header">{!! $order->date !!}</h5>
+            <h5 class="description-header">{!! Carbon\Carbon::createFromFormat('Y-m-d h:i:s', $order->date)->format('d/m/Y') !!}</h5>
             <span class="description-text">วันที่สั่ง</span>
             </div>
             <!-- /.description-block -->
@@ -112,81 +112,8 @@
 
     <div class="row no-print">
         <div class="col-12">
-            <a href="invoice-print.html" target="_blank" class="btn btn-default"><i class="fa fa-print"></i> Print</a>
-            {{-- <button type="button" class="btn btn-success float-right"><i class="fa fa-credit-card"></i> Submit
-            Payment
-            </button>
-            <button type="button" class="btn btn-primary float-right" style="margin-right: 5px;">
-            <i class="fa fa-download"></i> Generate PDF
-            </button> --}}
+            <a href="{!! url('pdf_order').'/'.$order->id !!}" target="_blank" class="btn btn-custom"><i class="fa fa-print"></i> Print</a>
+
         </div>
     </div>
 </div>
-
-{{-- 
-<!-- Id Field -->
-<div class="form-group">
-    {!! Form::label('id', 'Id:') !!}
-    <p>{!! $order->id !!}</p>
-</div>
-
-<!-- User Id Field -->
-<div class="form-group">
-    {!! Form::label('user_id', 'User Id:') !!}
-    <p>{!! $order->user_id !!}</p>
-</div>
-
-<!-- Product Id Field -->
-<div class="form-group">
-    {!! Form::label('product_id', 'Product Id:') !!}
-    <p>{!! $order->product_id !!}</p>
-</div>
-
-<!-- Value Field -->
-<div class="form-group">
-    {!! Form::label('value', 'Value:') !!}
-    <p>{!! $order->value !!}</p>
-</div>
-
-<!-- Date Field -->
-<div class="form-group">
-    {!! Form::label('date', 'Date:') !!}
-    <p>{!! $order->date !!}</p>
-</div>
-
-<!-- Price Field -->
-<div class="form-group">
-    {!! Form::label('price', 'Price:') !!}
-    <p>{!! $order->price !!}</p>
-</div>
-
-<!-- Remark Field -->
-<div class="form-group">
-    {!! Form::label('remark', 'Remark:') !!}
-    <p>{!! $order->remark !!}</p>
-</div>
-
-<!-- Order Status Field -->
-<div class="form-group">
-    {!! Form::label('order_status', 'Order Status:') !!}
-    <p>{!! $order->order_status !!}</p>
-</div>
-
-<!-- Created At Field -->
-<div class="form-group">
-    {!! Form::label('created_at', 'Created At:') !!}
-    <p>{!! $order->created_at !!}</p>
-</div>
-
-<!-- Updated At Field -->
-<div class="form-group">
-    {!! Form::label('updated_at', 'Updated At:') !!}
-    <p>{!! $order->updated_at !!}</p>
-</div>
-
-<!-- Deleted At Field -->
-<div class="form-group">
-    {!! Form::label('deleted_at', 'Deleted At:') !!}
-    <p>{!! $order->deleted_at !!}</p>
-</div> --}}
-

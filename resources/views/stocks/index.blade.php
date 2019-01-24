@@ -25,15 +25,17 @@
 
     <!-- Main content -->
     <section class="content">
-        
+        <div class="container-fluid">
             <div class="clearfix"></div>
             @include('flash::message')
             <div class="row">
                 <div class="col-lg-12">
                     @include('stocks.table')
+                    <br/>
                 </div>
             </div>
-
+        </div>
+        
     </section>
     <!-- /.content -->
 

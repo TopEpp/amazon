@@ -40,7 +40,6 @@ class ProductController extends AppBaseController
     {
         $categorys = $this->categoryRepository->pluck('name', 'id');
         $units = $this->unitsRepository->pluck('name', 'id');
-
         return $productDataTable->render('products.index', ['category' => $categorys, 'unit' => $units]);
     }
 
@@ -51,7 +50,8 @@ class ProductController extends AppBaseController
      */
     public function create()
     {
-        return view('products.create');
+        $product = [];
+        return view('products.create')->with('product', $product);
     }
 
     /**
@@ -140,7 +140,26 @@ class ProductController extends AppBaseController
             return redirect(route('stocks.index'));
         }
 
-        $product = $this->productRepository->update($request->all(), $id);
+        $input = $request->except('stock_id');
+        $product = $this->productRepository->update($input, $id);
+
+        if (empty($request->stock_id)) {
+            $stock_input = array();
+            $stock_input['product_id'] = $product->id;
+            $stock_input['categoty_id'] = $input['category_id'];
+            $stock_input['user_id'] = Auth::user()->id;
+            $stock_input['value'] = 0;
+
+            $stock = $this->stockRepository->create($stock_input);
+        } else {
+            $stock_input = array();
+            $stock_input['product_id'] = $product->id;
+            $stock_input['categoty_id'] = $input['category_id'];
+            $stock_input['user_id'] = Auth::user()->id;
+            $stock_input['value'] = 0;
+
+            $stock = $this->stockRepository->update($stock_input, $request->stock_id);
+        }
 
         Flash::success('Product updated successfully.');
 

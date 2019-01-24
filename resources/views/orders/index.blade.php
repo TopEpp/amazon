@@ -66,6 +66,7 @@
             <div class="col-lg-12">
                 
                 @include('orders.table')
+                <br/>
             </div>
         </div>
 

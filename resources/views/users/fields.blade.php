@@ -38,10 +38,17 @@
                 <div class="card-body">
                     <div class="tab-content">
                         <div class="row">
-                            <div class="col-md-12">
+                            <div class="col-md-6">
                                 <!-- First Name Field -->
                                 <div class="form-group">
-                                    {!! Form::label('name', 'ชื่อ') !!}
+                                    {!! Form::label('site_code', 'รหัสสาขา') !!}
+                                    {!! Form::text('site_code', null, ['class' => 'form-control']) !!}
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <!-- First Name Field -->
+                                <div class="form-group">
+                                    {!! Form::label('name', 'ชื่อสาขา') !!}
                                     {!! Form::text('name', null, ['class' => 'form-control']) !!}
                                 </div>
                             </div>
