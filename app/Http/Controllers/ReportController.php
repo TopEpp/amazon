@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\DataTables\ReportOrderDataTable;
 use Illuminate\Http\Request;
 
 class ReportController extends Controller
@@ -13,9 +14,9 @@ class ReportController extends Controller
 
     }
 
-    public function reportOrder()
+    public function reportOrder(ReportOrderDataTable $ReportOrderDataTable)
     {
-        return view('reports.report_order');
+        return $ReportOrderDataTable->render('reports.report_order');
     }
 
     public function reportImport()

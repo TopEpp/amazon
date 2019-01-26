@@ -4,10 +4,11 @@ namespace App\DataTables;
 
 use App\Models\Order;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Services\DataTable;
 
-class OrderDataTable extends DataTable
+class ReportOrderDataTable extends DataTable
 {
     /**
      * Build DataTable class.
@@ -24,45 +25,37 @@ class OrderDataTable extends DataTable
             $query->whereRaw("DATE_FORMAT(date,'%d/%m/%Y') like ?", ["%$keyword%"]);
         });
 
-        $dataTable->editColumn('value', function ($model) {
-
-            return $model->item->sum('value');
-        });
-
-        $dataTable->editColumn('user_id', function ($model) {
-
-            return $model->user->name;
-        });
-
         $dataTable->editColumn('date', function ($model) {
             // return $model->date;
             return Carbon::createFromFormat('Y-m-d h:i:s', $model->date)->format('d/m/Y');
         });
+        // $dataTable->editColumn('value', function ($model) {
 
-        $dataTable->editColumn('order_status', function ($model) {
-            if ($model->order_status == 0) {
-                $status = '<span class="badge badge-info">ออเดอร์ใหม่</span>';
-            } else {
-                $status = '<span class="badge badge-success">ยืนยันออเดอร์</span>';
-            }
+        //     return $model->item->sum('value');
+        // });
 
-            return $status;
-        })->toJson();
+        // $dataTable->editColumn('user_id', function ($model) {
 
-        $dataTable->rawColumns(['order_status', 'action']);
+        //     return $model->user->name;
+        // });
 
-        return $dataTable->addColumn('action', 'orders.datatables_actions');
+        return $dataTable;
     }
 
     /**
      * Get query source of dataTable.
      *
-     * @param \App\Models\Order $model
+     * @param \App\Models\Units $model
      * @return \Illuminate\Database\Eloquent\Builder
      */
     public function query(Order $model)
     {
-        return $model->newQuery();
+        $query = $model
+            ->join('users', 'users.id', '=', 'orders.user_id')
+            ->join('order_items', 'order_items.order_id', '=', 'orders.id')
+            ->select('users.name', 'orders.id', 'orders.date', DB::raw('sum(order_items.value) as value'));
+
+        return $query;
     }
 
     /**
@@ -75,10 +68,11 @@ class OrderDataTable extends DataTable
         return $this->builder()
             ->columns($this->getColumns())
             ->minifiedAjax()
-            ->addAction(['width' => '120px', 'title' => ''])
+        // ->addAction(['width' => '120px', 'title' => ''])
             ->parameters([
-                'dom' => "<'row'<'table-create '>'<'col align-self-end'f>>t<'row'<'col-sm-12 col-md-5'><'col-sm-12 col-md-7'p>>",
+                'dom' => "<'row'<'col-sm-6 table-create'><'col-sm-6'>>t<'row'<'col-sm-12 col-md-5'><'col-sm-12 col-md-7'p>>",
                 'order' => [[0, 'desc']],
+                'pageLength' => 50,
                 "bSort" => false,
                 'buttons' => [
 
@@ -115,13 +109,10 @@ class OrderDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            'id' => ['title' => 'เลขคำสั่ง', 'name' => 'id', 'data' => 'id'],
-            'user_id' => ['title' => 'ชื่อผู้สั่ง', 'name' => 'user_id', 'data' => 'user_id'],
-            'value' => ['title' => 'จำนวนสินค้า', 'name' => 'value', 'data' => 'value'],
-            'date' => ['title' => 'วันที่สั่ง', 'name' => 'date', 'data' => 'date'],
-            'order_status' => ['title' => 'สถานะ', 'name' => 'order_status', 'data' => 'order_status'],
-            'remark' => ['title' => 'หมายเหตุ', 'name' => 'remark', 'data' => 'remark'],
-
+            'id' => ['title' => 'เลขคำสั่ง', 'name' => 'orders.id', 'data' => 'id'],
+            'name' => ['title' => 'ชื่อผู้สั่ง', 'name' => 'users.name', 'data' => 'name'],
+            'date' => ['title' => 'วันที่สั่ง', 'name' => 'orders.date', 'data' => 'date'],
+            'value' => ['title' => 'จำนวนสินค้า', 'name' => 'order_items.value', 'data' => 'value'],
         ];
     }
 
@@ -132,6 +123,6 @@ class OrderDataTable extends DataTable
      */
     protected function filename()
     {
-        return 'ordersdatatable_' . time();
+        return 'unitsdatatable_' . time();
     }
 }

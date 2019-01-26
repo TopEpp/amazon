@@ -26,6 +26,11 @@ class UserDataTable extends DataTable
             return ($user->type == 1) ? 'ผู้ดูแลระบบ' : 'ผู้ใช้ทั่วไป';
         })->toJson();
 
+        //search
+        // $dataTable->filterColumn('status', function ($query, $keyword) {
+        //     return '21';
+        // });
+
         return $dataTable->addColumn('action', 'users.datatables_actions');
     }
 
