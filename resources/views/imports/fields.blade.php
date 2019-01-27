@@ -43,14 +43,15 @@
                     <table class="table table-condensed">
                     <tbody>
                     <tr>
-                        <th style="width: 10%">#</th>
-                        <th style="width: 70%">รายการ</th>
-                        {{-- <th style="width: 40px">ราคา/ชิ้น</th> --}}
+                        <th style="width: 5%">#</th>
+                        <th style="width: 50%">รายการ</th>
+                        <th style="width: 20%">ราคา</th>
                         <th style="width: 20%">จำนวน</th>
+                        <th style="width: 5%">หน่วยนับ</th>
                         {{-- <th style="width: 40px">ราคารวม</th> --}}
                     </tr>
                     @foreach ($product as $key => $item)
-                    <input type="hidden" id="amout_{!! $item->id !!}" value="{!! $item->price !!}">
+                    <!-- <input type="hidden" id="amout_{!! $item->id !!}" value="{!! $item->price !!}"> -->
                     <input type="hidden" class="sum_all" id="sum_{!! $item->id !!}" value="{!! (!empty($import->value[$item->id]->value) ? $import->value[$item->id]->value *$item->price : '0'); !!}">
                         <tr>
                             <td><div class="form-check">
@@ -58,12 +59,16 @@
                                 </div>
                             </td>
                             <td>{!! $item->name !!}</td>
-                            {{-- <td class="text-right"> --}}
-                                {{-- <span class="badge bg-danger ">{!! $item->price !!}</span> --}}
+                            <td class="text-right">
+                                <!-- <span class="badge bg-danger ">{!! $item->price !!}</span> -->
+                                <input data-id="{!! $item->id !!}" id="price_{!! $item->id !!}" name="price[{!! $item->id !!}]" value="{!! $item->price !!}" class="form-control form-control-sm val-product text-right" type="text" >
                                
-                            {{-- </td> --}}
+                            </td>
                             <td>
                                 <input data-id="{!! $item->id !!}" id="val_{!! $item->id !!}" name="value[{!! $item->id !!}]" value="{!! (!empty($import->value[$item->id]->value) ? $import->value[$item->id]->value : '0'); !!}" class="form-control form-control-sm val-product text-right" type="text" {!! (!empty($import->value[$item->id]->value) ? '' : 'disabled'); !!}>
+                            </td>
+                            <td>
+                                
                             </td>
                             {{-- <td class="text-right"> --}}
                                 {{-- <span class="badge bg-warning " id="sum_show_{!! $item->id !!}">{!! (!empty($import->value[$item->id]->value) ? $import->value[$item->id]->value *$item->price : '0'); !!}</span> --}}

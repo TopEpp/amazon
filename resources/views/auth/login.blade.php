@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Amazon Stocks</title>
+    <title>MCstock</title>
 
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
@@ -166,7 +166,7 @@
     <!-- /.login-box-body -->
 </div> --}}
 
-ิ<body>
+<body>
 
 
     <div class="modal-dialog modal-dialog-centered text-center">
@@ -176,6 +176,7 @@
                     <img src="/img/logo.png" alt="logo" class="img-circle ">
                 </div>
                 <div class="col-12 form-input">
+                    
                     <form method="post" action="{{ url('/login') }}">
                         {!! csrf_field() !!}
             
