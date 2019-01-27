@@ -166,7 +166,7 @@
     <!-- /.login-box-body -->
 </div> --}}
 
-ิ<body>
+<body>
 
 
     <div class="modal-dialog modal-dialog-centered text-center">
