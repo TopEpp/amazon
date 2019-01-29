@@ -1,5 +1,7 @@
 @extends('layouts.master')
-
+@section('css')
+    @include('layouts.datatables_css')
+@endsection
 @section('content')
 
     <!-- Content Header (Page header) -->
@@ -29,14 +31,24 @@
             @include('flash::message')
             <div class="row">
                 <div class="col-lg-12">
-                    
-                   asd
+                    {!! $dataTable->table(['width' => '100%','class'=>'table table-custom ']) !!}
+                    <br/>
                 </div>
             </div>
         </div>
     </section>
     <!-- /.content -->
 
+@endsection
+
+@section('scripts')
+    @include('layouts.datatables_js')
+    {!! $dataTable->scripts() !!}
+    <script>
+        // $(function(){
+        //     $("div.table-create").html('<button type="button" class="btn btn-title-custom" data-toggle="modal" data-target="#category-create">เพิ่มหน่วยนับ</button>');
+        // });
+    </script>
 @endsection
 
 

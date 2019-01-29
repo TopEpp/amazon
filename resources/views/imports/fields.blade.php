@@ -68,7 +68,7 @@
                                 <input data-id="{!! $item->id !!}" id="val_{!! $item->id !!}" name="value[{!! $item->id !!}]" value="{!! (!empty($import->value[$item->id]->value) ? $import->value[$item->id]->value : '0'); !!}" class="form-control form-control-sm val-product text-right" type="text" {!! (!empty($import->value[$item->id]->value) ? '' : 'disabled'); !!}>
                             </td>
                             <td>
-                                
+                                {!! $item->unit->name !!}
                             </td>
                             {{-- <td class="text-right"> --}}
                                 {{-- <span class="badge bg-warning " id="sum_show_{!! $item->id !!}">{!! (!empty($import->value[$item->id]->value) ? $import->value[$item->id]->value *$item->price : '0'); !!}</span> --}}
@@ -78,7 +78,9 @@
                     @endforeach
                     <tr>
                         <th colspan="2" class="label-warning text-right" >รวม</th>
+                        <td class="label-warning text-right val-total" ></td>
                         <td class="label-warning text-right val-total" >{!! (!empty($import->item) ? $import->item->sum('value') : '0'); !!}</td>
+                        <td class="label-warning text-right val-total" ></td>
                         {{-- <td class="label-warning text-right price-total">{!! (!empty($import->item) ? $import->price : '0'); !!}</td> --}}
                         <input type="hidden" name="price" value="{!! (!empty($import->item) ? $import->price : '0'); !!}">
                     </tr>

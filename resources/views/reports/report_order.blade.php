@@ -34,6 +34,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     {!! $dataTable->table(['width' => '100%','class'=>'table table-custom ']) !!}
+                    <br/>
                 </div>
             </div>
         </div>

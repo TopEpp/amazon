@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\DataTables\ReportImportDataTable;
 use App\DataTables\ReportOrderDataTable;
+use App\DataTables\ReportStockDataTable;
+use App\DataTables\ReportStockOrderDataTable;
 use Illuminate\Http\Request;
 
 class ReportController extends Controller
@@ -19,18 +22,21 @@ class ReportController extends Controller
         return $ReportOrderDataTable->render('reports.report_order');
     }
 
-    public function reportImport()
+    public function reportImport(ReportImportDataTable $ReportImportDataTable)
     {
-        return view('reports.report_import');
+        return $ReportImportDataTable->render('reports.report_import');
+
     }
 
-    public function reportStock()
+    public function reportStock(ReportStockDataTable $ReportStockDataTable)
     {
-        return view('reports.report_stock');
+        return $ReportStockDataTable->render('reports.report_stock');
+
     }
 
-    public function reportStockOrder()
+    public function reportStockOrder(ReportStockOrderDataTable $ReportStockOrderDataTable)
     {
-        return view('reports.report_stock_order');
+        return $ReportStockOrderDataTable->render('reports.report_stock_order');
+
     }
 }
