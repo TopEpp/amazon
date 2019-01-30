@@ -10,6 +10,9 @@ use Yajra\DataTables\Services\DataTable;
 
 class ReportOrderDataTable extends DataTable
 {
+
+    protected $printPreview = 'orders.report_order';
+
     /**
      * Build DataTable class.
      *
@@ -70,13 +73,16 @@ class ReportOrderDataTable extends DataTable
             ->minifiedAjax()
         // ->addAction(['width' => '120px', 'title' => ''])
             ->parameters([
-                'dom' => "<'row'<'col-sm-6 table-create'><'col-sm-6'>>t<'row'<'col-sm-12 col-md-5'><'col-sm-12 col-md-7'p>>",
+                'dom' => "<B>t<'row'<'col-sm-12 col-md-5'><'col-sm-12 col-md-7'p>>",
                 'order' => [[0, 'desc']],
+                'buttons' => [
+                    ['extend' => 'export', 'className' => 'btn btn-default btn-sm no-corner'],
+                    ['extend' => 'print', 'className' => 'btn btn-default btn-sm no-corner'],
+                    ['extend' => 'reset', 'className' => 'btn btn-default btn-sm no-corner'],
+                ],
                 'pageLength' => 50,
                 "bSort" => false,
-                'buttons' => [
-
-                ],
+                // 'buttons' => ['postExcel', 'postCsv', 'postPdf'],
                 "oLanguage" => [
                     "oPaginate" => [
                         "sFirst" => '<i class="fas fa-angle-double-left"></i>',

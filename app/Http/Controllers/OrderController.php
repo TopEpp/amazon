@@ -249,9 +249,11 @@ class OrderController extends AppBaseController
             $input['order_status'] = 1;
             $order = $this->orderRepository->update($input, $order->id);
         }
-
         $pdf->setPaper('A4', 'portrait');
-        return $pdf->stream('orderPdf.pdf', array('Attachment' => 2));
+        return $pdf->stream('invoice.pdf');
+
+        // $pdf->setPaper('A4', 'portrait');
+        // return $pdf->stream('orderPdf.pdf', array('Attachment' => 2));
         // return $pdf->download('hdtuto.pdf');
     }
 }
