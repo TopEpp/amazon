@@ -2,12 +2,12 @@
 <div class="row mb-3">
     <div class="col-12 ">
             <div class="progressbar">
-                <div class="circle done"> <span class="label">1</span>
+                <div class="circle {!! ($order->order_status == 0)? 'done' :'' !!}"> <span class="label">1</span>
                     <span class="title">ออเดอร์ใหม่</span>
                 
                 </div> <span class="bar active"></span>
                 
-                <div class="circle "> <span class="label">2</span>
+                <div class="circle {!! ($order->order_status == 1)? 'done' :'' !!}"> <span class="label">2</span>
                     <span class="title">ยืนยันออเดอร์</span>
                 
                 </div>

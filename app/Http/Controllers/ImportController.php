@@ -73,20 +73,24 @@ class ImportController extends AppBaseController
      */
     public function store(CreateImportRequest $request)
     {
-        $input = $request->except('value');
-
+        $input = $request->except('value', 'price_product');
         $input['user_id'] = Auth::user()->id;
         $input['import_status'] = 1;
 
         $import = $this->importRepository->create($input);
 
         $import_item = $request->value;
+        $product_item = $request->price_product;
+
         $item_value = array();
+        $item_product = array();
         if ($import) {
 
             foreach ($import_item as $key => $value) {
-                // get product
-                $product = $this->productRepository->findWithoutFail($key);
+                // update product
+                $item_product['price'] = $product_item[$key];
+                $product = $this->productRepository->update($item_product, $key);
+
                 $item_value['import_id'] = $import->id;
                 $item_value['product_id'] = $product->id;
                 $item_value['stock_id'] = $product->stock->id;
@@ -171,9 +175,10 @@ class ImportController extends AppBaseController
             return redirect(route('imports.index'));
         }
 
-        $input = $request->except('value');
+        $input = $request->except('value', 'price_product');
 
         $import_item = $request->value;
+        $product_item = $request->price_product;
 
         $import = $this->importRepository->update($input, $id);
 
@@ -183,10 +188,14 @@ class ImportController extends AppBaseController
         }
 
         $item_value = array();
+        $item_product = array();
+
         if ($import) {
             foreach ($import_item as $key => $value) {
-                // get product
-                $product = $this->productRepository->findWithoutFail($key);
+                // update product
+                $item_product['price'] = $product_item[$key];
+                $product = $this->productRepository->update($item_product, $key);
+
                 $item_value['import_id'] = $import->id;
                 $item_value['product_id'] = $product->id;
                 $item_value['stock_id'] = $product->stock->id;

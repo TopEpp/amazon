@@ -56,7 +56,8 @@ class ReportOrderDataTable extends DataTable
         $query = $model
             ->join('users', 'users.id', '=', 'orders.user_id')
             ->join('order_items', 'order_items.order_id', '=', 'orders.id')
-            ->select('users.name', 'orders.id', 'orders.date', DB::raw('sum(order_items.value) as value'));
+            ->select('users.name', 'orders.id', 'orders.date', DB::raw('sum(order_items.value) as value'))
+            ->groupby('orders.id');
 
         return $query;
     }

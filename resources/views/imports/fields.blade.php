@@ -43,11 +43,11 @@
                     <table class="table table-condensed">
                     <tbody>
                     <tr>
-                        <th style="width: 5%">#</th>
-                        <th style="width: 50%">รายการ</th>
-                        <th style="width: 20%">ราคา</th>
-                        <th style="width: 20%">จำนวน</th>
-                        <th style="width: 5%">หน่วยนับ</th>
+                        <th class="text-center" style="width: 5%">#</th>
+                        <th class="text-center" style="width: 45%">รายการ</th>
+                        <th class="text-center" style="width: 20%">ราคา</th>
+                        <th class="text-center" style="width: 20%">จำนวน</th>
+                        <th class="text-center" style="width: 10%">หน่วยนับ</th>
                         {{-- <th style="width: 40px">ราคารวม</th> --}}
                     </tr>
                     @foreach ($product as $key => $item)
@@ -61,13 +61,13 @@
                             <td>{!! $item->name !!}</td>
                             <td class="text-right">
                                 <!-- <span class="badge bg-danger ">{!! $item->price !!}</span> -->
-                                <input data-id="{!! $item->id !!}" id="price_{!! $item->id !!}" name="price[{!! $item->id !!}]" value="{!! $item->price !!}" class="form-control form-control-sm val-product text-right" type="text" >
+                                <input data-id="{!! $item->id !!}" id="price_{!! $item->id !!}" name="price_product[{!! $item->id !!}]" value="{!! $item->price !!}" class="form-control form-control-sm val-product text-right" type="text" {!! (!empty($import->value[$item->id]->value) ? '' : 'disabled'); !!} >
                                
                             </td>
                             <td>
                                 <input data-id="{!! $item->id !!}" id="val_{!! $item->id !!}" name="value[{!! $item->id !!}]" value="{!! (!empty($import->value[$item->id]->value) ? $import->value[$item->id]->value : '0'); !!}" class="form-control form-control-sm val-product text-right" type="text" {!! (!empty($import->value[$item->id]->value) ? '' : 'disabled'); !!}>
                             </td>
-                            <td>
+                            <td class="text-center">
                                 {!! $item->unit->name !!}
                             </td>
                             {{-- <td class="text-right"> --}}
@@ -110,9 +110,11 @@
            
                 if ($(this).is(':checked')){
                     $('#val_'+$(this).data("id")).prop("disabled", false);
+                    $('#price_'+$(this).data("id")).prop("disabled", false);
                     // alert($(this).data("id"));
                 }else{
                     $('#val_'+$(this).data("id")).prop("disabled", true);
+                    $('#price_'+$(this).data("id")).prop("disabled", true);
                 }
                
            });

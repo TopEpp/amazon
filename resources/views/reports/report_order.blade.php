@@ -48,8 +48,19 @@
     @include('layouts.datatables_js')
     {!! $dataTable->scripts() !!}
     <script>
-        // $(function(){
-        //     $("div.table-create").html('<button type="button" class="btn btn-title-custom" data-toggle="modal" data-target="#category-create">เพิ่มหน่วยนับ</button>');
-        // });
+      
+            // DataTable.ext.buttons.print = {
+            //     className: 'buttons-print',
+
+            //     text: function (dt) {
+            //         return  '<i class="fa fa-print"></i> ' + dt.i18n('buttons.print', 'Print');
+            //     },
+
+            //     action: function (e, dt, button, config) {
+            //         var url = _buildUrl(dt, 'print');
+            //         window.location = url;
+            //     }
+            // };
+    
     </script>
 @endsection

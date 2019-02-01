@@ -56,10 +56,10 @@ class getOrderData
                 DB::raw("sum(order_items.value) as total")
             )
             ->whereBetween("orders.date", $event->date)
-            ->groupBy('month')
+        // ->groupBy('month')
             ->groupBy('order_items.order_id')
             ->get();
-
+        // dd($event->date);
         $data['value_all'] = $value_all;
         $data['orders_products'] = $orders_products;
         $data['chart_data'] = $chart_data;

@@ -8,6 +8,7 @@ use Yajra\DataTables\Services\DataTable;
 
 class ReportStockDataTable extends DataTable
 {
+    protected $printPreview = 'stocks.report_stock';
     /**
      * Build DataTable class.
      *
@@ -68,12 +69,14 @@ class ReportStockDataTable extends DataTable
             ->minifiedAjax()
         // ->addAction(['width' => '120px', 'title' => ''])
             ->parameters([
-                'dom' => "<'row'<'col-sm-6 table-create'><'col-sm-6'>>t<'row'<'col-sm-12 col-md-5'><'col-sm-12 col-md-7'p>>",
+                'dom' => "<B>t<'row'<'col-sm-12 col-md-5'><'col-sm-12 col-md-7'p>>",
                 'order' => [[0, 'desc']],
                 'pageLength' => 50,
                 "bSort" => false,
                 'buttons' => [
-
+                    ['extend' => 'export', 'className' => 'btn btn-default btn-sm no-corner'],
+                    ['extend' => 'print', 'className' => 'btn btn-default btn-sm no-corner'],
+                    ['extend' => 'reset', 'className' => 'btn btn-default btn-sm no-corner'],
                 ],
                 "oLanguage" => [
                     "oPaginate" => [

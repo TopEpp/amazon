@@ -70,39 +70,6 @@ class DashBoardController extends Controller
                 ],
             ]);
 
-        // return $orderDataTable->with(['date' => $date])
-        //     ->render('dashboard.index', ['chartjs' => $chartjs,
-        //         'total' => $val[0]['orders_max'],
-        //         'money' => $val[0]['money_all'],
-        //         'dates' => $date]
-        //     );
-        // $chartjs = app()->chartjs
-        //     ->name('barChartTest')
-        //     ->type('bar')
-        //     ->size(['width' => 400, 'height' => 200])
-
-        //     ->datasets([
-        //         [
-        //             "label" => "",
-        //             'backgroundColor' => ['#F09216'],
-        //             'data' => [69],
-        //         ],
-        //         [
-        //             "label" => "",
-        //             'backgroundColor' => ['#F09216'],
-        //             'data' => [59],
-        //         ],
-        //         [
-        //             "label" => "",
-        //             'backgroundColor' => ['#F09216'],
-        //             'data' => [22],
-        //         ],
-        //     ])
-        //     ->options(['legend' => [
-        //         'display' => false,
-        //     ],
-        //     ]);
-
         return view('dashboard.index', ['chartjs' => $chartjs,
             'products' => $val[0]['orders_products'],
             'value_all' => $val[0]['value_all'],

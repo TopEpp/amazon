@@ -10,6 +10,8 @@ use Yajra\DataTables\Services\DataTable;
 
 class ReportImportDataTable extends DataTable
 {
+
+    protected $printPreview = 'imports.report_import';
     /**
      * Build DataTable class.
      *
@@ -53,8 +55,8 @@ class ReportImportDataTable extends DataTable
         $query = $model
             ->join('users', 'users.id', '=', 'imports.user_id')
             ->join('import_items', 'import_items.import_id', '=', 'imports.id')
-            ->select('users.name', 'imports.number', 'imports.remark', 'imports.date', DB::raw('sum(import_items.value) as value'));
-
+            ->select('users.name', 'imports.number', 'imports.remark', 'imports.date', DB::raw('sum(import_items.value) as value'))
+            ->groupby('imports.id');
         return $query;
     }
 
@@ -70,12 +72,14 @@ class ReportImportDataTable extends DataTable
             ->minifiedAjax()
         // ->addAction(['width' => '120px', 'title' => ''])
             ->parameters([
-                'dom' => "<'row'<'col-sm-6 table-create'><'col-sm-6'>>t<'row'<'col-sm-12 col-md-5'><'col-sm-12 col-md-7'p>>",
+                'dom' => "<B>t<'row'<'col-sm-12 col-md-5'><'col-sm-12 col-md-7'p>>",
                 'order' => [[0, 'desc']],
                 'pageLength' => 50,
                 "bSort" => false,
                 'buttons' => [
-
+                    ['extend' => 'export', 'className' => 'btn btn-default btn-sm no-corner'],
+                    ['extend' => 'print', 'className' => 'btn btn-default btn-sm no-corner'],
+                    ['extend' => 'reset', 'className' => 'btn btn-default btn-sm no-corner'],
                 ],
                 "oLanguage" => [
                     "oPaginate" => [
