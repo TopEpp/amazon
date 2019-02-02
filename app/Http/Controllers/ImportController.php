@@ -10,6 +10,7 @@ use App\Repositories\ImportItemRepository;
 use App\Repositories\ImportRepository;
 use App\Repositories\ProductRepository;
 use App\Repositories\StockRepository;
+use App\Repositories\CategoryRepository;
 use Flash;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -22,13 +23,15 @@ class ImportController extends AppBaseController
     private $productRepository;
     private $importItemRepository;
     private $stockRepository;
+    private $categoryRepository;
 
-    public function __construct(ProductRepository $productRepo, ImportRepository $importRepo, ImportItemRepository $importItemRepo, StockRepository $stockRepo)
+    public function __construct(ProductRepository $productRepo, ImportRepository $importRepo, ImportItemRepository $importItemRepo, StockRepository $stockRepo, CategoryRepository $categoryRepo)
     {
         $this->importRepository = $importRepo;
         $this->productRepository = $productRepo;
         $this->importItemRepository = $importItemRepo;
         $this->stockRepository = $stockRepo;
+        $this->categoryRepository = $categoryRepo;
     }
 
     /**
@@ -60,8 +63,8 @@ class ImportController extends AppBaseController
      */
     public function create()
     {
-        $product = $this->productRepository->all();
-        return view('imports.create')->with('product', $product);
+        $category = $this->categoryRepository->all();
+        return view('imports.create')->with('category', $category);
     }
 
     /**
@@ -141,7 +144,7 @@ class ImportController extends AppBaseController
     public function edit($id)
     {
         $import = $this->importRepository->findWithoutFail($id);
-        $product = $this->productRepository->all();
+        $category = $this->categoryRepository->all();
 
         if (empty($import)) {
             Flash::error('Import not found');
@@ -154,7 +157,7 @@ class ImportController extends AppBaseController
             $item[$value->product_id] = $value;
         }
         $import->value = $item;
-        return view('imports.edit')->with(['import' => $import, 'product' => $product]);
+        return view('imports.edit')->with(['import' => $import, 'category' => $category]);
     }
 
     /**

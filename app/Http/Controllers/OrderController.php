@@ -7,6 +7,7 @@ use App\Http\Controllers\AppBaseController;
 use App\Http\Requests\CreateOrderRequest;
 use App\Http\Requests\UpdateOrderRequest;
 use App\Models\Order;
+use App\Repositories\CategoryRepository;
 use App\Repositories\OrderItemRepository;
 use App\Repositories\OrderRepository;
 use App\Repositories\ProductRepository;
@@ -23,13 +24,15 @@ class OrderController extends AppBaseController
     private $productRepository;
     private $orderItemRepository;
     private $stockRepository;
+    private $categoryRepository;
 
-    public function __construct(OrderRepository $orderRepo, ProductRepository $productRepo, OrderItemRepository $orderItemRepo, StockRepository $stockRepo)
+    public function __construct(OrderRepository $orderRepo, ProductRepository $productRepo, OrderItemRepository $orderItemRepo, StockRepository $stockRepo, CategoryRepository $categoryRepo)
     {
         $this->orderRepository = $orderRepo;
         $this->productRepository = $productRepo;
         $this->orderItemRepository = $orderItemRepo;
         $this->stockRepository = $stockRepo;
+        $this->categoryRepository = $categoryRepo;
     }
 
     /**
@@ -53,8 +56,9 @@ class OrderController extends AppBaseController
      */
     public function create()
     {
-        $product = $this->productRepository->all();
-        return view('orders.create')->with('product', $product);
+        $category = $this->categoryRepository->all();
+
+        return view('orders.create')->with(['category' => $category]);
     }
 
     /**
@@ -129,7 +133,7 @@ class OrderController extends AppBaseController
     public function edit($id)
     {
         $order = $this->orderRepository->findWithoutFail($id);
-        $product = $this->productRepository->all();
+        $category = $this->categoryRepository->all();
         if (empty($order)) {
             Flash::error('Order not found');
 
@@ -143,7 +147,7 @@ class OrderController extends AppBaseController
         }
         $order->value = $item;
 
-        return view('orders.edit')->with(['order' => $order, 'product' => $product]);
+        return view('orders.edit')->with(['order' => $order, 'category' => $category]);
     }
 
     /**

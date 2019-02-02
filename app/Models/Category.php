@@ -17,16 +17,14 @@ class Category extends Model
     use SoftDeletes;
 
     public $table = 'categorys';
-    
+
     const CREATED_AT = 'created_at';
     const UPDATED_AT = 'updated_at';
 
-
     protected $dates = ['deleted_at'];
 
-
     public $fillable = [
-        'name'
+        'name',
     ];
 
     /**
@@ -36,7 +34,7 @@ class Category extends Model
      */
     protected $casts = [
         'id' => 'integer',
-        'name' => 'string'
+        'name' => 'string',
     ];
 
     /**
@@ -45,8 +43,12 @@ class Category extends Model
      * @var array
      */
     public static $rules = [
-        
+
     ];
 
-    
+    public function product()
+    {
+        return $this->hasMany('App\Models\Product', 'category_id', 'id');
+    }
+
 }
