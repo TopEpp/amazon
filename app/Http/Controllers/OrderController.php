@@ -16,6 +16,7 @@ use Flash;
 use Illuminate\Support\Facades\Auth;
 use PDF;
 use Response;
+use View;
 
 class OrderController extends AppBaseController
 {
@@ -246,7 +247,13 @@ class OrderController extends AppBaseController
         $data = [];
         $order = $this->orderRepository->findWithoutFail($id);
         $data['order'] = $order;
-        $pdf = PDF::loadView('orderPdf', $data);
+        $pages = array();
+        $pages[] = View::make('orderPdf1',$data);
+        $pages[] = View::make('orderPdf2',$data);
+
+        $pdf = PDF::loadView('orderPdf', ['pages' => $pages]);
+
+        // $pdf = PDF::loadView('orderPdf', $data);
 
         if ($pdf) {
             $input = [];

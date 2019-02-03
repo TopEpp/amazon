@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <title>Print Table</title>
+        <title>รายงานการนำเข้าสินค้า</title>
         <meta charset="UTF-8">
         <meta name=description content="">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -47,22 +47,28 @@
         body{
             font-family: "THSarabunNew";
             font-size:16px;
+            /* size: 21cm 29.7cm; */
+            margin-top: 1%;
+            margin-left:5%;
+            margin-right: 5%;
+            margin-bottom: 1%;
         }
     </style>
     <body>
-        <table class="table table-bordered table-condensed table-striped">
+        <h1 align="center">รายงานการนำเข้าสินค้า</h1>
+        <table class="table" border="1" width='100%' style='border-collapse: collapse;'>
             @foreach($data as $row)
                 @if ($row == reset($data)) 
                     <tr>
                         @foreach($row as $key => $value)
-                            <th>{!! $key !!}</th>
+                            <th width="25%" align="center">{!! $key !!}</th>
                         @endforeach
                     </tr>
                 @endif
                 <tr>
                     @foreach($row as $key => $value)
                         @if(is_string($value) || is_numeric($value))
-                            <td>{!! $value !!}</td>
+                            <td align="center">{!! $value !!}</td>
                         @else
                             <td></td>
                         @endif
@@ -70,5 +76,11 @@
                 </tr>
             @endforeach
         </table>
+        {{-- <script>
+                window.print();
+                setTimeout(function () {
+                    window.close();
+                }, 500);
+            </script> --}}
     </body>
 </html>
