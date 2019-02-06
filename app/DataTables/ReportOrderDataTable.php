@@ -4,6 +4,7 @@ namespace App\DataTables;
 
 use App\Models\Order;
 use Carbon\Carbon;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Services\DataTable;
@@ -23,10 +24,10 @@ class ReportOrderDataTable extends DataTable
     {
         $dataTable = new EloquentDataTable($query);
 
-        //search
-        $dataTable->filterColumn('date', function ($query, $keyword) {
-            $query->whereRaw("DATE_FORMAT(date,'%d/%m/%Y') like ?", ["%$keyword%"]);
-        });
+        // //search
+        // $dataTable->filterColumn('date', function ($query, $keyword) {
+        //     $query->whereRaw("DATE_FORMAT(date,'%d/%m/%Y') like ?", ["%$keyword%"]);
+        // });
 
         $dataTable->editColumn('date', function ($model) {
             // return $model->date;
@@ -51,15 +52,20 @@ class ReportOrderDataTable extends DataTable
      * @param \App\Models\Units $model
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function query(Order $model)
+    public function query(Order $model, Request $request)
     {
+
         $query = $model
             ->join('users', 'users.id', '=', 'orders.user_id')
             ->join('order_items', 'order_items.order_id', '=', 'orders.id')
             ->select('users.name', 'orders.id', 'orders.date', DB::raw('sum(order_items.value) as value'))
             ->groupby('orders.id');
 
-        return $query;
+        if ($request->has('number')) {
+            $query->where('orders.id', $request->number);
+        }
+
+        return $this->applyScopes($query);
     }
 
     /**
@@ -69,9 +75,17 @@ class ReportOrderDataTable extends DataTable
      */
     public function html()
     {
+        $attributes = [
+            'data' => 'function(d) {
+                d.start_date = $("#start_date").val();
+                d.end_date = $("#end_date").val();
+            }',
+        ];
+
         return $this->builder()
             ->columns($this->getColumns())
             ->minifiedAjax()
+            ->ajax($attributes)
         // ->addAction(['width' => '120px', 'title' => ''])
             ->parameters([
                 'dom' => "<B>t<'row'<'col-sm-12 col-md-5'><'col-sm-12 col-md-7'p>>",
@@ -105,6 +119,7 @@ class ReportOrderDataTable extends DataTable
                     "sInfoFiltered" => "",
                     "sInfoPostFix" => "",
                 ],
+                'initComplete' => 'function () {this.api().columns().every(function () {var column = this;var input = document.createElement("input");$(input).appendTo($(column.footer()).empty()).on(\'change\', function () {column.search($(this).val(), false, false, true).draw();});});}',
             ]);
     }
 

@@ -282,4 +282,6 @@
             }
         });
     }
+
+    
 })(jQuery, jQuery.fn.dataTable);
