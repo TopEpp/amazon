@@ -23,8 +23,14 @@
             </div><!-- /.row -->
             <div class="row">
                 <div class="col-md-12">
-                    <div class="float-right">
+                    <div class="float-right ml-2">
                         <button data-toggle="collapse" data-target="#search" type="button" class="btn btn-block btn-success"><i class="fa fa-search"></i></button>
+                    </div>
+                    <div class="float-right ml-2">
+                        <button  type="button" class="btn btn-block btn-success" id="report_pdf"><i class="fa fa-file-pdf"></i></button>
+                    </div>
+                    <div class="float-right ml-2">
+                        <button  type="button" class="btn btn-block btn-success" id="report_excel"><i class="fa fa-file-excel"></i></button>
                     </div>
                 </div>
                 <div class="col-md-12">
@@ -36,32 +42,32 @@
                                     <div class="col-6 mb-2">
                                         <div class="form-group">
                                             <label for="end_date">เลขคำสั่ง</label>
-                                            <input type="text" class="form-control col-md-12" name="number" id="number" placeholder="">
+                                            <input type="text" class="form-control col-md-12" name="number" id="number" placeholder="" value="{{ app('request')->input('number') }}">
                                         </div>
                             
                                     </div>
                                     <div class="col-6 mb-2">
                                         <div class="form-group">
                                             <label for="end_date">ชื่อผู้สั่ง</label>
-                                            <input type="text" class="form-control col-md-12" name="owner" id="owner" placeholder="">
+                                            <input type="text" class="form-control col-md-12" name="owner" id="owner" placeholder=""  value="{{ app('request')->input('owner') }}">
                                         </div>
                             
                                     </div>
                                     <div class="col-6">
                                         <div class="form-group">
                                             <label for="start_date">วันที่เริ่มต้น</label>
-                                            <input type="date" class="form-control col-md-12" name="start_date" id="start_date" placeholder="">
+                                            <input type="date" class="form-control col-md-12" name="start_date" id="start_date" placeholder=""  value="{{ app('request')->input('start_date') }}">
                                         </div>
                                     </div>
                                     <div class="col-6">
                                         <div class="form-group">
                                             <label for="end_date">วันที่สิ้นสุด</label>
-                                            <input type="date" class="form-control col-md-12" name="end_date" id="end_date" placeholder="">
+                                            <input type="date" class="form-control col-md-12" name="end_date" id="end_date" placeholder=""  value="{{ app('request')->input('end_date') }}">
                                         </div>
                                     </div>
                
                                     <div class="col-12 mt-2">
-                                            <button type="submit" class="btn btn-primary float-right">ค้นหา</button>
+                                            <button id="submit" class="btn btn-submit-custom float-right">ค้นหา</button>
                                     </div>
                                     
                                 </form>
@@ -81,9 +87,9 @@
         <div class="container-fluid">
             <div class="clearfix"></div>
             @include('flash::message')
+
             <div class="row">
                 <div class="col-lg-12">
-                   
                     {!! $dataTable->table(['width' => '100%','class'=>'table table-custom ']) !!}
                     <br/>
                 </div>
@@ -99,6 +105,56 @@
     @include('layouts.datatables_js')
     {!! $dataTable->scripts() !!}
     <script>
+        $(function(){
+
+            $('#submit').click(function(){
+                if ($('#start_date').val() != ''  && $('#end_date').val() == '' ){
+                    $('#end_date').focus();
+                    return false;
+                }
+                if ($('#start_date').val() == ''  && $('#end_date').val() != '' ){
+                    $('#start_date').focus();
+                    return false;
+                }
+                $('#submit').submit();
+            });
+            $('#report_pdf').click(function(){
+
+                if ($('#start_date').val() != ''  && $('#end_date').val() == '' ){
+                    $('#end_date').focus();
+                    return false;
+                }
+                if ($('#start_date').val() == ''  && $('#end_date').val() != '' ){
+                    $('#start_date').focus();
+                    return false;
+                }
+
+                window.open('/print_order_pdf?number='+$('#number').val()+
+                '&owner='+$('#owner').val()+
+                '&start_date='+$('#start_date').val()+
+                '&end_date='+$('#end_date').val()
+                ,"_blank");
+            });
+
+            $('#report_excel').click(function(){
+                
+                if ($('#start_date').val() != ''  && $('#end_date').val() == '' ){
+                    $('#end_date').focus();
+                    return false;
+                }
+                if ($('#start_date').val() == ''  && $('#end_date').val() != '' ){
+                    $('#start_date').focus();
+                    return false;
+                }
+
+                window.open('/excel_order?number='+$('#number').val()+
+                '&owner='+$('#owner').val()+
+                '&start_date='+$('#start_date').val()+
+                '&end_date='+$('#end_date').val()
+                ,"_blank");
+            })
+           
+        })
       
             // DataTable.ext.buttons.print = {
             //     className: 'buttons-print',

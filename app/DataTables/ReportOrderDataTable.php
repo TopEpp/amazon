@@ -61,8 +61,18 @@ class ReportOrderDataTable extends DataTable
             ->select('users.name', 'orders.id', 'orders.date', DB::raw('sum(order_items.value) as value'))
             ->groupby('orders.id');
 
-        if ($request->has('number')) {
+        //search custom
+        if ($request->has('number') && $request->number != '') {
             $query->where('orders.id', $request->number);
+        }
+        if ($request->has('owner') && $request->owner != '') {
+            $query->where('users.name', 'like', '%' . $request->owner . '%');
+        }
+        if ($request->has('start_date') && $request->start_date != '') {
+
+            $date = [$request->start_date, $request->end_date];
+            // ->whereBetween('orders.date', [1, 100])
+            $query->whereBetween('orders.date', $date);
         }
 
         return $this->applyScopes($query);
@@ -91,9 +101,8 @@ class ReportOrderDataTable extends DataTable
                 'dom' => "<B>t<'row'<'col-sm-12 col-md-5'><'col-sm-12 col-md-7'p>>",
                 'order' => [[0, 'desc']],
                 'buttons' => [
-                    ['extend' => 'export', 'className' => 'btn btn-default btn-sm no-corner'],
-                    ['extend' => 'print', 'className' => 'btn btn-default btn-sm no-corner'],
-                    ['extend' => 'reset', 'className' => 'btn btn-default btn-sm no-corner'],
+                    // ['extend' => 'export', 'className' => 'btn btn-default btn-sm no-corner'],
+
                 ],
                 'pageLength' => 50,
                 "bSort" => false,
@@ -119,7 +128,7 @@ class ReportOrderDataTable extends DataTable
                     "sInfoFiltered" => "",
                     "sInfoPostFix" => "",
                 ],
-                'initComplete' => 'function () {this.api().columns().every(function () {var column = this;var input = document.createElement("input");$(input).appendTo($(column.footer()).empty()).on(\'change\', function () {column.search($(this).val(), false, false, true).draw();});});}',
+
             ]);
     }
 

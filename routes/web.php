@@ -54,4 +54,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/report_stock', 'ReportController@reportStock');
     Route::get('/report_stock_order', 'ReportController@reportStockOrder');
 
+    Route::get('/print_order_pdf', 'ReportController@printPdfOrder');
+    Route::get('/excel_order', 'ReportController@excelOrder');
+
 });

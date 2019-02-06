@@ -247,24 +247,24 @@ class OrderController extends AppBaseController
         $data = [];
         $order = $this->orderRepository->findWithoutFail($id);
         $data['order'] = $order;
-        $pages = array();
-        $pages[] = View::make('orderPdf1',$data);
-        $pages[] = View::make('orderPdf2',$data);
+        // $pages = array();
+        // $pages[] = View::make('orderPdf1',$data);
+        // $pages[] = View::make('orderPdf2',$data);
 
-        $pdf = PDF::loadView('orderPdf', ['pages' => $pages]);
+        // $pdf = PDF::loadView('orderPdf', ['pages' => $pages]);
 
-        // $pdf = PDF::loadView('orderPdf', $data);
+        $pdf = PDF::loadView('orderPdf', $data);
 
         if ($pdf) {
             $input = [];
             $input['order_status'] = 1;
             $order = $this->orderRepository->update($input, $order->id);
         }
-        $pdf->setPaper('A4', 'portrait');
-        return $pdf->stream('invoice.pdf');
-
         // $pdf->setPaper('A4', 'portrait');
-        // return $pdf->stream('orderPdf.pdf', array('Attachment' => 2));
+        // return $pdf->stream('invoice.pdf');
+
+        $pdf->setPaper('A4', 'portrait');
+        return $pdf->stream('orderPdf.pdf', array('Attachment' => 2));
         // return $pdf->download('hdtuto.pdf');
     }
 }
