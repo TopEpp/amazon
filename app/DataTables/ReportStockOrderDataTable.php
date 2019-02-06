@@ -56,7 +56,7 @@ class ReportStockOrderDataTable extends DataTable
             ->groupBy('order_items.product_id')
             ->select('products.name', DB::raw('sum(order_items.value) as value'));
 
-        return $this->applyScopes($query);
+        return $query;
     }
 
     /**
