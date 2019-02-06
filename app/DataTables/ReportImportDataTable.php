@@ -57,7 +57,8 @@ class ReportImportDataTable extends DataTable
             ->join('import_items', 'import_items.import_id', '=', 'imports.id')
             ->select('users.name', 'imports.number', 'imports.remark', 'imports.date', DB::raw('sum(import_items.value) as value'))
             ->groupby('imports.id');
-        return $query;
+
+        return $this->applyScopes($query);
     }
 
     /**

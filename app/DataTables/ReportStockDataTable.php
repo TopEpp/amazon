@@ -54,7 +54,7 @@ class ReportStockDataTable extends DataTable
             ->join('products', 'products.id', '=', 'stocks.product_id')
             ->select('products.name', 'categorys.name as category', 'products.code', 'stocks.value');
 
-        return $query;
+        return $this->applyScopes($query);
     }
 
     /**
