@@ -57,4 +57,13 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/print_order_pdf', 'ReportController@printPdfOrder');
     Route::get('/excel_order', 'ReportController@excelOrder');
 
+    Route::get('/print_import_pdf', 'ReportController@printPdfImport');
+    Route::get('/excel_import', 'ReportController@excelImport');
+
+    Route::get('/print_stock_pdf', 'ReportController@printPdfStock');
+    Route::get('/excel_stock', 'ReportController@excelStock');
+
+    Route::get('/print_stockOr_pdf', 'ReportController@printPdfStockOrder');
+    Route::get('/excel_stockOr', 'ReportController@excelStockOrder');
+
 });

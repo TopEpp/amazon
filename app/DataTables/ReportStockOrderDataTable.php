@@ -3,6 +3,7 @@
 namespace App\DataTables;
 
 use App\Models\OrderItem;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Services\DataTable;
@@ -48,13 +49,17 @@ class ReportStockOrderDataTable extends DataTable
      * @param \App\Models\Units $model
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function query(OrderItem $model)
+    public function query(OrderItem $model, Request $request)
     {
         $query = $model
         // ->join('categorys', 'categorys.id', '=', 'stocks.categoty_id')
         ->join('products', 'products.id', '=', 'order_items.product_id')
             ->groupBy('order_items.product_id')
             ->select('products.name', DB::raw('sum(order_items.value) as value'));
+        //search custom
+        if ($request->has('owner') && $request->owner != '') {
+            $query->where('products.name', 'like', '%' . $request->owner . '%');
+        }
 
         return $this->applyScopes($query);
     }
@@ -76,9 +81,7 @@ class ReportStockOrderDataTable extends DataTable
                 'pageLength' => 50,
                 "bSort" => false,
                 'buttons' => [
-                    ['extend' => 'export', 'className' => 'btn btn-default btn-sm no-corner'],
-                    ['extend' => 'print', 'className' => 'btn btn-default btn-sm no-corner'],
-                    ['extend' => 'reset', 'className' => 'btn btn-default btn-sm no-corner'],
+
                 ],
                 "oLanguage" => [
                     "oPaginate" => [

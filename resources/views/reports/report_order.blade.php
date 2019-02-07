@@ -67,7 +67,7 @@
                                     </div>
                
                                     <div class="col-12 mt-2">
-                                            <button id="submit" class="btn btn-submit-custom float-right">ค้นหา</button>
+                                            <button type="submit" class="btn btn-submit-custom float-right">ค้นหา</button>
                                     </div>
                                     
                                 </form>
@@ -156,18 +156,7 @@
            
         })
       
-            // DataTable.ext.buttons.print = {
-            //     className: 'buttons-print',
-
-            //     text: function (dt) {
-            //         return  '<i class="fa fa-print"></i> ' + dt.i18n('buttons.print', 'Print');
-            //     },
-
-            //     action: function (e, dt, button, config) {
-            //         var url = _buildUrl(dt, 'print');
-            //         window.location = url;
-            //     }
-            // };
+          
     
     </script>
 @endsection

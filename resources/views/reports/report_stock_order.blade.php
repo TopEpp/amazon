@@ -21,50 +21,37 @@
             </div><!-- /.row -->
             <div class="row">
                     <div class="col-md-12">
-                        <div class="float-right">
+                        <div class="float-right ml-2">
                             <button data-toggle="collapse" data-target="#search" type="button" class="btn btn-block btn-success"><i class="fa fa-search"></i></button>
+                        </div>
+                        <div class="float-right ml-2">
+                            <button  type="button" class="btn btn-block btn-success" id="stock_order_pdf"><i class="fa fa-file-pdf"></i></button>
+                        </div>
+                        <div class="float-right ml-2">
+                            <button  type="button" class="btn btn-block btn-success" id="stock_order_excel"><i class="fa fa-file-excel"></i></button>
                         </div>
                     </div>
                     <div class="col-md-12">
                             <div class="collapse" id="search" >
-                                <div class="row">
+                       
     
                                     <form method="GET" id="search-form" class="form-inline" role="form">
                                        
                                         <div class="col-6 mb-2">
                                             <div class="form-group">
                                                 <label for="end_date">ชื่อสินค้า</label>
-                                                <input type="text" class="form-control col-md-12" name="number" id="number" placeholder="">
+                                                <input type="text" class="form-control col-md-12" name="owner" id="owner" value="{{ app('request')->input('owner') }}">
                                             </div>
                                 
                                         </div>
-                                        <div class="col-6 mb-2">
-                                            {{-- <div class="form-group">
-                                                <label for="end_date">จำนวน</label>
-                                                <input type="text" class="form-control col-md-12" name="owner" id="owner" placeholder="">
-                                            </div> --}}
-                                
-                                        </div>
-                                        <div class="col-6">
-                                            <div class="form-group">
-                                                <label for="start_date">จำนวน</label>
-                                                <input type="date" class="form-control col-md-12" name="start_date" id="start_date" placeholder="">
-                                            </div>
-                                        </div>
-                                        <div class="col-6">
-                                            <div class="form-group">
-                                                <label for="end_date">จำนวน</label>
-                                                <input type="date" class="form-control col-md-12" name="end_date" id="end_date" placeholder="">
-                                            </div>
-                                        </div>
-                   
+
                                         <div class="col-12 mt-2">
-                                                <button type="submit" class="btn btn-primary float-right">ค้นหา</button>
+                                                <button id="submit" class="btn btn-submit-custom float-right">ค้นหา</button>
                                         </div>
                                         
                                     </form>
                                                                 
-                                </div>
+                             
                             </div>
                     </div>
                     
@@ -94,9 +81,20 @@
     @include('layouts.datatables_js')
     {!! $dataTable->scripts() !!}
     <script>
-        // $(function(){
-        //     $("div.table-create").html('<button type="button" class="btn btn-title-custom" data-toggle="modal" data-target="#category-create">เพิ่มหน่วยนับ</button>');
-        // });
+        $(function(){
+
+    
+            $('#stock_order_pdf').click(function(){
+                window.open('/print_stockOr_pdf?owner='+$('#owner').val()
+                ,"_blank");
+            });
+
+            $('#stock_order_excel').click(function(){
+                window.open('/excel_stockOr?owner='+$('#owner').val()
+                ,"_blank");
+            })
+
+        })
     </script>
 @endsection
 

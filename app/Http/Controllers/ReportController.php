@@ -6,8 +6,15 @@ use App\DataTables\ReportImportDataTable;
 use App\DataTables\ReportOrderDataTable;
 use App\DataTables\ReportStockDataTable;
 use App\DataTables\ReportStockOrderDataTable;
+use App\Exports\ImportExport;
 use App\Exports\OrdersExport;
+use App\Exports\StockExport;
+use App\Exports\StockOrderExport;
+use App\Models\Category;
+use App\Models\Import;
 use App\Models\Order;
+use App\Models\OrderItem;
+use App\Models\Stock;
 use Excel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -36,7 +43,11 @@ class ReportController extends Controller
 
     public function reportStock(ReportStockDataTable $ReportStockDataTable)
     {
-        return $ReportStockDataTable->render('reports.report_stock');
+        $category = Category::All()->pluck('name', 'id');
+        $category[0] = 'เลือก';
+
+        return $ReportStockDataTable
+            ->render('reports.report_stock', ['category' => $category]);
 
     }
 
@@ -74,8 +85,89 @@ class ReportController extends Controller
         return $pdf->stream('pdf_order.pdf', array('Attachment' => 2));
     }
 
-    public function excelOrder(Order $model, Request $request)
+    public function excelOrder(Request $request)
     {
         return Excel::download(new OrdersExport($request->number, $request->owner, $request->start_date, $request->end_date), 'excel_order.xlsx');
+    }
+
+    public function printPdfImport(Import $model, Request $request)
+    {
+
+        $query = $model
+            ->join('users', 'users.id', '=', 'imports.user_id')
+            ->join('import_items', 'import_items.import_id', '=', 'imports.id')
+            ->select('users.name', 'imports.number', 'imports.remark', 'imports.date', DB::raw('sum(import_items.value) as value'));
+
+        //search custom
+        if ($request->has('number') && $request->number != '') {
+            $query->where('imports.number', 'like', '%' . $request->number . '%');
+        }
+
+        if ($request->has('start_date') && $request->start_date != '') {
+
+            $date = [$request->start_date, $request->end_date];
+            // ->whereBetween('imports.date', [1, 100])
+            $query->whereBetween('imports.date', $date);
+        }
+        $data['items'] = $query->groupby('imports.id')->get();
+        $pdf = PDF::loadView('reports.pdf_import', $data);
+        $pdf->setPaper('A4', 'portrait');
+        return $pdf->stream('pdf_order.pdf', array('Attachment' => 2));
+    }
+
+    public function excelImport(Request $request)
+    {
+        return Excel::download(new ImportExport($request->number, $request->start_date, $request->end_date), 'excel_import.xlsx');
+    }
+
+    public function printPdfStock(Stock $model, Request $request)
+    {
+        $query = $model
+            ->join('categorys', 'categorys.id', '=', 'stocks.categoty_id')
+            ->join('products', 'products.id', '=', 'stocks.product_id')
+            ->select('products.name', 'categorys.name as category', 'products.code', 'stocks.value');
+
+        //search custom
+        if ($request->has('number') && $request->number != '') {
+            $query->where('products.code', 'like', '%' . $request->number . '%');
+        }
+        if ($request->has('owner') && $request->owner != '') {
+            $query->where('products.name', 'like', '%' . $request->owner . '%');
+        }
+        if ($request->has('category') && $request->category != '' && $request->category != '0') {
+            $query->where('categorys.id', $request->category);
+        }
+
+        $data['items'] = $query->groupby('products.code')->get();
+        $pdf = PDF::loadView('reports.pdf_stock', $data);
+        $pdf->setPaper('A4', 'portrait');
+        return $pdf->stream('pdf_stock.pdf', array('Attachment' => 2));
+    }
+
+    public function excelStock(Request $request)
+    {
+        return Excel::download(new StockExport($request->number, $request->owner, $request->category), 'excel_stock.xlsx');
+    }
+
+    public function printPdfStockOrder(OrderItem $model, Request $request)
+    {
+        $query = $model
+            ->join('products', 'products.id', '=', 'order_items.product_id')
+            ->select('products.name', DB::raw('sum(order_items.value) as value'));
+
+        //search custom
+        if ($request->has('owner') && $request->owner != '') {
+            $query->where('products.name', 'like', '%' . $request->owner . '%');
+        }
+
+        $data['items'] = $query->groupby('order_items.product_id')->get();
+        $pdf = PDF::loadView('reports.pdf_stock_order', $data);
+        $pdf->setPaper('A4', 'portrait');
+        return $pdf->stream('pdf_stockOrder.pdf', array('Attachment' => 2));
+    }
+
+    public function excelStockOrder(Request $request)
+    {
+        return Excel::download(new StockOrderExport($request->owner), 'excel_stockOrder.xlsx');
     }
 }

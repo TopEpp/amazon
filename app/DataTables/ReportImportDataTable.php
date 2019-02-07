@@ -4,6 +4,7 @@ namespace App\DataTables;
 
 use App\Models\Import;
 use Carbon\Carbon;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Services\DataTable;
@@ -23,9 +24,9 @@ class ReportImportDataTable extends DataTable
         $dataTable = new EloquentDataTable($query);
 
         //search
-        $dataTable->filterColumn('date', function ($query, $keyword) {
-            $query->whereRaw("DATE_FORMAT(date,'%d/%m/%Y') like ?", ["%$keyword%"]);
-        });
+        // $dataTable->filterColumn('date', function ($query, $keyword) {
+        //     $query->whereRaw("DATE_FORMAT(date,'%d/%m/%Y') like ?", ["%$keyword%"]);
+        // });
 
         $dataTable->editColumn('date', function ($model) {
             // return $model->date;
@@ -50,13 +51,23 @@ class ReportImportDataTable extends DataTable
      * @param \App\Models\Units $model
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function query(Import $model)
+    public function query(Import $model, Request $request)
     {
         $query = $model
             ->join('users', 'users.id', '=', 'imports.user_id')
             ->join('import_items', 'import_items.import_id', '=', 'imports.id')
             ->select('users.name', 'imports.number', 'imports.remark', 'imports.date', DB::raw('sum(import_items.value) as value'))
             ->groupby('imports.id');
+
+        //search custom
+        if ($request->has('number') && $request->number != '') {
+            $query->where('imports.number', 'like', '%' . $request->number . '%');
+        }
+        if ($request->has('start_date') && $request->start_date != '') {
+
+            $date = [$request->start_date, $request->end_date];
+            $query->whereBetween('imports.date', $date);
+        }
 
         return $this->applyScopes($query);
     }
@@ -78,9 +89,7 @@ class ReportImportDataTable extends DataTable
                 'pageLength' => 50,
                 "bSort" => false,
                 'buttons' => [
-                    ['extend' => 'export', 'className' => 'btn btn-default btn-sm no-corner'],
-                    ['extend' => 'print', 'className' => 'btn btn-default btn-sm no-corner'],
-                    ['extend' => 'reset', 'className' => 'btn btn-default btn-sm no-corner'],
+
                 ],
                 "oLanguage" => [
                     "oPaginate" => [

@@ -3,6 +3,7 @@
 namespace App\DataTables;
 
 use App\Models\Stock;
+use Illuminate\Http\Request;
 use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Services\DataTable;
 
@@ -47,12 +48,23 @@ class ReportStockDataTable extends DataTable
      * @param \App\Models\Units $model
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function query(Stock $model)
+    public function query(Stock $model, Request $request)
     {
         $query = $model
             ->join('categorys', 'categorys.id', '=', 'stocks.categoty_id')
             ->join('products', 'products.id', '=', 'stocks.product_id')
             ->select('products.name', 'categorys.name as category', 'products.code', 'stocks.value');
+
+        //search custom
+        if ($request->has('number') && $request->number != '') {
+            $query->where('products.code', 'like', '%' . $request->number . '%');
+        }
+        if ($request->has('owner') && $request->owner != '') {
+            $query->where('products.name', 'like', '%' . $request->owner . '%');
+        }
+        if ($request->has('category') && $request->category != '' && $request->category != '0') {
+            $query->where('categorys.id', $request->category);
+        }
 
         return $this->applyScopes($query);
     }
@@ -74,9 +86,7 @@ class ReportStockDataTable extends DataTable
                 'pageLength' => 50,
                 "bSort" => false,
                 'buttons' => [
-                    ['extend' => 'export', 'className' => 'btn btn-default btn-sm no-corner'],
-                    ['extend' => 'print', 'className' => 'btn btn-default btn-sm no-corner'],
-                    ['extend' => 'reset', 'className' => 'btn btn-default btn-sm no-corner'],
+
                 ],
                 "oLanguage" => [
                     "oPaginate" => [

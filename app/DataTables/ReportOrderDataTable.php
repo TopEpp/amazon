@@ -71,7 +71,6 @@ class ReportOrderDataTable extends DataTable
         if ($request->has('start_date') && $request->start_date != '') {
 
             $date = [$request->start_date, $request->end_date];
-            // ->whereBetween('orders.date', [1, 100])
             $query->whereBetween('orders.date', $date);
         }
 
