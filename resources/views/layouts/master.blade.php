@@ -15,6 +15,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <link rel="stylesheet" href="/css/app.css">
     <link rel="stylesheet" href="/css/app-custom.css">
     
+    
     @yield('css')
 </head>
 <body class="hold-transition sidebar-mini">
@@ -37,6 +38,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
 <!-- jQuery -->
 <script src="/js/app.js"></script>
+<script src="{!! asset('vendor/jquery.number.min.js') !!}"></script>
+<script src="{!! asset('js/jquery.setformat.js') !!}"></script>
 @yield('scripts')
 </body>
 </html>

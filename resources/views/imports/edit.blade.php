@@ -12,8 +12,8 @@
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                    <li class="breadcrumb-item"><a href="#">หน้าหลัก</a></li>
-                    <li class="breadcrumb-item"><a href="#">นำเข้าสินค้า</a></li>
+                    <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">หน้าหลัก</a></li>
+                    <li class="breadcrumb-item"><a href="{{ route('imports.index') }}">นำเข้าสินค้า</a></li>
                     <li class="breadcrumb-item active">แก้ไขนำเข้าสินค้า</li>
                     </ol>
                 </div><!-- /.col -->

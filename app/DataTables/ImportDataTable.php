@@ -4,6 +4,8 @@ namespace App\DataTables;
 
 use App\Models\Import;
 use Carbon\Carbon;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Services\DataTable;
 
@@ -19,10 +21,6 @@ class ImportDataTable extends DataTable
     {
         $dataTable = new EloquentDataTable($query);
 
-        $dataTable->addColumn('value', function ($model) {
-
-            return $model->item->sum('value');
-        });
         $dataTable->editColumn('date', function ($model) {
             // return $model->date;
             return Carbon::createFromFormat('Y-m-d h:i:s', $model->date)->format('d/m/Y');
@@ -37,9 +35,24 @@ class ImportDataTable extends DataTable
      * @param \App\Models\Import $model
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function query(Import $model)
+    public function query(Import $model, Request $request)
     {
-        return $model->newQuery();
+        $query = $model
+            ->join('import_items', 'import_items.import_id', '=', 'imports.id')
+            ->select('imports.id', 'imports.number', 'imports.remark', 'imports.price', 'imports.date', DB::raw('sum(import_items.value) as value'))
+            ->groupby('imports.id');
+
+        if ($request->has('number') && $request->number != '') {
+            $query->where('imports.number', 'like', '%' . $request->number . '%');
+        }
+
+        if ($request->has('start_date') && $request->start_date != '') {
+
+            $date = [$request->start_date . ' ' . '00:00:00', $request->end_date . ' ' . '00:00:00'];
+            $query->whereBetween('imports.date', $date);
+        }
+
+        return $this->applyScopes($query);
     }
 
     /**
@@ -54,7 +67,7 @@ class ImportDataTable extends DataTable
             ->minifiedAjax()
             ->addAction(['width' => '120px', 'title' => ''])
             ->parameters([
-                'dom' => "<'row'<'table-create '>'<'col align-self-end'f>>t<'row'<'col-sm-12 col-md-5'><'col-sm-12 col-md-7'p>>",
+                'dom' => "<'row'<'table-create '>'<'col align-self-end'>>t<'row'<'col-sm-12 col-md-5'><'col-sm-12 col-md-7'p>>",
                 'order' => [[0, 'desc']],
                 "bSort" => false,
                 'buttons' => [
@@ -92,10 +105,11 @@ class ImportDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            'number' => ['title' => 'หมายเลขอ้างอิง', 'name' => 'number', 'data' => 'number'],
-            'date' => ['title' => 'วันที่นำเข้า', 'name' => 'date', 'data' => 'date'],
-            'value' => ['title' => 'จำนวนสินค้า'],
-            'remark' => ['title' => 'หมายเหตุ', 'name' => 'remark', 'data' => 'remark'],
+            'number' => ['title' => 'หมายเลขอ้างอิง', 'name' => 'imports.number', 'data' => 'number'],
+            'date' => ['title' => 'วันที่นำเข้า', 'name' => 'imports.date', 'data' => 'date'],
+            'value' => ['title' => 'จำนวนสินค้า', 'name' => 'value', 'data' => 'value'],
+            'price' => ['title' => 'ราคารวม', 'name' => 'imports.price', 'data' => 'price'],
+            'remark' => ['title' => 'หมายเหตุ', 'name' => 'imports.remark', 'data' => 'remark'],
 
         ];
     }

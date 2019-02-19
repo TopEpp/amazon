@@ -10,13 +10,23 @@
                     <h1 class="m-0 text-dark">สั่งสินค้า</h1>
                     
                 </div><!-- /.col -->
-                <div class="col-sm-6">
-                    <ol class="breadcrumb float-sm-right">
-                    <li class="breadcrumb-item"><a href="#">หน้าหลัก</a></li>
-                    <li class="breadcrumb-item"><a href="#">สั่งสินค้า</a></li>
-                    <li class="breadcrumb-item active">เพิ่มสั่งสินค้า</li>
-                    </ol>
-                </div><!-- /.col -->
+                @if (Auth::user()->type != 1)
+                    <div class="col-sm-6">
+                            <ol class="breadcrumb float-sm-right">
+                            <li class="breadcrumb-item"><a href="{{ route('orders.index') }}">สั่งสินค้า</a></li>
+                            <li class="breadcrumb-item active">เพิ่มสั่งสินค้า</li>
+                            </ol>
+                        </div><!-- /.col -->
+                @else
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">หน้าหลัก</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('orders.index') }}">สั่งสินค้า</a></li>
+                        <li class="breadcrumb-item active">เพิ่มสั่งสินค้า</li>
+                        </ol>
+                    </div><!-- /.col -->
+                @endif
+             
             </div><!-- /.row -->
             
         </div><!-- /.container-fluid -->

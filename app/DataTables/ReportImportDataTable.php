@@ -56,7 +56,7 @@ class ReportImportDataTable extends DataTable
         $query = $model
             ->join('users', 'users.id', '=', 'imports.user_id')
             ->join('import_items', 'import_items.import_id', '=', 'imports.id')
-            ->select('users.name', 'imports.number', 'imports.remark', 'imports.date', DB::raw('sum(import_items.value) as value'))
+            ->select('users.name', 'imports.number', 'imports.price', 'imports.remark', 'imports.date', DB::raw('sum(import_items.value) as value'))
             ->groupby('imports.id');
 
         //search custom
@@ -65,7 +65,7 @@ class ReportImportDataTable extends DataTable
         }
         if ($request->has('start_date') && $request->start_date != '') {
 
-            $date = [$request->start_date, $request->end_date];
+            $date = [$request->start_date . ' ' . '00:00:00', $request->end_date . ' ' . '00:00:00'];
             $query->whereBetween('imports.date', $date);
         }
 
@@ -126,6 +126,7 @@ class ReportImportDataTable extends DataTable
             'number' => ['title' => 'หมายเลขอ้างอิง', 'name' => 'imports.number', 'data' => 'number'],
             'date' => ['title' => 'วันที่นำเข้า', 'name' => 'imports.date', 'data' => 'date'],
             'value' => ['title' => 'จำนวนสินค้า', 'name' => 'import_items.value', 'data' => 'value'],
+            'price' => ['title' => 'ราคารวม', 'name' => 'import_items.price', 'data' => 'price'],
             'remark' => ['title' => 'หมายเหตุ', 'name' => 'imports.remark', 'data' => 'remark'],
         ];
     }

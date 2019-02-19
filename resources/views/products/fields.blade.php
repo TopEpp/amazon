@@ -23,7 +23,7 @@
     <!-- Price Field -->
     <div class="form-group col-sm-12">
         {!! Form::label('price', 'ราคา') !!}
-        {!! Form::number('price', null, ['class' => 'form-control']) !!}
+        {!! Form::text('price', null, ['class' => 'form-control numeric']) !!}
     </div>
 </div>
 

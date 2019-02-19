@@ -70,7 +70,7 @@ class ReportOrderDataTable extends DataTable
         }
         if ($request->has('start_date') && $request->start_date != '') {
 
-            $date = [$request->start_date, $request->end_date];
+            $date = [$request->start_date . ' ' . '00:00:00', $request->end_date . ' ' . '00:00:00'];
             $query->whereBetween('orders.date', $date);
         }
 

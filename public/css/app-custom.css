@@ -10,6 +10,9 @@
 
 /* datatable style */
 
+.on-click{
+  cursor: pointer;
+}
 table.table-custom thead{
     background: #ddd;
     color:#000;

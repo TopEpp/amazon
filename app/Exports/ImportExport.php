@@ -29,7 +29,7 @@ class ImportExport implements FromView
     {
         $query = Import::join('users', 'users.id', '=', 'imports.user_id')
             ->join('import_items', 'import_items.import_id', '=', 'imports.id')
-            ->select('users.name', 'imports.number', 'imports.remark', 'imports.date', DB::raw('sum(import_items.value) as value'));
+            ->select('users.name', 'imports.number', 'imports.price', 'imports.remark', 'imports.date', DB::raw('sum(import_items.value) as value'));
 
         //search
         if ($this->number != '') {

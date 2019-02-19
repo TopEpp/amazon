@@ -11,8 +11,8 @@
                     </div><!-- /.col -->
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="#">หน้าหลัก</a></li>
-                        <li class="breadcrumb-item"><a href="#">สั่งสินค้า</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">หน้าหลัก</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('orders.index') }}">สั่งสินค้า</a></li>
                         <li class="breadcrumb-item active">{!! $order->id !!}</li>
                         </ol>
                     </div><!-- /.col -->

@@ -57,7 +57,7 @@ class UserDataTable extends DataTable
             ->minifiedAjax()
             ->addAction(['width' => '120px', 'title' => ''])
             ->parameters([
-                'dom' => "<'row'<'col-sm-6 table-create'><'col-sm-6'f>>t<'row'<'col-sm-12 col-md-5'><'col-sm-12 col-md-7'p>>",
+                'dom' => "<'row'<'col-sm-6 table-create'><'col-sm-6'>>t<'row'<'col-sm-12 col-md-5'><'col-sm-12 col-md-7'p>>",
                 'order' => [[0, 'desc']],
                 "bSort" => false,
                 'buttons' => [

@@ -112,8 +112,10 @@
 
     <div class="row no-print">
         <div class="col-12">
-            <a href="{!! url('pdf_order').'/'.$order->id !!}" target="_blank" class="btn btn-custom"><i class="fa fa-print"></i> Print</a>
-
+            @if (Auth::user()->type == 1)
+                <a href="{!! url('pdf_order').'/'.$order->id !!}" target="_blank" class="btn btn-custom"><i class="fa fa-print"></i> Print</a>
+            @endif
+            
         </div>
     </div>
 </div>

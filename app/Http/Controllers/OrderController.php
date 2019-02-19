@@ -45,8 +45,18 @@ class OrderController extends AppBaseController
     public function index(OrderDataTable $orderDataTable)
     {
         $order = array();
-        $order['new'] = Order::where('order_status', '0')->count();
-        $order['receive'] = Order::where('order_status', '1')->count();
+        if (Auth::user()->type != 1){
+            $order['new'] = Order::where('order_status', '0')
+                        ->where('user_id',Auth::user()->type)
+                        ->count();
+            $order['receive'] = Order::where('order_status', '1')
+                        ->where('user_id',Auth::user()->type)
+                        ->count();
+        }else{
+            $order['new'] = Order::where('order_status', '0')->count();
+            $order['receive'] = Order::where('order_status', '1')->count();
+        }
+      
         return $orderDataTable->render('orders.index', ['orders' => $order]);
     }
 

@@ -13,8 +13,8 @@ use App\Exports\StockOrderExport;
 use App\Models\Category;
 use App\Models\Import;
 use App\Models\Order;
-use App\Models\OrderItem;
 use App\Models\Stock;
+use App\Models\User;
 use Excel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -51,9 +51,17 @@ class ReportController extends Controller
 
     }
 
-    public function reportStockOrder(ReportStockOrderDataTable $ReportStockOrderDataTable)
+    public function reportStockOrder(ReportStockOrderDataTable $ReportStockOrderDataTable, Request $request)
     {
-        return $ReportStockOrderDataTable->render('reports.report_stock_order');
+        $user = '';
+        if ($request->has('owner') && $request->owner != '') {
+            $user = User::where('id', $request->owner)->pluck('name')->first();
+        }
+
+        $users = User::All()->pluck('name', 'id');
+        $users[0] = 'เลือก';
+
+        return $ReportStockOrderDataTable->render('reports.report_stock_order', ['user' => $user, 'users' => $users]);
 
     }
 
@@ -96,7 +104,7 @@ class ReportController extends Controller
         $query = $model
             ->join('users', 'users.id', '=', 'imports.user_id')
             ->join('import_items', 'import_items.import_id', '=', 'imports.id')
-            ->select('users.name', 'imports.number', 'imports.remark', 'imports.date', DB::raw('sum(import_items.value) as value'));
+            ->select('users.name', 'imports.number', 'imports.price', 'imports.remark', 'imports.date', DB::raw('sum(import_items.value) as value'));
 
         //search custom
         if ($request->has('number') && $request->number != '') {
@@ -149,15 +157,27 @@ class ReportController extends Controller
         return Excel::download(new StockExport($request->number, $request->owner, $request->category), 'excel_stock.xlsx');
     }
 
-    public function printPdfStockOrder(OrderItem $model, Request $request)
+    public function printPdfStockOrder(Order $model, Request $request)
     {
         $query = $model
+            ->join('order_items', 'order_items.order_id', '=', 'orders.id')
             ->join('products', 'products.id', '=', 'order_items.product_id')
+            // ->join('categorys', 'categorys.id', '=', 'products.categoty_id')
+            ->groupBy('order_items.product_id')
             ->select('products.name', DB::raw('sum(order_items.value) as value'));
 
         //search custom
         if ($request->has('owner') && $request->owner != '') {
-            $query->where('products.name', 'like', '%' . $request->owner . '%');
+            $query->where('orders.user_id', $request->owner);
+            $data['owner'] = User::where('id', $request->owner)->pluck('name')->first();
+        }
+        if ($request->has('product') && $request->product != '') {
+            $query->where('products.name', 'like', '%' . $request->product . '%');
+        }
+        if ($request->has('start_date') && $request->start_date != '') {
+
+            $date = [$request->start_date . ' ' . '00:00:00', $request->end_date . ' ' . '00:00:00'];
+            $query->whereBetween('orders.date', $date);
         }
 
         $data['items'] = $query->groupby('order_items.product_id')->get();
@@ -168,6 +188,6 @@ class ReportController extends Controller
 
     public function excelStockOrder(Request $request)
     {
-        return Excel::download(new StockOrderExport($request->owner), 'excel_stockOrder.xlsx');
+        return Excel::download(new StockOrderExport($request->owner, $request->product, $request->start_date, $request->end_date), 'excel_stockOrder.xlsx');
     }
 }

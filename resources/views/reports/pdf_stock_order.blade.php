@@ -63,7 +63,8 @@
 	
 	<div class="page">
 		{{-- <h1>{{ $title }}</h1> --}}
-		<h1 align="center">รายงานสรุปจำนวนสินค้าที่ใช้</h1>
+		<h2 align="center">รายงานสรุปจำนวนสินค้าที่ใช้</h2>
+		<p align="center"><b>สาขา</b> {!! $owner !!}</p>
 		<div style="margin-top:20px;margin-bottom:20px;">
 			<table border='1' width='100%' style='border-collapse: collapse;'>
 				<tr>

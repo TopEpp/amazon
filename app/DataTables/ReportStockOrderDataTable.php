@@ -2,7 +2,7 @@
 
 namespace App\DataTables;
 
-use App\Models\OrderItem;
+use App\Models\Order;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\EloquentDataTable;
@@ -20,27 +20,16 @@ class ReportStockOrderDataTable extends DataTable
     public function dataTable($query)
     {
         $dataTable = new EloquentDataTable($query);
+        return $dataTable->setRowAttr([
 
-        //search
-        // $dataTable->filterColumn('date', function ($query, $keyword) {
-        //     $query->whereRaw("DATE_FORMAT(date,'%d/%m/%Y') like ?", ["%$keyword%"]);
-        // });
+            'data-id' => function ($user) {
+                return $user->id;
+            },
 
-        // $dataTable->editColumn('date', function ($model) {
-        //     // return $model->date;
-        //     return Carbon::createFromFormat('Y-m-d h:i:s', $model->date)->format('d/m/Y');
-        // });
-        // $dataTable->editColumn('value', function ($model) {
-
-        //     return $model->item->sum('value');
-        // });
-
-        // $dataTable->editColumn('user_id', function ($model) {
-
-        //     return $model->user->name;
-        // });
-
-        return $dataTable;
+        ])
+            ->setRowClass(function ($user) {
+                return 'on-click';
+            });
     }
 
     /**
@@ -49,16 +38,34 @@ class ReportStockOrderDataTable extends DataTable
      * @param \App\Models\Units $model
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function query(OrderItem $model, Request $request)
+    public function query(Order $model, Request $request)
     {
-        $query = $model
-        // ->join('categorys', 'categorys.id', '=', 'stocks.categoty_id')
-        ->join('products', 'products.id', '=', 'order_items.product_id')
-            ->groupBy('order_items.product_id')
-            ->select('products.name', DB::raw('sum(order_items.value) as value'));
-        //search custom
-        if ($request->has('owner') && $request->owner != '') {
-            $query->where('products.name', 'like', '%' . $request->owner . '%');
+        if ($request->has('owner') && $request->owner != '0') {
+            $query = $model
+
+                ->join('order_items', 'order_items.order_id', '=', 'orders.id')
+                ->join('products', 'products.id', '=', 'order_items.product_id')
+                // ->join('categorys', 'categorys.id', '=', 'products.categoty_id')
+                ->groupBy('order_items.product_id')
+                ->select('products.name', DB::raw('sum(order_items.value) as value'));
+            //search custom
+            if ($request->has('product') && $request->product != '') {
+                $query->where('products.name', 'like', '%' . $request->product . '%');
+            }
+
+            $query->where('orders.user_id', $request->owner);
+        } else {
+            $query = $model
+                ->join('users', 'users.id', '=', 'orders.user_id')
+                ->join('order_items', 'order_items.order_id', '=', 'orders.id')
+                ->groupBy('orders.user_id')
+                ->select('users.id', 'users.name', DB::raw('sum(order_items.value) as value'));
+        }
+
+        if ($request->has('start_date') && $request->start_date != '') {
+
+            $date = [$request->start_date . ' ' . '00:00:00', $request->end_date . ' ' . '00:00:00'];
+            $query->whereBetween('orders.date', $date);
         }
 
         return $this->applyScopes($query);
@@ -116,7 +123,7 @@ class ReportStockOrderDataTable extends DataTable
     {
         return [
             // 'code' => ['title' => 'รหัสสินค้า', 'name' => 'products.code', 'data' => 'code'],
-            'name' => ['title' => 'ชื่อสินค้า', 'name' => 'products.name', 'data' => 'name'],
+            'name' => ['title' => 'ชื่อ', 'name' => 'products.name', 'data' => 'name'],
             // 'category' => ['title' => 'หมวดหมู่', 'name' => 'categorys.name', 'data' => 'category'],
             'value' => ['title' => 'จำนวน', 'name' => 'order_items.value', 'data' => 'value'],
         ];

@@ -29,23 +29,23 @@ class SelectDates
             case 'today':
                 $today = new Carbon('today');
                 $today = new Carbon('today');
-                $date = [$today->format('Y-m-d h:i:s'), $today->format('Y-m-d h:i:s')];
+                $date = [$today->format('Y-m-d').' '.'00:00:00', $today->format('Y-m-d').' '.'00:00:00'];
                 break;
             case 'month':
                 $month_first = new Carbon('first day of this month');
                 $month_last = new Carbon('last day of this month');
-                $date = [$month_first->format('Y-m-d h:i:s'), $month_last->format('Y-m-d h:i:s')];
+                $date = [$month_first->format('Y-m-d').' '.'00:00:00', $month_last->format('Y-m-d').' '.'00:00:00'];
                 break;
             case 'year':
                 $year = new Carbon('this year');
                 $last_year = new Carbon('last year');
-                $date = [$last_year->format('Y-m-d h:i:s'), $year->format('Y-m-d h:i:s')];
+                $date = [$last_year->format('Y-m-d').' '.'00:00:00', $year->format('Y-m-d').' '.'00:00:00'];
                 break;
 
             default:
                 $week_first = new Carbon('this week');
                 $week_last = new Carbon('last week');
-                $date = [$week_last->format('Y-m-d h:i:s'), $week_first->format('Y-m-d h:i:s')];
+                $date = [$week_last->format('Y-m-d').' '.'00:00:00', $week_first->format('Y-m-d').' '.'00:00:00'];
                 break;
         }
         return $date;

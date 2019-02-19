@@ -26,14 +26,14 @@ class getOrderData
     public function handle(getDataDashboard $event)
     {
         $data = array();
+       
         $value_all = DB::table('orders')
-            ->join('order_items', 'order_items.order_id', '=', 'orders.id')
+            // ->join('order_items', 'order_items.order_id', '=', 'orders.id')
+            // ->join('users', 'users.id', '=', 'orders.user_id')
             ->select(DB::raw('sum(price) as total'))
+            // ->groupBy('orders.user_ids')
             ->whereBetween("orders.date", $event->date)
             ->first();
-        if (empty($value_all->total)) {
-            $value_all->total = 0;
-        }
 
         $orders_products = DB::table('products')
             ->join('stocks', 'stocks.product_id', '=', 'products.id')
@@ -51,13 +51,14 @@ class getOrderData
 
         $chart_data = DB::table('orders')
             ->join('order_items', 'order_items.order_id', '=', 'orders.id')
+            ->join('users', 'users.id', '=', 'orders.user_id')
             ->select(
-                DB::raw("orders.date as month"),
+                'users.name',
                 DB::raw("sum(order_items.value) as total")
             )
             ->whereBetween("orders.date", $event->date)
         // ->groupBy('month')
-            ->groupBy('order_items.order_id')
+            ->groupBy('orders.user_id')
             ->get();
         // dd($event->date);
         $data['value_all'] = $value_all;

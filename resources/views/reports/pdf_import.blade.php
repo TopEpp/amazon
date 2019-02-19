@@ -70,6 +70,7 @@
 					<th width="5%" align="center">หมายเลขอ้างอิง</th>
 					<th width="20%" align="center">วันที่นำเข้า</th>
 					<th width="10%" align="center">จำนวนสินค้า</th>
+					<th width="10%" align="center">ราคารวม</th>
 					<th width="10%" align="center">หมายเหตุ</th>
 				</tr>
 				@if ( !empty($items))
@@ -78,6 +79,7 @@
 							<td align="center">{!! $item->number !!}</td>
 							<td align="center">{!! Carbon\Carbon::createFromFormat('Y-m-d h:i:s', $item->date)->format('d/m/Y') !!}</td>
 							<td align="center"> {!! $item->value !!}</td>
+							<td align="center"> {!! $item->price !!}</td>
 							<td align="center"> {!! $item->remark !!}</td>
 						</tr>
 					@endforeach

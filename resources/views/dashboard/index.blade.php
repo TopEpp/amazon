@@ -52,7 +52,7 @@
                         <div class="card">
                                 <div class="description-block border-right">
                                     
-                                    <h3 class="description-header text-success" style="font-size:24px">{!! $value_all->total !!} </h3>
+                                    <h3 class="description-header text-success numeric" style="font-size:24px">{!! !empty($value_all->total)?$value_all->total:'0' !!} </h3>
                                     <span class="description-text">จำนวนเงินทั้งหมด (บาท)</span>
                                     </div>
                             </div>
@@ -176,6 +176,7 @@
 @endsection
 
 @section('scripts')
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.js"></script>
 <script type="text/javascript">
     $(function(){

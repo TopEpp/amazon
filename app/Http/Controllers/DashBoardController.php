@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Events\getDataDashboard;
 use App\Events\getDataDashboardSale;
 use App\Events\SwitchDates;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Input;
@@ -35,12 +34,25 @@ class DashBoardController extends Controller
         $data = [];
         $label = [];
         // $data['label'] = 'จำนวน';
-        $data['backgroundColor'] = '#F09216';
-        foreach ($val[0]['chart_data'] as $key => $value) {
-            $label[$key] = Carbon::createFromFormat('Y-m-d h:i:s', $value->month)->format('d/m/Y');
-            $data['data'][$key] = $value->total;
-        }
 
+        $color = ["#1D464F",
+            "#116121",
+            "#597A21",
+            "#9E8A1B",
+            "#38964B",
+            "#199612",
+            "#12966A",
+            "#359612",
+            "#549612",
+            "#24633A",
+            "#F09216"];
+        foreach ($val[0]['chart_data'] as $key => $value) {
+            $label[$key] = $value->name;
+            $data['data'][$key] = $value->total;
+
+            $data['backgroundColor'][$key] = $color[$key];
+
+        }
         $chartjs = app()->chartjs
             ->name('barChartDashboard')
             ->type('bar')
@@ -50,6 +62,7 @@ class DashBoardController extends Controller
             ->options([
                 'legend' => [
                     'display' => false,
+
                 ],
                 'scales' => [
                     'xAxes' => [

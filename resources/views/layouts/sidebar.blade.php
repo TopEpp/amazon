@@ -1,5 +1,5 @@
   <!-- Main Sidebar Container -->
-<aside class="main-sidebar sidebar-light-warning elevation-2" style="background: #004B1B">
+<aside   class="main-sidebar sidebar-light-warning elevation-2  " style="background: #004B1B">
     <!-- Brand Logo -->
     <a href="#" class="brand-link">
         <img src="/img/logo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3">
@@ -14,7 +14,7 @@
 
 
     <!-- Sidebar -->
-    <div class="sidebar ">
+    <div class="sidebar" >
         <!-- Sidebar user panel (optional) -->
         <div class="user-panel mt-3 pb-3 mb-3 ">
             <div class="widget-user">
@@ -24,7 +24,7 @@
                     <!-- <h5 class="widget-user-desc">ผู้ดูแลระบบ</h5> -->
                 </div>
                 <div class="widget-user-image">
-                    <img class="img-circle elevation-2" src="{!! asset('uploads/users').'/'.Auth::user()->image !!}" alt="User Avatar">
+                    <img class="img-circle elevation-2" src="{!! (Auth::user()->image)? asset('uploads/users').'/'.Auth::user()->image: asset('img').'/'.'face.png' !!}" alt="User Avatar">
                 </div>
                 <div class="card-footer card-info-footer">
                         <div class="float-left">

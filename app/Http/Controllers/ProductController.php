@@ -156,7 +156,7 @@ class ProductController extends AppBaseController
             $stock_input['product_id'] = $product->id;
             $stock_input['categoty_id'] = $input['category_id'];
             $stock_input['user_id'] = Auth::user()->id;
-            $stock_input['value'] = 0;
+            // $stock_input['value'] = 0;
 
             $stock = $this->stockRepository->update($stock_input, $request->stock_id);
         }

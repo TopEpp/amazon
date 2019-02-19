@@ -11,8 +11,8 @@
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                    <li class="breadcrumb-item"><a href="#">หน้าหลัก</a></li>
-                    <li class="breadcrumb-item"><a href="#">บัญชีผู้ใช้งาน</a></li>
+                    <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">หน้าหลัก</a></li>
+                    <li class="breadcrumb-item"><a href="{{ route('users.index') }}">บัญชีผู้ใช้งาน</a></li>
                     <li class="breadcrumb-item active">แก้ไขบัญชีผู้ใช้งาน</li>
                     </ol>
                 </div><!-- /.col -->

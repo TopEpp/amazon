@@ -6,11 +6,11 @@ use App\DataTables\ImportDataTable;
 use App\Http\Controllers\AppBaseController;
 use App\Http\Requests\CreateImportRequest;
 use App\Http\Requests\UpdateImportRequest;
+use App\Repositories\CategoryRepository;
 use App\Repositories\ImportItemRepository;
 use App\Repositories\ImportRepository;
 use App\Repositories\ProductRepository;
 use App\Repositories\StockRepository;
-use App\Repositories\CategoryRepository;
 use Flash;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -87,6 +87,7 @@ class ImportController extends AppBaseController
 
         $item_value = array();
         $item_product = array();
+        $item_price = array();
         if ($import) {
 
             foreach ($import_item as $key => $value) {
@@ -98,6 +99,10 @@ class ImportController extends AppBaseController
                 $item_value['product_id'] = $product->id;
                 $item_value['stock_id'] = $product->stock->id;
                 $item_value['value'] = $value;
+
+                //sum price product
+                $item_price[$key] = $item_value['value'] * $item_product['price'];
+                //insert item
                 $this->importItemRepository->create($item_value);
 
                 //update value stock
@@ -107,6 +112,10 @@ class ImportController extends AppBaseController
                 $stock = $this->stockRepository->update($input_stock, $item_value['stock_id']);
             }
 
+            //update price
+            $input = array();
+            $input['price'] = array_sum($item_price);
+            $import = $this->importRepository->update($input, $import->id);
         }
 
         Flash::success('Import saved successfully.');
@@ -192,7 +201,7 @@ class ImportController extends AppBaseController
 
         $item_value = array();
         $item_product = array();
-
+        $item_price = array();
         if ($import) {
             foreach ($import_item as $key => $value) {
                 // update product
@@ -203,6 +212,10 @@ class ImportController extends AppBaseController
                 $item_value['product_id'] = $product->id;
                 $item_value['stock_id'] = $product->stock->id;
                 $item_value['value'] = $value;
+
+                //sum price product
+                $item_price[$key] = $item_value['value'] * $item_product['price'];
+
                 if (!empty($item[$product->id])) {
                     $this->importItemRepository->update($item_value, $item[$product->id]->id);
 
@@ -225,6 +238,11 @@ class ImportController extends AppBaseController
                 }
 
             }
+
+            //update price
+            $input = array();
+            $input['price'] = array_sum($item_price);
+            $import = $this->importRepository->update($input, $id);
 
         }
 

@@ -4,6 +4,9 @@ namespace App\DataTables;
 
 use App\Models\Order;
 use Carbon\Carbon;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Services\DataTable;
 
@@ -20,20 +23,9 @@ class OrderDataTable extends DataTable
         $dataTable = new EloquentDataTable($query);
 
         //search
-        $dataTable->filterColumn('date', function ($query, $keyword) {
-            $query->whereRaw("DATE_FORMAT(date,'%d/%m/%Y') like ?", ["%$keyword%"]);
-        });
-
-        $dataTable->editColumn('value', function ($model) {
-
-            return $model->item->sum('value');
-        });
-
-        $dataTable->editColumn('user_id', function ($model) {
-
-            return $model->user->name;
-        });
-
+        // $dataTable->filterColumn('date', function ($query, $keyword) {
+        //     $query->whereRaw("DATE_FORMAT(date,'%d/%m/%Y') like ?", ["%$keyword%"]);
+        // });
         $dataTable->editColumn('date', function ($model) {
             // return $model->date;
             return Carbon::createFromFormat('Y-m-d h:i:s', $model->date)->format('d/m/Y');
@@ -60,9 +52,32 @@ class OrderDataTable extends DataTable
      * @param \App\Models\Order $model
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function query(Order $model)
+    public function query(Order $model, Request $request)
     {
-        return $model->newQuery();
+        $query = $model
+            ->join('order_items', 'order_items.order_id', '=', 'orders.id')
+            ->join('users', 'users.id', '=', 'orders.user_id')
+            ->select('orders.id', 'users.name', 'orders.order_status', 'orders.remark', 'orders.date', DB::raw('sum(order_items.value) as value'))
+            ->groupby('orders.id');
+
+        if (Auth::user()->type != 1) {
+            $query->where('orders.user_id', Auth::user()->id);
+        }
+
+        if ($request->has('owner') && $request->owner != '') {
+            $query->where('users.name', 'like', '%' . $request->owner . '%');
+        }
+        if ($request->has('status') && $request->status != '') {
+            $query->where('orders.order_status', $request->status);
+        }
+        if ($request->has('start_date') && $request->start_date != '') {
+
+            $date = [$request->start_date . ' ' . '00:00:00', $request->end_date . ' ' . '00:00:00'];
+            $query->whereBetween('orders.date', $date);
+        }
+
+        return $this->applyScopes($query);
+        // return $model->newQuery();
     }
 
     /**
@@ -77,7 +92,7 @@ class OrderDataTable extends DataTable
             ->minifiedAjax()
             ->addAction(['width' => '120px', 'title' => ''])
             ->parameters([
-                'dom' => "<'row'<'table-create '>'<'col align-self-end'f>>t<'row'<'col-sm-12 col-md-5'><'col-sm-12 col-md-7'p>>",
+                'dom' => "<'row'<'table-create '>'<'col align-self-end'>>t<'row'<'col-sm-12 col-md-5'><'col-sm-12 col-md-7'p>>",
                 'order' => [[0, 'desc']],
                 "bSort" => false,
                 'buttons' => [
@@ -116,7 +131,7 @@ class OrderDataTable extends DataTable
     {
         return [
             'id' => ['title' => 'เลขคำสั่ง', 'name' => 'id', 'data' => 'id'],
-            'user_id' => ['title' => 'ชื่อผู้สั่ง', 'name' => 'user_id', 'data' => 'user_id'],
+            'name' => ['title' => 'ชื่อสาขา', 'name' => 'users.name', 'data' => 'name'],
             'value' => ['title' => 'จำนวนสินค้า', 'name' => 'value', 'data' => 'value'],
             'date' => ['title' => 'วันที่สั่ง', 'name' => 'date', 'data' => 'date'],
             'order_status' => ['title' => 'สถานะ', 'name' => 'order_status', 'data' => 'order_status'],

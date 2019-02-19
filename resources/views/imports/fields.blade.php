@@ -56,7 +56,7 @@
                                     </tr>
                                         @foreach ($items->product as $key => $item)
                                         <!-- <input type="hidden" id="amout_{!! $item->id !!}" value="{!! $item->price !!}"> -->
-                                        <input type="hidden" class="sum_all" id="sum_{!! $item->id !!}" value="{!! (!empty($import->value[$item->id]->value) ? $import->value[$item->id]->value *$item->price : '0'); !!}">
+                                        {{-- <input type="hidden" class="sum_all" id="sum_{!! $item->id !!}" value="{!! (!empty($import->value[$item->id]->value) ? $import->value[$item->id]->value *$item->price : '0'); !!}"> --}}
                                             <tr style="cursor:pointer">
                                                 <td><div class="form-check">
                                                     <input data-id="{!! $item->id !!}" class="form-check-input select_product" type="checkbox" {!! (!empty($import->value[$item->id]->value) ? 'checked' : ''); !!}>
@@ -65,11 +65,11 @@
                                                 <td>{!! $item->name !!}</td>
                                                 <td class="text-right">
                                                     <!-- <span class="badge bg-danger ">{!! $item->price !!}</span> -->
-                                                    <input data-id="{!! $item->id !!}" id="price_{!! $item->id !!}" name="price_product[{!! $item->id !!}]" value="{!! $item->price !!}" class="form-control form-control-sm val-product text-right" type="text" {!! (!empty($import->value[$item->id]->value) ? '' : 'disabled'); !!} >
+                                                    <input data-id="{!! $item->id !!}" id="price_{!! $item->id !!}" name="price_product[{!! $item->id !!}]" value="{!! $item->price !!}" class="form-control form-control-sm val-product text-right numeric" type="text" {!! (!empty($import->value[$item->id]->value) ? '' : 'disabled'); !!} >
                                                 
                                                 </td>
                                                 <td>
-                                                    <input data-id="{!! $item->id !!}" id="val_{!! $item->id !!}" name="value[{!! $item->id !!}]" value="{!! (!empty($import->value[$item->id]->value) ? $import->value[$item->id]->value : '0'); !!}" class="form-control form-control-sm val-product text-right" type="text" {!! (!empty($import->value[$item->id]->value) ? '' : 'disabled'); !!}>
+                                                    <input data-id="{!! $item->id !!}" id="val_{!! $item->id !!}" name="value[{!! $item->id !!}]" value="{!! (!empty($import->value[$item->id]->value) ? $import->value[$item->id]->value : '0'); !!}" class="form-control form-control-sm val-product text-right numberonly" type="text" {!! (!empty($import->value[$item->id]->value) ? '' : 'disabled'); !!}>
                                                 </td>
                                                 <td class="text-center">
                                                     {!! $item->unit->name !!}
@@ -86,7 +86,7 @@
                                             <td class="label-warning text-right val-total" >{!! (!empty($import->item) ? $import->item->sum('value') : '0'); !!}</td>
                                             <td class="label-warning text-right val-total" ></td> --}}
                                             {{-- <td class="label-warning text-right price-total">{!! (!empty($import->item) ? $import->price : '0'); !!}</td> --}}
-                                            <input type="hidden" name="price" value="{!! (!empty($import->item) ? $import->price : '0'); !!}">
+                                            <input type="hidden" name="price" value="{!! (!empty($import->item) ? $import->price : '1'); !!}">
                                         </tr>
                                     </tbody>
                                 </table>
@@ -158,11 +158,11 @@
             });
             $('.val-total').text(sum_val);
 
-            $('.sum_all').each(function() {
-                sum_price += Number($(this).val());
-            });
+            // $('.sum_all').each(function() {
+            //     sum_price += Number($(this).val());
+            // });
             $('.price-total').text(sum_price);
-            $("input[name=price]").val(sum_price);
+            // $("input[name=price]").val(sum_price);
             // alert(sum);
         }
     </script>
