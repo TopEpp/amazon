@@ -54,7 +54,7 @@ class CategoryController extends AppBaseController
 
         $category = $this->categoryRepository->create($input);
 
-        Flash::success('Category saved successfully.');
+        Flash::success('เพิ่มประเภทสินค้า เรียบร้อย.');
 
         return redirect(route('categories.index'));
     }
@@ -71,7 +71,7 @@ class CategoryController extends AppBaseController
         $category = $this->categoryRepository->findWithoutFail($id);
 
         if (empty($category)) {
-            Flash::error('Category not found');
+            Flash::error('ไม่พบประเภทสินค้า');
 
             return redirect(route('categories.index'));
         }
@@ -91,7 +91,7 @@ class CategoryController extends AppBaseController
         $category = $this->categoryRepository->findWithoutFail($id);
 
         if (empty($category)) {
-            Flash::error('Category not found');
+            Flash::error('ไม่พบประเภทสินค้า');
 
             return redirect(route('categories.index'));
         }
@@ -112,14 +112,14 @@ class CategoryController extends AppBaseController
         $category = $this->categoryRepository->findWithoutFail($id);
 
         if (empty($category)) {
-            Flash::error('Category not found');
+            Flash::error('ไม่พบประเภทสินค้า');
 
             return redirect(route('categories.index'));
         }
 
         $category = $this->categoryRepository->update($request->all(), $id);
 
-        Flash::success('Category updated successfully.');
+        Flash::success('แก้ไขประเภทสินค้า เรียบร้อย.');
 
         return redirect(route('categories.index'));
     }
@@ -136,14 +136,14 @@ class CategoryController extends AppBaseController
         $category = $this->categoryRepository->findWithoutFail($id);
 
         if (empty($category)) {
-            Flash::error('Category not found');
+            Flash::error('ไม่พบประเภทสินค้า');
 
             return redirect(route('categories.index'));
         }
 
         $this->categoryRepository->delete($id);
 
-        Flash::success('Category deleted successfully.');
+        Flash::success('ลบประเภทสินค้า เรียบร้อย.');
 
         return redirect(route('categories.index'));
     }

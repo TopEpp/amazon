@@ -12,7 +12,7 @@ class CreateStocksTable extends Migration
             $table->increments('id');
             $table->integer('product_id')->unsigned();
             $table->integer('categoty_id')->unsigned();
-            $table->integer('value');
+            $table->integer('value')->nullable();
             $table->integer('user_id')->unsigned();
             // $table->integer('order_id')->unsigned();
             // $table->integer('import_id')->unsigned();

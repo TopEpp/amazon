@@ -75,7 +75,7 @@ class ProductController extends AppBaseController
 
         $stock = $this->stockRepository->create($stock_input);
 
-        Flash::success('Product saved successfully.');
+        Flash::success('เพิ่มสินค้า เรียบร้อย.');
 
         return redirect(route('stocks.index'));
     }
@@ -92,7 +92,7 @@ class ProductController extends AppBaseController
         $product = $this->productRepository->findWithoutFail($id);
 
         if (empty($product)) {
-            Flash::error('Product not found');
+            Flash::error('ไม่พบสินค้า');
 
             return redirect(route('products.index'));
         }
@@ -114,7 +114,7 @@ class ProductController extends AppBaseController
         $units = $this->unitsRepository->pluck('name', 'id');
 
         if (empty($product)) {
-            Flash::error('Product not found');
+            Flash::error('ไม่พบสินค้า');
 
             return redirect(route('stocks.index'));
         }
@@ -135,7 +135,7 @@ class ProductController extends AppBaseController
         $product = $this->productRepository->findWithoutFail($id);
 
         if (empty($product)) {
-            Flash::error('Product not found');
+            Flash::error('ไม่พบสินค้า');
 
             return redirect(route('stocks.index'));
         }
@@ -161,7 +161,7 @@ class ProductController extends AppBaseController
             $stock = $this->stockRepository->update($stock_input, $request->stock_id);
         }
 
-        Flash::success('Product updated successfully.');
+        Flash::success('แก้ไขสินค้า เรียบร้อย.');
 
         return redirect(route('stocks.index'));
     }
@@ -178,14 +178,14 @@ class ProductController extends AppBaseController
         $product = $this->productRepository->findWithoutFail($id);
 
         if (empty($product)) {
-            Flash::error('Product not found');
+            Flash::error('ไม่พบสินค้า');
 
             return redirect(route('stocks.index'));
         }
 
         $this->productRepository->delete($id);
 
-        Flash::success('Product deleted successfully.');
+        Flash::success('ลบสินค้า เรียบร้อย.');
 
         return redirect(route('stocks.index'));
     }

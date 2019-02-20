@@ -74,7 +74,7 @@ class StockController extends AppBaseController
         $input['import_id'] = 1;
         $stock = $this->stockRepository->create($input);
 
-        Flash::success('Stock saved successfully.');
+        Flash::success('เพิ่มคลังสินค้า เรียบร้อย.');
 
         return redirect(route('stocks.index'));
     }
@@ -91,7 +91,7 @@ class StockController extends AppBaseController
         $stock = $this->stockRepository->findWithoutFail($id);
 
         if (empty($stock)) {
-            Flash::error('Stock not found');
+            Flash::error('ไม่พบคลังสินค้า');
 
             return redirect(route('stocks.index'));
         }
@@ -115,7 +115,7 @@ class StockController extends AppBaseController
         $units = $this->unitsRepository->pluck('name', 'id');
 
         if (empty($stock)) {
-            Flash::error('Stock not found');
+            Flash::error('ไม่พบคลังสินค้า');
 
             return redirect(route('stocks.index'));
         }
@@ -136,7 +136,7 @@ class StockController extends AppBaseController
         $stock = $this->stockRepository->findWithoutFail($id);
 
         if (empty($stock)) {
-            Flash::error('Stock not found');
+            Flash::error('ไม่พบคลังสินค้า');
 
             return redirect(route('stocks.index'));
         }
@@ -150,7 +150,7 @@ class StockController extends AppBaseController
 
         $stock = $this->stockRepository->update($input, $id);
 
-        Flash::success('Stock updated successfully.');
+        Flash::success('แก้ไขคลังสินค้า เรียบร้อย.');
 
         return redirect(route('stocks.index'));
     }
@@ -167,14 +167,14 @@ class StockController extends AppBaseController
         $stock = $this->stockRepository->findWithoutFail($id);
 
         if (empty($stock)) {
-            Flash::error('Stock not found');
+            Flash::error('ไม่พบคลังสินค้า');
 
             return redirect(route('stocks.index'));
         }
 
         $this->stockRepository->delete($id);
 
-        Flash::success('Stock deleted successfully.');
+        Flash::success('ลบคลังสินค้า เรียบร้อย.');
 
         return redirect(route('stocks.index'));
     }

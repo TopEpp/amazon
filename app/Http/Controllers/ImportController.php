@@ -118,7 +118,7 @@ class ImportController extends AppBaseController
             $import = $this->importRepository->update($input, $import->id);
         }
 
-        Flash::success('Import saved successfully.');
+        Flash::success('เพิ่มนำเข้าสินค้า เรียบร้อย.');
 
         return redirect(route('imports.index'));
     }
@@ -135,7 +135,7 @@ class ImportController extends AppBaseController
         $import = $this->importRepository->findWithoutFail($id);
 
         if (empty($import)) {
-            Flash::error('Import not found');
+            Flash::error('ไม่พบนำเข้าสินค้า');
 
             return redirect(route('imports.index'));
         }
@@ -156,7 +156,7 @@ class ImportController extends AppBaseController
         $category = $this->categoryRepository->all();
 
         if (empty($import)) {
-            Flash::error('Import not found');
+            Flash::error('ไม่พบนำเข้าสินค้า');
 
             return redirect(route('imports.index'));
         }
@@ -182,7 +182,7 @@ class ImportController extends AppBaseController
         $import = $this->importRepository->findWithoutFail($id);
 
         if (empty($import)) {
-            Flash::error('Import not found');
+            Flash::error('ไม่พบนำเข้าสินค้า');
 
             return redirect(route('imports.index'));
         }
@@ -246,7 +246,7 @@ class ImportController extends AppBaseController
 
         }
 
-        Flash::success('Import updated successfully.');
+        Flash::success('แก้ไขนำเข้าสินค้า เรียบร้อย.');
 
         return redirect(route('imports.index'));
     }
@@ -263,14 +263,14 @@ class ImportController extends AppBaseController
         $import = $this->importRepository->findWithoutFail($id);
 
         if (empty($import)) {
-            Flash::error('Import not found');
+            Flash::error('ไม่พบนำเข้าสินค้า');
 
             return redirect(route('imports.index'));
         }
 
         $this->importRepository->delete($id);
 
-        Flash::success('Import deleted successfully.');
+        Flash::success('ลบนำเข้าสินค้า เรียบร้อย.');
 
         return redirect(route('imports.index'));
     }

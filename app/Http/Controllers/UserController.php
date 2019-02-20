@@ -77,7 +77,7 @@ class UserController extends AppBaseController
 
         $user = $this->userRepository->create($input);
 
-        Flash::success('User saved successfully.');
+        Flash::success('เพิ่มผู้ใช้งาน เรียบร้อย.');
 
         return redirect(route('users.index'));
     }
@@ -98,7 +98,7 @@ class UserController extends AppBaseController
         $user = $this->userRepository->findWithoutFail($id);
 
         if (empty($user)) {
-            Flash::error('User not found');
+            Flash::error('ไม่พบผู้ใช้งาน');
 
             return redirect(route('users.index'));
         }
@@ -122,7 +122,7 @@ class UserController extends AppBaseController
         $user = $this->userRepository->findWithoutFail($id);
 
         if (empty($user)) {
-            Flash::error('User not found');
+            Flash::error('ไม่พบผู้ใช้งาน');
 
             return redirect(route('users.index'));
         }
@@ -143,7 +143,7 @@ class UserController extends AppBaseController
         $user = $this->userRepository->findWithoutFail($id);
 
         if (empty($user)) {
-            Flash::error('User not found');
+            Flash::error('ไม่พบผู้ใช้งาน');
 
             return redirect(route('users.index'));
         }
@@ -165,7 +165,7 @@ class UserController extends AppBaseController
 
         $user = $this->userRepository->update($input, $id);
 
-        Flash::success('User updated successfully.');
+        Flash::success('แก้ไผู้ใช้งาน เรียบร้อย.');
 
         if (!Gate::allows('isAdmin')) {
             return redirect(route('orders.index'));
@@ -186,14 +186,14 @@ class UserController extends AppBaseController
         $user = $this->userRepository->findWithoutFail($id);
 
         if (empty($user)) {
-            Flash::error('User not found');
+            Flash::error('ไม่พบผู้ใช้งาน');
 
             return redirect(route('users.index'));
         }
 
         $this->userRepository->delete($id);
 
-        Flash::success('User deleted successfully.');
+        Flash::success('ลบผู้ใช้งาน เรียบร้อย.');
 
         return redirect(route('users.index'));
     }

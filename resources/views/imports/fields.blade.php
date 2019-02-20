@@ -116,6 +116,16 @@
             $('.collapse').collapse({
                 toggle: true
             })
+
+            $('.select_product').click(function(){
+                if ($(this).is(':checked')){
+                    $('#val_'+$(this).data("id")).prop("disabled", false);
+                    $('#price_'+$(this).data("id")).prop("disabled", false);
+                }else{
+                    $('#val_'+$(this).data("id")).prop("disabled", true);
+                    $('#price_'+$(this).data("id")).prop("disabled", true);
+                }
+            });
             
             $('table > tbody > tr').click(function(event){
                    var $target = $(event.target);

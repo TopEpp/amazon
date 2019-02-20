@@ -31,7 +31,7 @@ class OrdersExport implements FromView
     {
         $query = Order::join('users', 'users.id', '=', 'orders.user_id')
             ->join('order_items', 'order_items.order_id', '=', 'orders.id')
-            ->select('users.name', 'orders.id', 'orders.date', DB::raw('sum(order_items.value) as value'));
+            ->select('users.name', 'orders.id', 'orders.price', 'orders.date', DB::raw('sum(order_items.value) as value'));
 
         //search
         if ($this->number != '') {

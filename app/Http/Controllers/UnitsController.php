@@ -54,7 +54,7 @@ class UnitsController extends AppBaseController
 
         $units = $this->unitsRepository->create($input);
 
-        Flash::success('Units saved successfully.');
+        Flash::success('เพิ่มหน่วยนับ เรียบร้อย.');
 
         return redirect(route('units.index'));
     }
@@ -71,7 +71,7 @@ class UnitsController extends AppBaseController
         $units = $this->unitsRepository->findWithoutFail($id);
 
         if (empty($units)) {
-            Flash::error('Units not found');
+            Flash::error('ไม่พบหน่วยนับ');
 
             return redirect(route('units.index'));
         }
@@ -91,7 +91,7 @@ class UnitsController extends AppBaseController
         $units = $this->unitsRepository->findWithoutFail($id);
 
         if (empty($units)) {
-            Flash::error('Units not found');
+            Flash::error('ไม่พบหน่วยนับ');
 
             return redirect(route('units.index'));
         }
@@ -112,14 +112,14 @@ class UnitsController extends AppBaseController
         $units = $this->unitsRepository->findWithoutFail($id);
 
         if (empty($units)) {
-            Flash::error('Units not found');
+            Flash::error('ไม่พบหน่วยนับ');
 
             return redirect(route('units.index'));
         }
 
         $units = $this->unitsRepository->update($request->all(), $id);
 
-        Flash::success('Units updated successfully.');
+        Flash::success('แก้ไขหน่วยนับ เรียบร้อย.');
 
         return redirect(route('units.index'));
     }
@@ -136,14 +136,14 @@ class UnitsController extends AppBaseController
         $units = $this->unitsRepository->findWithoutFail($id);
 
         if (empty($units)) {
-            Flash::error('Units not found');
+            Flash::error('ไม่พบหน่วยนับ');
 
             return redirect(route('units.index'));
         }
 
         $this->unitsRepository->delete($id);
 
-        Flash::success('Units deleted successfully.');
+        Flash::success('ลบหน่วยนับ เรียบร้อย.');
 
         return redirect(route('units.index'));
     }

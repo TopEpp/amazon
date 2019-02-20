@@ -51,37 +51,65 @@ class DashBoardController extends Controller
             $data['data'][$key] = $value->total;
 
             $data['backgroundColor'][$key] = $color[$key];
+            $data['price'][$key] = $value->price;
 
         }
         $chartjs = app()->chartjs
             ->name('barChartDashboard')
             ->type('bar')
             ->size(['width' => 400, 'height' => 200])
+
             ->labels($label)
             ->datasets([$data])
-            ->options([
-                'legend' => [
-                    'display' => false,
+            ->optionsRaw("{
+                legend : {
+                    display : false,
+                },
+                scales : {
+                    'xAxes' : [
+                        {
+                            'stacked' : true,
+                            'gridLines' : {
+                                'display' : false,
+                            },
+                        },
+                    ],
+                    yAxes : [
+                        {
+                            'ticks' : {
+                                'beginAtZero' : true,
+                            },
+                        },
+                    ],
+                },
+                tooltips : {
+                    enabled :true,
+                    displayColors : false,
+                    callbacks: {
+                        title: function(tooltipItem, data) {
+                          return data['labels'][tooltipItem[0]['index']];
+                        },
+                        label: function(tooltipItem, data) {
+                          return 'จำนวนสินค้า: '+data['datasets'][0]['data'][tooltipItem['index']];
+                        },
+                        afterLabel: function(tooltipItem, data) {
+                            return 'ราคารวม: '+data['datasets'][0]['price'][tooltipItem['index']];
+                          },
+                    },
+                },
+            }");
 
-                ],
-                'scales' => [
-                    'xAxes' => [
-                        [
-                            'stacked' => true,
-                            'gridLines' => [
-                                'display' => false,
-                            ],
-                        ],
-                    ],
-                    'yAxes' => [
-                        [
-                            'ticks' => [
-                                'beginAtZero' => true,
-                            ],
-                        ],
-                    ],
-                ],
-            ]);
+        // 'tooltips' => {
+        //     'enabled' => true,
+        //     'displayColors' => false,
+        //     'callbacks' => "{title:function(tooltipItem,data){return 'asd';}}",
+        // ],
+        //         $options = "{onClick:function(c,i){
+        //                 var e = i[0];
+        //                 var id= this.data.labels[e._index];
+        //                 alert('we');
+        // }}";
+        //         $chartjs->optionsRaw($options);
 
         return view('dashboard.index', ['chartjs' => $chartjs,
             'products' => $val[0]['orders_products'],

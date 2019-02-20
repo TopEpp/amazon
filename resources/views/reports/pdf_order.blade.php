@@ -68,9 +68,10 @@
 			<table border='1' width='100%' style='border-collapse: collapse;'>
 				<tr>
 					<th width="5%" align="center">เลขคำสั่ง</th>
-					<th width="75%" align="center">ชื่อผู้สั่ง</th>
+					<th width="65%" align="center">ชื่อผู้สั่ง</th>
 					<th width="10%" align="center">วันที่สั่ง</th>
 					<th width="10%" align="center">จำนวนสินค้า</th>
+					<th width="10%" align="center">ราคารวม</th>
 				</tr>
 				@if ( !empty($items))
 					@foreach ($items as $key =>  $item)
@@ -79,6 +80,7 @@
 							<td align="center"> {!! $item->name !!}</td>
 							<td align="center">{!! Carbon\Carbon::createFromFormat('Y-m-d h:i:s', $item->date)->format('d/m/Y') !!}</td>
 							<td align="center"> {!! $item->value !!}</td>
+							<td align="center"> {!! $item->price !!}</td>
 						</tr>
 					@endforeach
 				@endif

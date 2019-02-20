@@ -101,6 +101,15 @@
                     toggle: true
                 })
 
+                // checked checkbox
+                $('.select_product').click(function(){
+                    if ($(this).is(':checked')){
+                        $('#val_'+$(this).data("id")).prop("disabled", false);
+                    }else{
+                        $('#val_'+$(this).data("id")).prop("disabled", true);
+                    }
+                });
+                // checked checkbox body table
                $('table > tbody > tr').click(function(event){
                    var $target = $(event.target);
                     if(!$target.is('input:checkbox') && !$target.is(':focus'))

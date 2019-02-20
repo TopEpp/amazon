@@ -4,7 +4,7 @@
     {!! Form::button('ลบ', [
         'type' => 'submit',
         'class' => 'btn btn-custom btn-xs',
-        'onclick' => "return confirm('Are you sure?')"
+        'onclick' => "return confirm('ยืนยันการลบ?')"
     ]) !!}
 </div>
 {!! Form::close() !!}

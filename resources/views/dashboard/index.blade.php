@@ -52,7 +52,7 @@
                         <div class="card">
                                 <div class="description-block border-right">
                                     
-                                    <h3 class="description-header text-success numeric" style="font-size:24px">{!! !empty($value_all->total)?$value_all->total:'0' !!} </h3>
+                                    <h3 class="description-header text-success numeric" style="font-size:24px">{!! !empty($value_all->total)?number_format($value_all->total,2):'0' !!} </h3>
                                     <span class="description-text">จำนวนเงินทั้งหมด (บาท)</span>
                                     </div>
                             </div>

@@ -58,7 +58,7 @@ class ReportOrderDataTable extends DataTable
         $query = $model
             ->join('users', 'users.id', '=', 'orders.user_id')
             ->join('order_items', 'order_items.order_id', '=', 'orders.id')
-            ->select('users.name', 'orders.id', 'orders.date', DB::raw('sum(order_items.value) as value'))
+            ->select('users.name', 'orders.id', 'orders.price', 'orders.date', DB::raw('sum(order_items.value) as value'))
             ->groupby('orders.id');
 
         //search custom
@@ -143,6 +143,7 @@ class ReportOrderDataTable extends DataTable
             'name' => ['title' => 'ชื่อผู้สั่ง', 'name' => 'users.name', 'data' => 'name'],
             'date' => ['title' => 'วันที่สั่ง', 'name' => 'orders.date', 'data' => 'date'],
             'value' => ['title' => 'จำนวนสินค้า', 'name' => 'order_items.value', 'data' => 'value'],
+            'price' => ['title' => 'ราคารวม', 'name' => 'order_items.price', 'data' => 'price'],
         ];
     }
 

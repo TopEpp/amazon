@@ -19,7 +19,7 @@ class CreateUsersTable extends Migration
             $table->longText('address_stock')->nullable();
             $table->tinyInteger('type')->default(1);
             $table->boolean('status')->default(true);
-            $table->string('site_code');
+            $table->string('site_code')->nullable();
             $table->rememberToken();
             $table->timestamps();
             $table->softDeletes();

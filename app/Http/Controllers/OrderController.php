@@ -45,18 +45,20 @@ class OrderController extends AppBaseController
     public function index(OrderDataTable $orderDataTable)
     {
         $order = array();
-        if (Auth::user()->type != 1){
+        if (Auth::user()->type != 1) {
+
             $order['new'] = Order::where('order_status', '0')
-                        ->where('user_id',Auth::user()->type)
-                        ->count();
+                ->where('user_id', Auth::user()->id)
+                ->count();
             $order['receive'] = Order::where('order_status', '1')
-                        ->where('user_id',Auth::user()->type)
-                        ->count();
-        }else{
+                ->where('user_id', Auth::user()->id)
+                ->count();
+        } else {
+
             $order['new'] = Order::where('order_status', '0')->count();
             $order['receive'] = Order::where('order_status', '1')->count();
         }
-      
+
         return $orderDataTable->render('orders.index', ['orders' => $order]);
     }
 
@@ -109,7 +111,7 @@ class OrderController extends AppBaseController
 
         }
 
-        Flash::success('Order saved successfully.');
+        Flash::success('เพิ่มการสั่งสินค้า เรียบร้อย.');
 
         return redirect(route('orders.index'));
     }
@@ -126,7 +128,7 @@ class OrderController extends AppBaseController
         $order = $this->orderRepository->with('item')->findWithoutFail($id);
 
         if (empty($order)) {
-            Flash::error('Order not found');
+            Flash::error('ไม่พบสั่งซื้อสินค้า');
 
             return redirect(route('orders.index'));
         }
@@ -146,7 +148,7 @@ class OrderController extends AppBaseController
         $order = $this->orderRepository->findWithoutFail($id);
         $category = $this->categoryRepository->all();
         if (empty($order)) {
-            Flash::error('Order not found');
+            Flash::error('ไม่พบสั่งซื้อสินค้า');
 
             return redirect(route('orders.index'));
         }
@@ -174,7 +176,7 @@ class OrderController extends AppBaseController
         $order = $this->orderRepository->findWithoutFail($id);
 
         if (empty($order)) {
-            Flash::error('Order not found');
+            Flash::error('ไม่พบสั่งซื้อสินค้า');
 
             return redirect(route('orders.index'));
         }
@@ -223,7 +225,7 @@ class OrderController extends AppBaseController
 
         }
 
-        Flash::success('Order updated successfully.');
+        Flash::success('แก้ไขสั่งสินค้า เรียบร้อย.');
 
         return redirect(route('orders.index'));
     }
@@ -240,14 +242,14 @@ class OrderController extends AppBaseController
         $order = $this->orderRepository->findWithoutFail($id);
 
         if (empty($order)) {
-            Flash::error('Order not found');
+            Flash::error('ไม่พบสั่งซื้อสินค้า');
 
             return redirect(route('orders.index'));
         }
 
         $this->orderRepository->delete($id);
 
-        Flash::success('Order deleted successfully.');
+        Flash::success('ลบการสั่งสินค้า เรียบร้อย.');
 
         return redirect(route('orders.index'));
     }
@@ -257,11 +259,6 @@ class OrderController extends AppBaseController
         $data = [];
         $order = $this->orderRepository->findWithoutFail($id);
         $data['order'] = $order;
-        // $pages = array();
-        // $pages[] = View::make('orderPdf1',$data);
-        // $pages[] = View::make('orderPdf2',$data);
-
-        // $pdf = PDF::loadView('orderPdf', ['pages' => $pages]);
 
         $pdf = PDF::loadView('orderPdf', $data);
 

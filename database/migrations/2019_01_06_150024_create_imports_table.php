@@ -11,9 +11,9 @@ class CreateImportsTable extends Migration
         Schema::create('imports', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id')->unsigned();
-            $table->date('date');
+            $table->date('date')->nullable();
             $table->double('price');
-            $table->string('remark');
+            $table->string('remark')->nullable();
             $table->string('number');
             $table->tinyInteger('import_status');
             $table->timestamps();

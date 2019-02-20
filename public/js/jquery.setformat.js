@@ -1,5 +1,5 @@
 $(document).ready(function(){
-    new SimpleBar(document.getElementById('scoll'));
+    // new SimpleBar(document.getElementById('scoll'));
     auto_setformat();
 });
 function auto_setformat(){
