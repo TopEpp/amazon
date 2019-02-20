@@ -16,7 +16,12 @@
 table.table-custom thead{
     background: #ddd;
     color:#000;
+    text-align: center !important;
 }
+table.dataTable th {
+  text-align: center !important;
+}
+
 .pagination > .active > a, .pagination > .active > a:focus, .pagination > .active > a:hover, .pagination > .active > span, .pagination > .active > span:focus, .pagination > .active > span:hover{
     z-index: 3;
     color: rgb(255, 255, 255);

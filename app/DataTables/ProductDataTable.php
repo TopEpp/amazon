@@ -18,20 +18,19 @@ class ProductDataTable extends DataTable
     {
         $dataTable = new EloquentDataTable($query);
 
-        $dataTable->editColumn('category_id', function ($model) {
+        // $dataTable->editColumn('category_id', function ($model) {
 
-            return $model->category->name;
-        });
+        //     return $model->category->name;
+        // });
 
-        $dataTable->editColumn('unit_id', function ($model) {
+        // $dataTable->editColumn('unit_id', function ($model) {
 
-            return $model->unit->name;
-        });
+        //     return $model->unit->name;
+        // });
 
-        $dataTable->addColumn('value', function ($model) {
-            return (!empty( $model->stock->value)) ?$model->stock->value:'0';
-        });
-        
+        // $dataTable->addColumn('value', function ($model) {
+        //     return (!empty($model->stock->value)) ? $model->stock->value : '0';
+        // });
 
         return $dataTable->addColumn('action', 'products.datatables_actions');
     }
@@ -44,7 +43,15 @@ class ProductDataTable extends DataTable
      */
     public function query(Product $model)
     {
-        return $model->newQuery();
+        $query = $model
+            ->join('categorys', 'categorys.id', '=', 'products.category_id')
+            ->join('units', 'units.id', '=', 'products.unit_id')
+            ->join('stocks', 'stocks.product_id', '=', 'products.id')
+            ->select('products.id', 'stocks.value', 'units.name as unit', 'categorys.name as categorys', 'products.name as product')
+            ->groupby('products.id');
+
+        return $this->applyScopes($query);
+        // return $model->newQuery();
     }
 
     /**
@@ -97,10 +104,10 @@ class ProductDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            'name' => ['title' => 'ชื่อสินค้า', 'name' => 'name', 'data' => 'name'],
-            'category_id' => ['title' => 'ประเภทสินค้า', 'name' => 'category_id', 'data' => 'category_id'],
-            'value' => ['title' => 'จำนวน'],
-            'unit_id' => ['title' => 'หน่วยนับ', 'name' => 'unit_id', 'data' => 'unit_id'],
+            'product' => ['title' => 'ชื่อสินค้า', 'name' => 'products.name', 'data' => 'product'],
+            'category' => ['title' => 'ประเภทสินค้า', 'name' => 'categorys.name', 'data' => 'categorys'],
+            'value' => ['class' => 'text-right', 'title' => 'จำนวน', 'name' => 'stocks.value', 'data' => 'value'],
+            'unit' => ['title' => 'หน่วยนับ', 'name' => 'units.name', 'data' => 'unit'],
         ];
     }
 

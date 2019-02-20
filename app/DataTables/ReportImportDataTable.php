@@ -32,6 +32,9 @@ class ReportImportDataTable extends DataTable
             // return $model->date;
             return Carbon::createFromFormat('Y-m-d h:i:s', $model->date)->format('d/m/Y');
         });
+        $dataTable->editColumn('price', function ($model) {
+            return number_format($model->price, 2);
+        });
         // $dataTable->editColumn('value', function ($model) {
 
         //     return $model->item->sum('value');
@@ -123,11 +126,11 @@ class ReportImportDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            'number' => ['title' => 'หมายเลขอ้างอิง', 'name' => 'imports.number', 'data' => 'number'],
-            'date' => ['title' => 'วันที่นำเข้า', 'name' => 'imports.date', 'data' => 'date'],
-            'value' => ['title' => 'จำนวนสินค้า', 'name' => 'import_items.value', 'data' => 'value'],
-            'price' => ['title' => 'ราคารวม', 'name' => 'import_items.price', 'data' => 'price'],
-            'remark' => ['title' => 'หมายเหตุ', 'name' => 'imports.remark', 'data' => 'remark'],
+            'number' => ['class' => 'text-center', 'title' => 'หมายเลขอ้างอิง', 'name' => 'imports.number', 'data' => 'number'],
+            'date' => ['class' => 'text-center', 'title' => 'วันที่นำเข้า', 'name' => 'imports.date', 'data' => 'date'],
+            'value' => ['class' => 'text-right', 'title' => 'จำนวนสินค้า', 'name' => 'import_items.value', 'data' => 'value'],
+            'price' => ['class' => 'text-right', 'title' => 'ราคารวม', 'name' => 'import_items.price', 'data' => 'price'],
+            'remark' => ['class' => 'text-left', 'title' => 'หมายเหตุ', 'name' => 'imports.remark', 'data' => 'remark'],
         ];
     }
 

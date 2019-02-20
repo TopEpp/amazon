@@ -130,11 +130,11 @@ class OrderDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            'id' => ['title' => 'เลขคำสั่ง', 'name' => 'id', 'data' => 'id'],
+            'id' => ['title' => 'เลขคำสั่ง', 'name' => 'id', 'data' => 'id', 'class' => 'text-center'],
             'name' => ['title' => 'ชื่อสาขา', 'name' => 'users.name', 'data' => 'name'],
-            'value' => ['title' => 'จำนวนสินค้า', 'name' => 'value', 'data' => 'value'],
-            'date' => ['title' => 'วันที่สั่ง', 'name' => 'date', 'data' => 'date'],
-            'order_status' => ['title' => 'สถานะ', 'name' => 'order_status', 'data' => 'order_status'],
+            'value' => ['class' => 'text-right', 'title' => 'จำนวนสินค้า', 'name' => 'value', 'data' => 'value'],
+            'date' => ['class' => 'text-center', 'title' => 'วันที่สั่ง', 'name' => 'date', 'data' => 'date'],
+            'order_status' => ['title' => 'สถานะ', 'name' => 'order_status', 'data' => 'order_status', 'class' => 'text-center'],
             'remark' => ['title' => 'หมายเหตุ', 'name' => 'remark', 'data' => 'remark'],
 
         ];

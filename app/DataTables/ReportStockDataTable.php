@@ -120,10 +120,10 @@ class ReportStockDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            'code' => ['title' => 'รหัสสินค้า', 'name' => 'products.code', 'data' => 'code'],
-            'name' => ['title' => 'ชื่อสินค้า', 'name' => 'products.name', 'data' => 'name'],
-            'category' => ['title' => 'หมวดหมู่', 'name' => 'categorys.name', 'data' => 'category'],
-            'value' => ['title' => 'จำนวนคงเหลือ', 'name' => 'stocks.value', 'data' => 'value'],
+            'code' => ['class' => 'text-center', 'title' => 'รหัสสินค้า', 'name' => 'products.code', 'data' => 'code'],
+            'name' => ['class' => 'text-left', 'title' => 'ชื่อสินค้า', 'name' => 'products.name', 'data' => 'name'],
+            'category' => ['class' => 'text-left', 'title' => 'หมวดหมู่', 'name' => 'categorys.name', 'data' => 'category'],
+            'value' => ['class' => 'text-right', 'title' => 'จำนวนคงเหลือ', 'name' => 'stocks.value', 'data' => 'value'],
         ];
     }
 

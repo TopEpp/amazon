@@ -26,6 +26,10 @@ class ImportDataTable extends DataTable
             return Carbon::createFromFormat('Y-m-d h:i:s', $model->date)->format('d/m/Y');
         });
 
+        $dataTable->editColumn('price', function ($model) {
+            return number_format($model->price, 2);
+        });
+
         return $dataTable->addColumn('action', 'imports.datatables_actions');
     }
 
@@ -105,10 +109,10 @@ class ImportDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            'number' => ['title' => 'หมายเลขอ้างอิง', 'name' => 'imports.number', 'data' => 'number'],
-            'date' => ['title' => 'วันที่นำเข้า', 'name' => 'imports.date', 'data' => 'date'],
-            'value' => ['title' => 'จำนวนสินค้า', 'name' => 'value', 'data' => 'value'],
-            'price' => ['title' => 'ราคารวม', 'name' => 'imports.price', 'data' => 'price'],
+            'number' => ['class' => 'text-center', 'title' => 'หมายเลขอ้างอิง', 'name' => 'imports.number', 'data' => 'number'],
+            'date' => ['class' => 'text-center', 'title' => 'วันที่นำเข้า', 'name' => 'imports.date', 'data' => 'date'],
+            'value' => ['class' => 'text-right', 'title' => 'จำนวนสินค้า', 'name' => 'value', 'data' => 'value'],
+            'price' => ['class' => 'text-right', 'title' => 'ราคารวม', 'name' => 'imports.price', 'data' => 'price'],
             'remark' => ['title' => 'หมายเหตุ', 'name' => 'imports.remark', 'data' => 'remark'],
 
         ];

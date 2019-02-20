@@ -26,44 +26,37 @@ class getOrderData
     public function handle(getDataDashboard $event)
     {
         $data = array();
-
+        //all price
         $value_all = DB::table('orders')
-        // ->join('order_items', 'order_items.order_id', '=', 'orders.id')
-        // ->join('users', 'users.id', '=', 'orders.user_id')
             ->select(DB::raw('sum(price) as total'))
-        // ->groupBy('orders.user_ids')
             ->whereBetween("orders.date", $event->date)
             ->first();
 
+        //product list
         $orders_products = DB::table('products')
             ->join('stocks', 'stocks.product_id', '=', 'products.id')
             ->join('units', 'units.id', '=', 'products.unit_id')
-        // ->join('orders', 'items.order_id', '=', 'orders.id')
             ->select('products.*', 'stocks.value as value', 'units.name as unit')
-        // ->groupBy('items.order_id')
-        // ->groupBy('stocks.name')
-        // ->whereBetween("orders.date", $event->date)
             ->whereNull('products.deleted_at')
             ->limit(5)
             ->orderBy('stocks.value', 'asc')
-        // ->orderByDesc('')
             ->get();
+
+        //chart js
+        $order_items = DB::table('order_items')
+            ->select('order_id', DB::raw("sum(order_items.value) as total"))
+            ->groupBy('order_id');
 
         $chart_data = DB::table('orders')
-            ->join('order_items', 'order_items.order_id', '=', 'orders.id')
             ->join('users', 'users.id', '=', 'orders.user_id')
-            ->select(
-                'users.name',
-                'orders.price',
-                DB::raw("sum(order_items.value) as total")
-                // DB::raw("sum(orders.price) as price")
-            )
+            ->joinSub($order_items, 'order_items', function ($join) {
+                $join->on('orders.id', '=', 'order_items.order_id');
+            })
             ->whereBetween("orders.date", $event->date)
-        // ->groupBy('month')
+            ->select('users.name', DB::raw("sum(orders.price) as price"), 'total')
             ->groupBy('orders.user_id')
-
             ->get();
-        // dd($event->date);
+
         $data['value_all'] = $value_all;
         $data['orders_products'] = $orders_products;
         $data['chart_data'] = $chart_data;

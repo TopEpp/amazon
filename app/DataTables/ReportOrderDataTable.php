@@ -33,6 +33,9 @@ class ReportOrderDataTable extends DataTable
             // return $model->date;
             return Carbon::createFromFormat('Y-m-d h:i:s', $model->date)->format('d/m/Y');
         });
+        $dataTable->editColumn('price', function ($model) {
+            return number_format($model->price, 2);
+        });
         // $dataTable->editColumn('value', function ($model) {
 
         //     return $model->item->sum('value');
@@ -139,11 +142,11 @@ class ReportOrderDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            'id' => ['title' => 'เลขคำสั่ง', 'name' => 'orders.id', 'data' => 'id'],
-            'name' => ['title' => 'ชื่อผู้สั่ง', 'name' => 'users.name', 'data' => 'name'],
-            'date' => ['title' => 'วันที่สั่ง', 'name' => 'orders.date', 'data' => 'date'],
-            'value' => ['title' => 'จำนวนสินค้า', 'name' => 'order_items.value', 'data' => 'value'],
-            'price' => ['title' => 'ราคารวม', 'name' => 'order_items.price', 'data' => 'price'],
+            'id' => ['class' => 'text-center', 'title' => 'เลขคำสั่ง', 'name' => 'orders.id', 'data' => 'id'],
+            'name' => ['class' => 'text-left', 'title' => 'ชื่อผู้สั่ง', 'name' => 'users.name', 'data' => 'name'],
+            'date' => ['class' => 'text-center', 'title' => 'วันที่สั่ง', 'name' => 'orders.date', 'data' => 'date'],
+            'value' => ['class' => 'text-right', 'title' => 'จำนวนสินค้า', 'name' => 'order_items.value', 'data' => 'value'],
+            'price' => ['class' => 'text-right', 'title' => 'ราคารวม', 'name' => 'order_items.price', 'data' => 'price'],
         ];
     }
 

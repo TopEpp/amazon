@@ -123,9 +123,9 @@ class ReportStockOrderDataTable extends DataTable
     {
         return [
             // 'code' => ['title' => 'รหัสสินค้า', 'name' => 'products.code', 'data' => 'code'],
-            'name' => ['title' => 'ชื่อ', 'name' => 'products.name', 'data' => 'name'],
+            'name' => ['class' => 'text-left', 'title' => 'ชื่อ', 'name' => 'products.name', 'data' => 'name'],
             // 'category' => ['title' => 'หมวดหมู่', 'name' => 'categorys.name', 'data' => 'category'],
-            'value' => ['title' => 'จำนวน', 'name' => 'order_items.value', 'data' => 'value'],
+            'value' => ['class' => 'text-right', 'title' => 'จำนวน', 'name' => 'order_items.value', 'data' => 'value'],
         ];
     }
 
