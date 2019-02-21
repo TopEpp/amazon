@@ -143,10 +143,12 @@ class ReportController extends Controller
             $query->where('products.name', 'like', '%' . $request->owner . '%');
         }
         if ($request->has('category') && $request->category != '' && $request->category != '0') {
+
             $query->where('categorys.id', $request->category);
         }
 
-        $data['items'] = $query->groupby('products.code')->get();
+        $data['items'] = $query->get();
+
         $pdf = PDF::loadView('reports.pdf_stock', $data);
         $pdf->setPaper('A4', 'portrait');
         return $pdf->stream('pdf_stock.pdf', array('Attachment' => 2));

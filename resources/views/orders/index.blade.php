@@ -72,7 +72,7 @@
             <div class="row">
                 <div class="col-lg-3 col-6">
                     <!-- small box -->
-                    <div class="small-box bg-info" onclick="window.location.href = '/orders?status=0'" style="cursor: pointer">
+                    <div class="small-box bg-info" onclick="window.location.href = '{!! url('/orders?status=0') !!}'" style="cursor: pointer">
                         <div class="inner">
                             <h3>{!! $orders['new'] !!}</h3>
             
@@ -87,7 +87,7 @@
                 <!-- ./col -->
                 <div class="col-lg-3 col-6">
                     <!-- small box -->
-                    <div class="small-box bg-success" onclick="window.location.href = '/orders?status=1'" style="cursor: pointer">
+                    <div class="small-box bg-success" onclick="window.location.href = '{!! url('/orders?status=1') !!}'" style="cursor: pointer">
                     <div class="inner">
                         <h3>{!! $orders['receive'] !!}</h3>
         

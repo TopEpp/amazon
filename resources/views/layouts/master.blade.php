@@ -12,8 +12,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
   <title>MCstock</title>
 
-    <link rel="stylesheet" href="/css/app.css">
-    <link rel="stylesheet" href="/css/app-custom.css">
+    <link rel="stylesheet" href="{!! asset('/css/app.css')!!}">
+    <link rel="stylesheet" href="{!! asset('/css/app-custom.css')!!}">
     
     
     @yield('css')
@@ -37,7 +37,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <!-- REQUIRED SCRIPTS -->
 
 <!-- jQuery -->
-<script src="/js/app.js"></script>
+<script src="{!! asset('/js/app.js') !!}"></script>
 <script src="{!! asset('vendor/jquery.number.min.js') !!}"></script>
 <script src="{!! asset('js/jquery.setformat.js') !!}"></script>
 @yield('scripts')

@@ -1,8 +1,8 @@
   <!-- Main Sidebar Container -->
 <aside   class="main-sidebar sidebar-light-warning elevation-2  " style="background: #004B1B">
     <!-- Brand Logo -->
-    <a href="#" class="brand-link">
-        <img src="/img/logo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3">
+    <a href="/" class="brand-link">
+        <img src="{!! asset('/img/logo.png') !!}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3">
         <span class="brand-text font-weight-light">ระบบจัดการคลังสินค้า</span>
     </a>
     {{-- <a href="#" class="brand-link">

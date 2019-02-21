@@ -130,18 +130,18 @@
             });
             
             $('#stock_order_pdf').click(function(){
-                window.open('/print_stockOr_pdf?owner='+$('#owner').val()+'&product='+$('#product').val()+'&start_date='+$('#start_date').val()+'&end_date='+$('#end_date').val()
+                window.open('{{url("/print_stockOr_pdf")}}?owner='+$('#owner').val()+'&product='+$('#product').val()+'&start_date='+$('#start_date').val()+'&end_date='+$('#end_date').val()
                 ,"_blank");
             });
 
             $('#stock_order_excel').click(function(){
-                window.open('/excel_stockOr?owner='+$('#owner').val()+'&product='+$('#product').val()+'&start_date='+$('#start_date').val()+'&end_date='+$('#end_date').val()
+                window.open('{{url("/excel_stockOr")}}?owner='+$('#owner').val()+'&product='+$('#product').val()+'&start_date='+$('#start_date').val()+'&end_date='+$('#end_date').val()
                 ,"_blank");
             });
 
             $('.table-custom tbody').on('click', 'tr', function () {
                 if ($(this).data("id")){
-                    window.location.href = '/report_stock_order?owner='+$(this).data("id");
+                    window.location.href = '{{url("/report_stock_order")}}?owner='+$(this).data("id");
                 }
             } );
 

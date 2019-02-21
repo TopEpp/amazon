@@ -129,7 +129,7 @@
                     return false;
                 }
 
-                window.open('/print_order_pdf?number='+$('#number').val()+
+                window.open('{{url("/print_order_pdf")}}?number='+$('#number').val()+
                 '&owner='+$('#owner').val()+
                 '&start_date='+$('#start_date').val()+
                 '&end_date='+$('#end_date').val()
@@ -147,7 +147,7 @@
                     return false;
                 }
 
-                window.open('/excel_order?number='+$('#number').val()+
+                window.open('{{url("/excel_order")}}?number='+$('#number').val()+
                 '&owner='+$('#owner').val()+
                 '&start_date='+$('#start_date').val()+
                 '&end_date='+$('#end_date').val()

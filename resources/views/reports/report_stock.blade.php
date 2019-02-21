@@ -111,7 +111,7 @@
             $('#stock_pdf').click(function(){
 
                
-                window.open('/print_stock_pdf?number='+$('#number').val()+
+                window.open('{{url("/print_stock_pdf")}}?number='+$('#number').val()+
                 '&owner='+$('#owner').val()+
                 '&category='+$('select[name=category]').val()
                 ,"_blank");
@@ -119,7 +119,7 @@
 
             $('#stock_excel').click(function(){
 
-                window.open('/excel_stock?number='+$('#number').val()+
+                window.open('{{url("/excel_stock")}}?number='+$('#number').val()+
                 '&owner='+$('#owner').val()+
                 '&category='+$('select[name=category]').val()
               

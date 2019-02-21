@@ -10,7 +10,7 @@
 
 @can('isAdmin')
 <li class="nav-item ">
-    <a class="nav-link {{ (Request::is('/*') || Request::is('dashboard')) ? 'active' : '' }}" href="/dashboard"><i class="fas fa-home"></i> <span>หน้าหลัก</span></a>
+    <a class="nav-link {{ (Request::is('/*') || Request::is('dashboard')) ? 'active' : '' }}" href="{!! url('dashboard') !!}"><i class="fas fa-home"></i> <span>หน้าหลัก</span></a>
 </li>
 @endcan
 
@@ -47,25 +47,25 @@
     </a>
     <ul class="nav nav-treeview">
       <li class="nav-item">
-        <a href="/report_order" class="nav-link {{ Request::is('report_order') ? 'actives' : '' }}">
+        <a href="{!! url('/report_order') !!} " class="nav-link {{ Request::is('report_order') ? 'actives' : '' }}">
          
           <p>รายงานการสั่งสินค้า</p>
         </a>
       </li>
       <li class="nav-item">
-        <a href="/report_import" class="nav-link {{ Request::is('report_import') ? 'actives' : '' }}">
+        <a href="{!! url('/report_import') !!} " class="nav-link {{ Request::is('report_import') ? 'actives' : '' }}">
          
           <p>รายงานการนำเข้าสินค้า</p>
         </a>
       </li>
       <li class="nav-item">
-        <a href="/report_stock" class="nav-link {{ Request::is('report_stock') ? 'actives' : '' }}">
+        <a href="{!! url('/report_stock') !!} " class="nav-link {{ Request::is('report_stock') ? 'actives' : '' }}">
          
           <p>รายงานสรุปจำนวนสินค้าในคลัง</p>
         </a>
       </li>
       <li class="nav-item">
-        <a href="/report_stock_order" class="nav-link {{ Request::is('report_stock_order') ? 'actives' : '' }}">
+        <a href="{!! url('/report_stock_order') !!} " class="nav-link {{ Request::is('report_stock_order') ? 'actives' : '' }}">
          
           <p>รายงานสรุปจำนวนสินค้าที่ใช้</p>
         </a>

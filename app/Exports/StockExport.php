@@ -39,7 +39,7 @@ class StockExport implements FromView
         if ($this->category != '' && $this->category != '0') {
             $query->where('categorys.id', $this->category);
         }
-        $data = $query->groupby('products.code')->get();
+        $data = $query->get();
 
         return view('reports.excel_stock', [
             'stocks' => $data,

@@ -126,7 +126,7 @@
                     return false;
                 }
 
-                window.open('/print_import_pdf?number='+$('#number').val()+
+                window.open('{{url("/print_import_pdf")}}?number='+$('#number').val()+
                 '&start_date='+$('#start_date').val()+
                 '&end_date='+$('#end_date').val()
                 ,"_blank");
@@ -143,7 +143,7 @@
                     return false;
                 }
 
-                window.open('/excel_import?number='+$('#number').val()+
+                window.open('{{url("/excel_import")}}?number='+$('#number').val()+
                 '&start_date='+$('#start_date').val()+
                 '&end_date='+$('#end_date').val()
                 ,"_blank");
