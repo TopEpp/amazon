@@ -83,14 +83,14 @@
                                 </td>
                                 <td>{!! $item->product->name !!}</td>
                                 <td class="text-right">
-                                    <span class="badge bg-danger ">{!! $item->product->price !!}</span>
+                                    <span class="badge bg-danger ">{!! number_format($item->product->price,2) !!}</span>
                                     
                                 </td>
                                 <td class="text-right">
                                     {!! $item->value !!}
                                 </td>
                                 <td class="text-right">
-                                    <span class="badge bg-warning ">{!! (!empty($item->value) ? $item->value *$item->product->price : '0'); !!}</span>
+                                    <span class="badge bg-warning ">{!! (!empty($item->value) ? number_format($item->value *$item->product->price,2) : '0'); !!}</span>
                                 
                                 </td>
                             </tr>
@@ -98,7 +98,7 @@
                         <tr>
                             <th colspan="3" class="label-warning text-right" >รวม</th>
                             <td class="label-warning text-right val-total" >{!! (!empty($order->item) ? $order->item->sum('value') : '0'); !!}</td>
-                            <td class="label-warning text-right price-total">{!! (!empty($order->item) ? $order->price : '0'); !!}</td>
+                            <td class="label-warning text-right price-total">{!! (!empty($order->item) ? number_format($order->price,2) : '0'); !!}</td>
                             
                         </tr>
                     
