@@ -98,23 +98,26 @@
                            
                         </div>
 
-                        <div class="row">
-                            <div class="col-md-6">
-                                 <!-- Status Field -->
-                                <div class="form-group">
-                                    {!! Form::label('status', 'สถานะบัญชี') !!}
-                                    {!! Form::select('status',['1' =>'ใช้งาน','0' =>'ไม่ใช้งาน'] ,null, ['class' => 'form-control']) !!}
+                        @if (Auth::user()->type == 1)
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <!-- Status Field -->
+                                    <div class="form-group">
+                                        {!! Form::label('status', 'สถานะบัญชี') !!}
+                                        {!! Form::select('status',['1' =>'ใช้งาน','0' =>'ไม่ใช้งาน'] ,null, ['class' => 'form-control']) !!}
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group ">
+                                        {!! Form::label('type', 'สิทธิการใช้งาน',['class'=>'control-label ']) !!}
+                                    
+                                        {!! Form::select('type',['1'=>'Admin','2'=>'staff'] ,null, ['class' => 'form-control']) !!}
+                                    
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-md-6">
-                                <div class="form-group ">
-                                    {!! Form::label('type', 'สิทธิการใช้งาน',['class'=>'control-label ']) !!}
-                                   
-                                    {!! Form::select('type',['1'=>'Admin','2'=>'staff'] ,null, ['class' => 'form-control']) !!}
-                                   
-                                </div>
-                            </div>
-                        </div>
+                        @endif
+                       
                         <hr/>
                         <div class="row">
                             <div class="col-md-12">
