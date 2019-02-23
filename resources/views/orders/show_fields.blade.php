@@ -66,15 +66,46 @@
 
     <div class="row">
         <div class="col-12">
-
+            @if (Auth::user()->type != 1)
+                <table class="table table-condensed">
+                    <tbody>
+                        <tr>
+                            <th style="width: 10%">#</th>
+                            <th style="width: 45%" class="text-center">รายการ</th>
+                    
+                            <th style="width: 45%" class="text-center">จำนวน</th>
+                        
+                        </tr>
+                        @foreach ($order->item as $key => $item)
+                            <tr>
+                                <td>
+                                    {!! $key+1 !!}
+                                </td>
+                                <td>{!! $item->product->name !!}</td>
+                              
+                                <td class="text-right">
+                                    {!! $item->value !!}
+                                </td>
+                               
+                            </tr>
+                        @endforeach
+                        <tr>
+                            <th colspan="2" class="label-warning text-center" >รวม</th>
+                            <td class="label-warning text-right val-total" >{!! (!empty($order->item) ? $order->item->sum('value') : '0'); !!}</td>
+                        </tr>
+                    
+                        
+                    </tbody>
+                </table>
+            @else
                 <table class="table table-condensed">
                     <tbody>
                         <tr>
                             <th style="width: 10px">#</th>
-                            <th style="width: 200px">รายการ</th>
-                            <th style="width: 40px">ราคา/ชิ้น</th>
-                            <th style="width: 100px">จำนวน</th>
-                            <th style="width: 40px">ราคารวม</th>
+                            <th style="width: 200px" class="text-center">รายการ</th>
+                            <th style="width: 40px" class="text-center">ราคา/ชิ้น</th>
+                            <th style="width: 100px" class="text-center">จำนวน</th>
+                            <th style="width: 40px" class="text-center">ราคารวม</th>
                         </tr>
                         @foreach ($order->item as $key => $item)
                             <tr>
@@ -96,7 +127,7 @@
                             </tr>
                         @endforeach
                         <tr>
-                            <th colspan="3" class="label-warning text-right" >รวม</th>
+                            <th colspan="3" class="label-warning text-center" >รวม</th>
                             <td class="label-warning text-right val-total" >{!! (!empty($order->item) ? $order->item->sum('value') : '0'); !!}</td>
                             <td class="label-warning text-right price-total">{!! (!empty($order->item) ? number_format($order->price,2) : '0'); !!}</td>
                             
@@ -105,8 +136,8 @@
                         
                     </tbody>
                 </table>
-        
-    
+            @endif
+            
         </div>
     </div>
 

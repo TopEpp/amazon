@@ -26,10 +26,11 @@ class SelectDates
     public function handle(SwitchDates $event)
     {
         switch ($event->input) {
-            case 'today':
-                $today = new Carbon('today');
-                $today = new Carbon('today');
-                $date = [$today->format('Y-m-d').' '.'00:00:00', $today->format('Y-m-d').' '.'00:00:00'];
+            case 'week':
+                $week_first = new Carbon('this sunday');
+                $week_last = new Carbon('last monday');
+                $date = [$week_last->format('Y-m-d').' '.'00:00:00', $week_first->format('Y-m-d').' '.'00:00:00'];
+           
                 break;
             case 'month':
                 $month_first = new Carbon('first day of this month');
@@ -43,9 +44,10 @@ class SelectDates
                 break;
 
             default:
-                $week_first = new Carbon('this week');
-                $week_last = new Carbon('last week');
-                $date = [$week_last->format('Y-m-d').' '.'00:00:00', $week_first->format('Y-m-d').' '.'00:00:00'];
+                $today = new Carbon('today');
+                $today = new Carbon('today');
+                $date = [$today->format('Y-m-d').' '.'00:00:00', $today->format('Y-m-d').' '.'00:00:00'];
+               
                 break;
         }
         return $date;
