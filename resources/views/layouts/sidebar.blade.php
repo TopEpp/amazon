@@ -27,13 +27,16 @@
                     <img class="img-circle elevation-2" src="{!! (Auth::user()->image)? asset('uploads/users').'/'.Auth::user()->image: asset('img').'/'.'face.png' !!}" alt="User Avatar">
                 </div>
                 <div class="card-footer card-info-footer">
-                        <div class="float-left">
-                            <a href="{!! route('users.edit', Auth::user()->id); !!}" class="d-inline-block text-left"
-                                onclick="">
-                                <i class="fas fa-user fa-lg"></i>
-                                แก้ไขข้อมูล 
-                            </a>
-                        </div>
+                        @if (Auth::user()->type == 1)
+                            <div class="float-left">
+                                <a href="{!! route('users.edit', Auth::user()->id); !!}" class="d-inline-block text-left"
+                                    onclick="">
+                                    <i class="fas fa-user fa-lg"></i>
+                                    แก้ไขข้อมูล 
+                                </a>
+                            </div>  
+                        @endif
+                       
                         <div class="float-right">
                             <a href="{!! url('/logout') !!}" class="d-inline-block text-left"
                                 onclick="event.preventDefault(); document.getElementById('logout-form').submit();">

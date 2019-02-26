@@ -73,7 +73,8 @@
                             <th style="width: 10%">#</th>
                             <th style="width: 45%" class="text-center">รายการ</th>
                     
-                            <th style="width: 45%" class="text-center">จำนวน</th>
+                            <th style="width: 30%" class="text-center">จำนวน</th>
+                            <th style="width: 15%" class="text-center">หน่วยนับ</th>
                         
                         </tr>
                         @foreach ($order->item as $key => $item)
@@ -86,12 +87,16 @@
                                 <td class="text-right">
                                     {!! $item->value !!}
                                 </td>
+                                <td class="text-left">
+                                    {!! $item->product->unit->name !!}
+                                </td>
                                
                             </tr>
                         @endforeach
                         <tr>
                             <th colspan="2" class="label-warning text-center" >รวม</th>
                             <td class="label-warning text-right val-total" >{!! (!empty($order->item) ? $order->item->sum('value') : '0'); !!}</td>
+                            <td class="label-warning " ></td>
                         </tr>
                     
                         
@@ -104,6 +109,7 @@
                             <th style="width: 10px">#</th>
                             <th style="width: 200px" class="text-center">รายการ</th>
                             <th style="width: 40px" class="text-center">ราคา/ชิ้น</th>
+                            <th style="width: 15%" class="text-center">หน่วยนับ</th>
                             <th style="width: 100px" class="text-center">จำนวน</th>
                             <th style="width: 40px" class="text-center">ราคารวม</th>
                         </tr>
@@ -117,6 +123,9 @@
                                     <span class="badge bg-danger ">{!! number_format($item->product->price,2) !!}</span>
                                     
                                 </td>
+                                <td class="text-center">
+                                    {!! $item->product->unit->name !!}
+                                </td>
                                 <td class="text-right">
                                     {!! $item->value !!}
                                 </td>
@@ -127,7 +136,7 @@
                             </tr>
                         @endforeach
                         <tr>
-                            <th colspan="3" class="label-warning text-center" >รวม</th>
+                            <th colspan="4" class="label-warning text-center" >รวม</th>
                             <td class="label-warning text-right val-total" >{!! (!empty($order->item) ? $order->item->sum('value') : '0'); !!}</td>
                             <td class="label-warning text-right price-total">{!! (!empty($order->item) ? number_format($order->price,2) : '0'); !!}</td>
                             

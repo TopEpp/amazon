@@ -90,7 +90,8 @@
 			<table border='1' width='100%' style='border-collapse: collapse;'>
 				<tr>
 					<th width="5%" align="center">ลำดับ</th>
-					<th width="75%" align="center">รายการสินค้า</th>
+					<th width="65%" align="center">รายการสินค้า</th>
+					<th style="10%" align="center">ราคา/ชิ้น</th>
 					<th width="10%" align="center">จำนวน</th>
 					<th width="10%" align="center">หน่วยนับ</th>
 				</tr>
@@ -99,6 +100,7 @@
 						<tr>
 							<td align="center">{!! $key+1 !!}</td>
 							<td align="center"> {!! $item->product->name !!}</td>
+							<td align="center"> {!! $item->product->price !!}</td>
 							<td align="center">{!! $item->value !!}</td>
 							<td align="center"> {!! $item->product->unit->name !!}</td>
 						</tr>
@@ -160,25 +162,27 @@
 			</tr>
 		</table>
 		<div style="margin-top:20px;margin-bottom:20px;">
-			<table border='1' width='100%' style='border-collapse: collapse;'>
-				<tr>
-					<th width="5%" align="center">ลำดับ</th>
-					<th width="75%" align="center">รายการสินค้า</th>
-					<th width="10%" align="center">จำนวน</th>
-					<th width="10%" align="center">หน่วยนับ</th>
-				</tr>
-				@if ( !empty($order->item))
-					@foreach ($order->item as $key =>  $item)
-						<tr>
-							<td align="center">{!! $key+1 !!}</td>
-							<td align="center"> {!! $item->product->name !!}</td>
-							<td align="center">{!! $item->value !!}</td>
-							<td align="center"> {!! $item->product->unit->name !!}</td>
-						</tr>
-					@endforeach
-				@endif
-			
+				<table border='1' width='100%' style='border-collapse: collapse;'>
+					<tr>
+						<th width="5%" align="center">ลำดับ</th>
+						<th width="65%" align="center">รายการสินค้า</th>
+						<th style="10%" align="center">ราคา/ชิ้น</th>
+						<th width="10%" align="center">จำนวน</th>
+						<th width="10%" align="center">หน่วยนับ</th>
+					</tr>
+					@if ( !empty($order->item))
+						@foreach ($order->item as $key =>  $item)
+							<tr>
+								<td align="center">{!! $key+1 !!}</td>
+								<td align="center"> {!! $item->product->name !!}</td>
+								<td align="center"> {!! $item->product->price !!}</td>
+								<td align="center">{!! $item->value !!}</td>
+								<td align="center"> {!! $item->product->unit->name !!}</td>
+							</tr>
+						@endforeach
+					@endif
 				
+					
 			</table>
 		</div>
 		<div>
@@ -237,7 +241,8 @@
 			<table border='1' width='100%' style='border-collapse: collapse;'>
 				<tr>
 					<th width="5%" align="center">ลำดับ</th>
-					<th width="75%" align="center">รายการสินค้า</th>
+					<th width="65%" align="center">รายการสินค้า</th>
+					<th style="10%" align="center">ราคา/ชิ้น</th>
 					<th width="10%" align="center">จำนวน</th>
 					<th width="10%" align="center">หน่วยนับ</th>
 				</tr>
@@ -246,6 +251,7 @@
 						<tr>
 							<td align="center">{!! $key+1 !!}</td>
 							<td align="center"> {!! $item->product->name !!}</td>
+							<td align="center"> {!! $item->product->price !!}</td>
 							<td align="center">{!! $item->value !!}</td>
 							<td align="center"> {!! $item->product->unit->name !!}</td>
 						</tr>

@@ -36,10 +36,11 @@
                                     <table class="table table-condensed collapse" id="collapseExample{!! $key !!}">
                                         <tbody>
                                         <tr>
-                                            <th style="width: 10%">#</th>
-                                            <th style="width: 70%">รายการ</th>
+                                            <th style="width: 5%" class="text-center">#</th>
+                                            <th style="width: 65%" class="text-center" >รายการ</th>
                                             {{-- <th style="width: 40px">ราคา/ชิ้น</th> --}}
-                                            <th style="width: 20%">จำนวน</th>
+                                            <th style="width: 20%" class="text-center">จำนวน</th>
+                                            <th style="width: 10%" class="text-center">หน่วยนับ</th>
                                             {{-- <th style="width: 40px">ราคารวม</th> --}}
                                         </tr>
                                         @foreach ($items->product as $key => $item)
@@ -62,6 +63,9 @@
                                                     <span class="badge bg-warning " id="sum_show_{!! $item->id !!}">{!! (!empty($order->value[$item->id]->value) ? $order->value[$item->id]->value *$item->price : '0'); !!}</span>
                                                     
                                                 </td> --}}
+                                                <td class="text-left">
+                                                    {{ $item->unit->name }}
+                                                </td>
                                             </tr>
                                         @endforeach
                                         <tr>
