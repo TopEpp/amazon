@@ -30,6 +30,7 @@ class getOrderData
         $value_all = DB::table('orders')
             ->select(DB::raw('sum(price) as total'))
             ->whereBetween("orders.date", $event->date)
+            ->whereNull('orders.deleted_at')
             ->first();
 
         //product list
@@ -53,6 +54,7 @@ class getOrderData
                 $join->on('orders.id', '=', 'order_items.order_id');
             })
             ->whereBetween("orders.date", $event->date)
+            ->whereNull('orders.deleted_at')
             ->select('users.name', DB::raw("sum(orders.price) as price"), 'total')
             ->groupBy('orders.user_id')
             ->get();

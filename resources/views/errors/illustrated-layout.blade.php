@@ -470,11 +470,20 @@
                         @yield('message')
                     </p>
 
-                    <a href="{{ url('/') }}">
+                    @if (Auth::user()->type != 1)
+                        <a href="{{ url('/orders') }}">
                         <button class="bg-transparent text-grey-darkest font-bold uppercase tracking-wide py-3 px-6 border-2 border-grey-light hover:border-grey rounded-lg">
                             {{ __('Go Home') }}
                         </button>
                     </a>
+                
+                    @else
+                        <a href="{{ url('/') }}">
+                        <button class="bg-transparent text-grey-darkest font-bold uppercase tracking-wide py-3 px-6 border-2 border-grey-light hover:border-grey rounded-lg">
+                            {{ __('Go Home') }}
+                        </button>
+                    @endif
+
                 </div>
             </div>
 

@@ -247,6 +247,12 @@ class OrderController extends AppBaseController
             return redirect(route('orders.index'));
         }
 
+        // update stock
+        foreach ($order->item as $key => $item) {
+            $value = $item->stock->value + $item->value;
+            $item->stock->update(['value' => $value]);
+        }
+
         $this->orderRepository->delete($id);
 
         Flash::success('ลบการสั่งสินค้า เรียบร้อย.');

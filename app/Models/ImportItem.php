@@ -20,19 +20,17 @@ class ImportItem extends Model
     use SoftDeletes;
 
     public $table = 'import_items';
-    
+
     const CREATED_AT = 'created_at';
     const UPDATED_AT = 'updated_at';
 
-
     protected $dates = ['deleted_at'];
-
 
     public $fillable = [
         'import_id',
         'product_id',
         'stock_id',
-        'value'
+        'value',
     ];
 
     /**
@@ -45,7 +43,7 @@ class ImportItem extends Model
         'import_id' => 'integer',
         'product_id' => 'integer',
         'stock_id' => 'integer',
-        'value' => 'integer'
+        'value' => 'integer',
     ];
 
     /**
@@ -54,8 +52,12 @@ class ImportItem extends Model
      * @var array
      */
     public static $rules = [
-        
+
     ];
 
-    
+    public function stock()
+    {
+        return $this->hasOne('App\Models\Stock', 'id', 'stock_id');
+    }
+
 }

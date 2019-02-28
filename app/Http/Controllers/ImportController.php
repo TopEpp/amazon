@@ -268,6 +268,12 @@ class ImportController extends AppBaseController
             return redirect(route('imports.index'));
         }
 
+        // update stock
+        foreach ($import->item as $key => $item) {
+            $value = $item->stock->value - $item->value;
+            $item->stock->update(['value' => $value]);
+        }
+
         $this->importRepository->delete($id);
 
         Flash::success('ลบนำเข้าสินค้า เรียบร้อย.');
