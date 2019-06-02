@@ -31,7 +31,7 @@
                             <div class="float-left">
                                 <a href="{!! route('users.edit', Auth::user()->id); !!}" class="d-inline-block text-left"
                                     onclick="">
-                                    <i class="fas fa-user fa-lg"></i>
+                                    <i class="icofont-user-alt-7 icofont-1x"></i>
                                     แก้ไขข้อมูล 
                                 </a>
                             </div>  
@@ -41,7 +41,7 @@
                             <a href="{!! url('/logout') !!}" class="d-inline-block text-left"
                                 onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                 ออกจากระบบ
-                                <i class="fas fa-sign-out-alt fa-lg"></i>
+                                <i class="icofont-sign-out icofont-1x"></i>
                             </a>
                             <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
                                 {{ csrf_field() }}

@@ -49,7 +49,7 @@ class ImportController extends AppBaseController
             ->join('imports', 'imports.id', '=', 'import_items.import_id')
             ->join('products', 'products.id', '=', 'import_items.product_id')
             ->join('categorys', 'categorys.id', '=', 'products.category_id')
-            ->groupBy('categorys.id')
+            ->groupBy('categorys.name')
             ->get();
 
         // dd($import);

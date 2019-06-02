@@ -52,10 +52,10 @@ class UnitsDataTable extends DataTable
                 ],
                 "oLanguage" => [
                     "oPaginate" => [
-                        "sFirst" => '<i class="fas fa-angle-double-left"></i>',
-                        "sPrevious" => '<i class="fas fa-angle-double-left"></i>',
-                        "sNext" => '<i class="fas fa-angle-double-right"></i>',
-                        "sLast" => '<i class="fas fa-angle-double-right"></i>',
+                        "sFirst" => '<i class="icofont-rounded-double-left"></i>',
+                        "sPrevious" => '<i class="icofont-rounded-double-left"></i>',
+                        "sNext" => '<i class="icofont-rounded-double-right"></i>',
+                        "sLast" => '<i class="icofont-rounded-double-right"></i>',
                     ],
                     "sSearch" => '',
                     "sEmptyTable" => 'ไม่พบข้อมูล',

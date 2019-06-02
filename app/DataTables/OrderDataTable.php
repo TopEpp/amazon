@@ -58,7 +58,7 @@ class OrderDataTable extends DataTable
             ->join('order_items', 'order_items.order_id', '=', 'orders.id')
             ->join('users', 'users.id', '=', 'orders.user_id')
             ->select('orders.id', 'users.name', 'orders.order_status', 'orders.remark', 'orders.date', DB::raw('sum(order_items.value) as value'))
-            ->groupby('orders.id');
+            ->groupby(['orders.id', 'users.name', 'orders.order_status', 'orders.remark', 'orders.date']);
 
         if (Auth::user()->type != 1) {
             $query->where('orders.user_id', Auth::user()->id);
@@ -100,10 +100,10 @@ class OrderDataTable extends DataTable
                 ],
                 "oLanguage" => [
                     "oPaginate" => [
-                        "sFirst" => '<i class="fas fa-angle-double-left"></i>',
-                        "sPrevious" => '<i class="fas fa-angle-double-left"></i>',
-                        "sNext" => '<i class="fas fa-angle-double-right"></i>',
-                        "sLast" => '<i class="fas fa-angle-double-right"></i>',
+                        "sFirst" => '<i class="icofont-rounded-double-left"></i>',
+                        "sPrevious" => '<i class="icofont-rounded-double-left"></i>',
+                        "sNext" => '<i class="icofont-rounded-double-right"></i>',
+                        "sLast" => '<i class="icofont-rounded-double-right"></i>',
                     ],
                     "sSearch" => '',
                     "sEmptyTable" => 'ไม่พบข้อมูล',

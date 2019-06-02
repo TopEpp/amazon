@@ -86,7 +86,7 @@ class ReportController extends Controller
             // ->whereBetween('orders.date', [1, 100])
             $query->whereBetween('orders.date', $date);
         }
-        $data['items'] = $query->groupby('orders.id')->get();
+        $data['items'] = $query->groupby('orders.id', 'users.name', 'orders.id', 'orders.price', 'orders.date')->get();
 
         $pdf = PDF::loadView('reports.pdf_order', $data);
         $pdf->setPaper('A4', 'portrait');
@@ -117,7 +117,7 @@ class ReportController extends Controller
             // ->whereBetween('imports.date', [1, 100])
             $query->whereBetween('imports.date', $date);
         }
-        $data['items'] = $query->groupby('imports.id')->get();
+        $data['items'] = $query->groupby('imports.id', 'users.name', 'imports.number', 'imports.price', 'imports.remark', 'imports.date')->get();
         $pdf = PDF::loadView('reports.pdf_import', $data);
         $pdf->setPaper('A4', 'portrait');
         return $pdf->stream('pdf_order.pdf', array('Attachment' => 2));
@@ -165,7 +165,7 @@ class ReportController extends Controller
             ->join('order_items', 'order_items.order_id', '=', 'orders.id')
             ->join('products', 'products.id', '=', 'order_items.product_id')
             // ->join('categorys', 'categorys.id', '=', 'products.categoty_id')
-            ->groupBy('order_items.product_id')
+            ->groupBy('order_items.product_id', 'products.name')
             ->select('products.name', DB::raw('sum(order_items.value) as value'));
 
         //search custom

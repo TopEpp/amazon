@@ -3,8 +3,8 @@
 namespace App\DataTables;
 
 use App\Models\Category;
-use Yajra\DataTables\Services\DataTable;
 use Yajra\DataTables\EloquentDataTable;
+use Yajra\DataTables\Services\DataTable;
 
 class CategoryDataTable extends DataTable
 {
@@ -42,18 +42,18 @@ class CategoryDataTable extends DataTable
         return $this->builder()
             ->columns($this->getColumns())
             ->minifiedAjax()
-            ->addAction(['width' => '120px','title' => ''])
+            ->addAction(['width' => '120px', 'title' => ''])
             ->parameters([
                 'dom' => "<'row'<'col-sm-6 table-create'><'col-sm-6'f>>t<'row'<'col-sm-12 col-md-5'><'col-sm-12 col-md-7'p>>",
-                'order'   => [[0, 'desc']],
+                'order' => [[0, 'desc']],
                 'buttons' => [],
                 "bSort" => false,
                 "oLanguage" => [
                     "oPaginate" => [
-                        "sFirst" => '<i class="fas fa-angle-double-left"></i>',
-                        "sPrevious" => '<i class="fas fa-angle-double-left"></i>',
-                        "sNext" => '<i class="fas fa-angle-double-right"></i>',
-                        "sLast" => '<i class="fas fa-angle-double-right"></i>',
+                        "sFirst" => '<i class="icofont-rounded-double-left"></i>',
+                        "sPrevious" => '<i class="icofont-rounded-double-left"></i>',
+                        "sNext" => '<i class="icofont-rounded-double-right"></i>',
+                        "sLast" => '<i class="icofont-rounded-double-right"></i>',
                     ],
                     "sSearch" => '',
                     "sEmptyTable" => 'ไม่พบข้อมูล',
@@ -80,7 +80,7 @@ class CategoryDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            'name'  => ['title' => 'ชื่อประเภทสินค้า', 'name' => 'name', 'data' => 'name'],
+            'name' => ['title' => 'ชื่อประเภทสินค้า', 'name' => 'name', 'data' => 'name'],
         ];
     }
 

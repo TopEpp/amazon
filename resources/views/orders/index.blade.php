@@ -20,7 +20,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="float-right ml-2">
-                        <button data-toggle="collapse" data-target="#search" type="button" class="btn btn-block btn-success"><i class="fa fa-search"></i></button>
+                        <button data-toggle="collapse" data-target="#search" type="button" class="btn btn-block btn-success"><i class="icofont-search-1"></i></button>
                     </div>
                 </div>
                 <div class="col-md-12">
@@ -79,7 +79,7 @@
                             <p>ออเดอร์ใหม่</p>
                         </div>
                         <div class="icon">
-                            <i class="fas fa-asterisk"></i>
+                            <i class="icofont-cart"></i>
                         </div>
                         
                     </div>
@@ -94,7 +94,7 @@
                         <p>ยืนยันออเดอร์</p>
                     </div>
                     <div class="icon">
-                            <i class="fas fa-atom"></i>
+                            <i class="icofont-checked"></i>
                     </div>
                     
                     </div>

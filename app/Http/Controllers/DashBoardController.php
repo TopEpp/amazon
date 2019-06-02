@@ -20,13 +20,16 @@ class DashBoardController extends Controller
 
     public function index()
     {
+
         // call event check dates type
         $date = event(new SwitchDates(Input::get('date')));
 
         // call event permission sale
         if (Auth::user()->type == 3) {
+
             $val = event(new getDataDashboardSale($date));
         } else {
+
             $val = event(new getDataDashboard($date));
         }
 

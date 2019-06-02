@@ -173,7 +173,7 @@
         <div class="col-sm-9 main-section">
             <div class="modal-content">
                 <div class="col-12 user-img">
-                    <img src="/img/logo.png" alt="logo" class="img-circle ">
+                    <img src="{{ url('/img/logo.png')}} " alt="logo" class="img-circle ">
                 </div>
                 <div class="col-12 form-input">
                     

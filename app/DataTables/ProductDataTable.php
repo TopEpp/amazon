@@ -48,7 +48,7 @@ class ProductDataTable extends DataTable
             ->join('units', 'units.id', '=', 'products.unit_id')
             ->join('stocks', 'stocks.product_id', '=', 'products.id')
             ->select('products.id', 'stocks.value', 'units.name as unit', 'categorys.name as categorys', 'products.name as product')
-            ->groupby('products.id');
+            ->groupby(['products.id', 'stocks.value', 'units.name', 'categorys.name', 'products.name']);
 
         return $this->applyScopes($query);
         // return $model->newQuery();
@@ -74,10 +74,10 @@ class ProductDataTable extends DataTable
                 ],
                 "oLanguage" => [
                     "oPaginate" => [
-                        "sFirst" => '<i class="fas fa-angle-double-left"></i>',
-                        "sPrevious" => '<i class="fas fa-angle-double-left"></i>',
-                        "sNext" => '<i class="fas fa-angle-double-right"></i>',
-                        "sLast" => '<i class="fas fa-angle-double-right"></i>',
+                        "sFirst" => '<i class="icofont-rounded-double-left"></i>',
+                        "sPrevious" => '<i class="icofont-rounded-double-left"></i>',
+                        "sNext" => '<i class="icofont-rounded-double-right"></i>',
+                        "sLast" => '<i class="icofont-rounded-double-right"></i>',
                     ],
                     "sSearch" => '',
                     "sEmptyTable" => 'ไม่พบข้อมูล',

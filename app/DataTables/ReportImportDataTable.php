@@ -60,7 +60,7 @@ class ReportImportDataTable extends DataTable
             ->join('users', 'users.id', '=', 'imports.user_id')
             ->join('import_items', 'import_items.import_id', '=', 'imports.id')
             ->select('users.name', 'imports.number', 'imports.price', 'imports.remark', 'imports.date', DB::raw('sum(import_items.value) as value'))
-            ->groupby('imports.id');
+            ->groupby(['imports.id', 'users.name', 'imports.number', 'imports.price', 'imports.remark', 'imports.date']);
 
         //search custom
         if ($request->has('number') && $request->number != '') {
@@ -96,10 +96,10 @@ class ReportImportDataTable extends DataTable
                 ],
                 "oLanguage" => [
                     "oPaginate" => [
-                        "sFirst" => '<i class="fas fa-angle-double-left"></i>',
-                        "sPrevious" => '<i class="fas fa-angle-double-left"></i>',
-                        "sNext" => '<i class="fas fa-angle-double-right"></i>',
-                        "sLast" => '<i class="fas fa-angle-double-right"></i>',
+                        "sFirst" => '<i class="icofont-rounded-double-left"></i>',
+                        "sPrevious" => '<i class="icofont-rounded-double-left"></i>',
+                        "sNext" => '<i class="icofont-rounded-double-right"></i>',
+                        "sLast" => '<i class="icofont-rounded-double-right"></i>',
                     ],
                     "sSearch" => '',
                     "sEmptyTable" => 'ไม่พบข้อมูล',

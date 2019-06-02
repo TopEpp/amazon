@@ -56,13 +56,12 @@ class getOrderData
             ->whereBetween("orders.date", $event->date)
             ->whereNull('orders.deleted_at')
             ->select('users.name', DB::raw("sum(orders.price) as price"), 'total')
-            ->groupBy('orders.user_id')
+            ->groupBy(['orders.user_id', 'users.name', 'order_items.total'])
             ->get();
 
         $data['value_all'] = $value_all;
         $data['orders_products'] = $orders_products;
         $data['chart_data'] = $chart_data;
-
         return $data;
     }
 }

@@ -44,7 +44,7 @@ class OrdersExport implements FromView
             $date = [$this->start, $this->end];
             $query->whereBetween('orders.date', $date);
         }
-        $data = $query->groupby('orders.id')->get();
+        $data = $query->groupby('orders.id', 'users.name', 'orders.id', 'orders.price', 'orders.date')->get();
 
         return view('reports.excel_order', [
             'orders' => $data,

@@ -23,14 +23,14 @@
                     <div class="col-md-12">
 
                         <div class="float-right ml-2">
-                            <button data-toggle="collapse" data-target="#search" type="button" class="btn btn-block btn-success"><i class="fa fa-search"></i></button>
+                            <button data-toggle="collapse" data-target="#search" type="button" class="btn btn-block btn-success"><i class="icofont-search-1"></i></button>
                         </div>
                         @if (app('request')->input('owner'))
                             <div class="float-right ml-2">
-                                <button  type="button" class="btn btn-block btn-success" id="stock_order_pdf"><i class="fa fa-file-pdf"></i></button>
+                                <button  type="button" class="btn btn-block btn-success" id="stock_order_pdf"><i class="icofont-file-pdf"></i></button>
                             </div>
                             <div class="float-right ml-2">
-                                <button  type="button" class="btn btn-block btn-success" id="stock_order_excel"><i class="fa fa-file-excel"></i></button>
+                                <button  type="button" class="btn btn-block btn-success" id="stock_order_excel"><i class="icofont-file-excel"></i></button>
                             </div>
                         @endif
                        

@@ -12,9 +12,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
   <title>MCstock</title>
 
+   
     <link rel="stylesheet" href="{!! asset('/css/app.css')!!}">
     <link rel="stylesheet" href="{!! asset('/css/app-custom.css')!!}">
-    
+    <link rel="stylesheet" href="{!! asset('/css/icofont/icofont.min.css')!!}">
     
     @yield('css')
 </head>

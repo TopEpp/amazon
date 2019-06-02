@@ -21,17 +21,17 @@
                 </div><!-- /.col -->
             </div><!-- /.row -->
             <div class="row">
-                    <div class="col-md-12">
-                        <div class="float-right ml-2">
-                            <button data-toggle="collapse" data-target="#search" type="button" class="btn btn-block btn-success"><i class="fa fa-search"></i></button>
-                        </div>
-                        <div class="float-right ml-2">
-                            <button  type="button" class="btn btn-block btn-success" id="stock_pdf"><i class="fa fa-file-pdf"></i></button>
-                        </div>
-                        <div class="float-right ml-2">
-                            <button  type="button" class="btn btn-block btn-success" id="stock_excel"><i class="fa fa-file-excel"></i></button>
-                        </div>
+                <div class="col-md-12">
+                    <div class="float-right ml-2">
+                        <button data-toggle="collapse" data-target="#search" type="button" class="btn btn-block btn-success"><i class="icofont-search-1"></i></button>
                     </div>
+                    <div class="float-right ml-2">
+                        <button  type="button" class="btn btn-block btn-success" id="stock_pdf"><i class="icofont-file-pdf"></i></button>
+                    </div>
+                    <div class="float-right ml-2">
+                        <button  type="button" class="btn btn-block btn-success" id="stock_excel"><i class="icofont-file-excel"></i></button>
+                    </div>
+                </div>
                     <div class="col-md-12">
                             <div class="collapse" id="search" >
                               

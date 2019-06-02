@@ -44,7 +44,7 @@ class ImportDataTable extends DataTable
         $query = $model
             ->join('import_items', 'import_items.import_id', '=', 'imports.id')
             ->select('imports.id', 'imports.number', 'imports.remark', 'imports.price', 'imports.date', DB::raw('sum(import_items.value) as value'))
-            ->groupby('imports.id');
+            ->groupby(['imports.id', 'imports.number', 'imports.remark', 'imports.price', 'imports.date']);
 
         if ($request->has('number') && $request->number != '') {
             $query->where('imports.number', 'like', '%' . $request->number . '%');
@@ -79,10 +79,10 @@ class ImportDataTable extends DataTable
                 ],
                 "oLanguage" => [
                     "oPaginate" => [
-                        "sFirst" => '<i class="fas fa-angle-double-left"></i>',
-                        "sPrevious" => '<i class="fas fa-angle-double-left"></i>',
-                        "sNext" => '<i class="fas fa-angle-double-right"></i>',
-                        "sLast" => '<i class="fas fa-angle-double-right"></i>',
+                        "sFirst" => '<i class="icofont-rounded-double-left"></i>',
+                        "sPrevious" => '<i class="icofont-rounded-double-left"></i>',
+                        "sNext" => '<i class="icofont-rounded-double-right"></i>',
+                        "sLast" => '<i class="icofont-rounded-double-right"></i>',
                     ],
                     "sSearch" => '',
                     "sEmptyTable" => 'ไม่พบข้อมูล',

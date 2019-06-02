@@ -46,7 +46,7 @@ class ReportStockOrderDataTable extends DataTable
                 ->join('order_items', 'order_items.order_id', '=', 'orders.id')
                 ->join('products', 'products.id', '=', 'order_items.product_id')
                 // ->join('categorys', 'categorys.id', '=', 'products.categoty_id')
-                ->groupBy('order_items.product_id')
+                ->groupBy('order_items.product_id', 'products.name')
                 ->select('products.name', DB::raw('sum(order_items.value) as value'));
             //search custom
             if ($request->has('product') && $request->product != '') {
@@ -58,7 +58,7 @@ class ReportStockOrderDataTable extends DataTable
             $query = $model
                 ->join('users', 'users.id', '=', 'orders.user_id')
                 ->join('order_items', 'order_items.order_id', '=', 'orders.id')
-                ->groupBy('orders.user_id')
+                ->groupBy('orders.user_id', 'users.id', 'users.name')
                 ->select('users.id', 'users.name', DB::raw('sum(order_items.value) as value'));
         }
 
@@ -92,10 +92,10 @@ class ReportStockOrderDataTable extends DataTable
                 ],
                 "oLanguage" => [
                     "oPaginate" => [
-                        "sFirst" => '<i class="fas fa-angle-double-left"></i>',
-                        "sPrevious" => '<i class="fas fa-angle-double-left"></i>',
-                        "sNext" => '<i class="fas fa-angle-double-right"></i>',
-                        "sLast" => '<i class="fas fa-angle-double-right"></i>',
+                        "sFirst" => '<i class="icofont-rounded-double-left"></i>',
+                        "sPrevious" => '<i class="icofont-rounded-double-left"></i>',
+                        "sNext" => '<i class="icofont-rounded-double-right"></i>',
+                        "sLast" => '<i class="icofont-rounded-double-right"></i>',
                     ],
                     "sSearch" => '',
                     "sEmptyTable" => 'ไม่พบข้อมูล',

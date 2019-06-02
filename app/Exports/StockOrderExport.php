@@ -32,7 +32,7 @@ class StockOrderExport implements FromView
         $query = Order::join('order_items', 'order_items.order_id', '=', 'orders.id')
             ->join('products', 'products.id', '=', 'order_items.product_id')
         // ->join('categorys', 'categorys.id', '=', 'products.categoty_id')
-            ->groupBy('order_items.product_id')
+            ->groupBy('order_items.product_id', 'products.name')
             ->select('products.name', DB::raw('sum(order_items.value) as value'));
 
         //search

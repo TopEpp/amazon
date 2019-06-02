@@ -40,7 +40,7 @@ class ImportExport implements FromView
             $date = [$this->start, $this->end];
             $query->whereBetween('imports.date', $date);
         }
-        $data = $query->groupby('imports.id')->get();
+        $data = $query->groupby('imports.id', 'users.name', 'imports.number', 'imports.price', 'imports.remark', 'imports.date')->get();
 
         return view('reports.excel_import', [
             'imports' => $data,

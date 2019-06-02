@@ -62,7 +62,7 @@ class ReportOrderDataTable extends DataTable
             ->join('users', 'users.id', '=', 'orders.user_id')
             ->join('order_items', 'order_items.order_id', '=', 'orders.id')
             ->select('users.name', 'orders.id', 'orders.price', 'orders.date', DB::raw('sum(order_items.value) as value'))
-            ->groupby('orders.id');
+            ->groupby(['orders.id', 'users.name', 'orders.id', 'orders.price', 'orders.date']);
 
         //search custom
         if ($request->has('number') && $request->number != '') {
@@ -111,10 +111,10 @@ class ReportOrderDataTable extends DataTable
                 // 'buttons' => ['postExcel', 'postCsv', 'postPdf'],
                 "oLanguage" => [
                     "oPaginate" => [
-                        "sFirst" => '<i class="fas fa-angle-double-left"></i>',
-                        "sPrevious" => '<i class="fas fa-angle-double-left"></i>',
-                        "sNext" => '<i class="fas fa-angle-double-right"></i>',
-                        "sLast" => '<i class="fas fa-angle-double-right"></i>',
+                        "sFirst" => '<i class="icofont-rounded-double-left"></i>',
+                        "sPrevious" => '<i class="icofont-rounded-double-left"></i>',
+                        "sNext" => '<i class="icofont-rounded-double-right"></i>',
+                        "sLast" => '<i class="icofont-rounded-double-right"></i>',
                     ],
                     "sSearch" => '',
                     "sEmptyTable" => 'ไม่พบข้อมูล',
